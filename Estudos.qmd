@@ -25,7 +25,6 @@ execute:
 
 # O que é
 
-O que é
 Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
 
 A PNAD Contínua foi implantada, experimentalmente, em outubro de 2011 e, a partir de janeiro de 2012, em caráter definitivo, em todo o Território Nacional. Sua amostra foi planejada de modo a produzir resultados para Brasil, Grandes Regiões, Unidades da Federação, Regiões Metropolitanas que contêm Municípios das Capitais, Região Integrada de Desenvolvimento - RIDE Grande Teresina, e Municípios das Capitais. Desde sua implantação, a pesquisa, gradualmente, vem ampliando os indicadores investigados e divulgados.
@@ -60,5 +59,9 @@ install.packages("PNADcIBGE")
 library(PNADcIBGE)
 ```
 
-# Links
+# Links auxiliares
 
+1) [Análise de microdados da PNAD Contínua - 2024](https://rpubs.com/gabriel-assuncao-ibge/pnadc)
+2)[Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
+3) [PNAD Contínua no R com srvyr - 2020](https://rpubs.com/leobarone/pnadc_srvyr)
+4) [Introdução aos pacotes “PNADcIBGE”, “Convey” e “Survey” no Software R](https://files.cercomp.ufg.br/weby/up/118/o/NT_013.pdf)

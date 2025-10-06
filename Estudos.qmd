@@ -23,6 +23,10 @@ execute:
   echo: true
 ---
 
+```{r}
+options(timeout = 600) 
+```
+
 # O que é
 
 Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
@@ -55,13 +59,91 @@ Rendimentos de outras fontes (1a e 5a visitas).
 # Instalação
 
 ```{r}
-install.packages("PNADcIBGE")
+# install.packages("PNADcIBGE")
+# install.packages("survey")
 library(PNADcIBGE)
+library(survey)
+library(foreign)
 ```
 
 # Links auxiliares
 
 1) [Análise de microdados da PNAD Contínua - 2024](https://rpubs.com/gabriel-assuncao-ibge/pnadc)
-2)[Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
+2) [Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
 3) [PNAD Contínua no R com srvyr - 2020](https://rpubs.com/leobarone/pnadc_srvyr)
 4) [Introdução aos pacotes “PNADcIBGE”, “Convey” e “Survey” no Software R](https://files.cercomp.ufg.br/weby/up/118/o/NT_013.pdf)
+
+# Desafio
+
+Informações do Rio Grande do Sul para cada um dos trimestres de 2023:
+
+a) Total de pessoas ocupadas para cada grupo de atividades de 1 a 10, no trabalho principal
+b) Total de horas efetivamente trabalhadas para cada grupo de atividades de 1 a 10, no trabalho principal
+
+
+Variáveis para serem utilizadas:
+
+- Ano
+- Trimestre
+- UF
+- horas efetivamente trabalhadas no trabalho principal (V4039C)
+- pessoas ocupadas (VD4002, filtrar apenas 1 - ocupado)
+- lista CNAE 5 digitos (V4013)
+
+
+Obs.: Gere as informações com os coeficientes de variação.
+
+
+## Resposta
+
+A função que podemos utilizar é a função que permite o download, leitura, rotulação, inserção das variáveis para deflacionamento e criação do objeto do plano amostral da pesquisa.
+
+```{r}
+help("get_pnadc")
+
+# get_pnadc(
+#   year,
+#   quarter = NULL,
+#   interview = NULL,
+#   topic = NULL,
+#   selected = FALSE,
+#   vars = NULL,
+#   defyear = NULL,
+#   defperiod = NULL,
+#   labels = TRUE,
+#   deflator = TRUE,
+#   design = TRUE,
+#   reload = TRUE,
+#   curlopts = list(),
+#   savedir = tempdir()
+# )
+```
+
+O interesse é no ano de **2023** e em **todos** os trimestres publicados ao longo desse ano (4 trimestres).
+
+```{r}
+dadosPNADc_20231 <- PNADcIBGE::get_pnadc(year = 2023,
+                                         quarter = 1)
+
+
+```
+
+```{r}
+library(foreign)
+library(RCurl)
+
+ftp_url <- "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Trimestral/Microdados/2023/PNADC_012023_20250815.zip"
+destfile <- "populacao.pdf"
+download.file(ftp_url,  destfile, mode = "wb")
+```
+
+```{r}
+url <- "ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Microdados/PNADC_2023_visita1.zip"
+destfile <- "PNADC_2023_visita1.zip"
+
+# Aumentar timeout (o servidor é lento)
+options(timeout = 600)
+
+download.file(url, destfile = destfile, mode = "wb")
+```
+

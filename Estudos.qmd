@@ -1,0 +1,64 @@
+---
+title: "PNAD Contínua" # Título do relatório
+subtitle: "**Pacote: PNADcIBGE**"
+author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
+lang: pt 
+date: "`r format(Sys.Date())`" 
+date-format: short 
+toc: true 
+format: 
+    html: 
+      embed-resources: true
+      #css: ["custom.css"] 
+      code-fold: false 
+      code-tools: true  
+      theme: 
+        light: cosmo
+        dark: superhero 
+#title-block-banner: "#874a9c" 
+code-annotations: hover 
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+# O que é
+
+O que é
+Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
+
+A PNAD Contínua foi implantada, experimentalmente, em outubro de 2011 e, a partir de janeiro de 2012, em caráter definitivo, em todo o Território Nacional. Sua amostra foi planejada de modo a produzir resultados para Brasil, Grandes Regiões, Unidades da Federação, Regiões Metropolitanas que contêm Municípios das Capitais, Região Integrada de Desenvolvimento - RIDE Grande Teresina, e Municípios das Capitais. Desde sua implantação, a pesquisa, gradualmente, vem ampliando os indicadores investigados e divulgados.
+
+Periodicidade de divulgação das informações:
+
+Mensal - Conjunto restrito de indicadores relacionados à força de trabalho e somente para o nível geográfico de Brasil;
+Trimestral - Conjunto de indicadores relacionados à força de trabalho para todos os níveis de divulgação da pesquisa;
+Anual - Demais temas permanentes da pesquisa e indicadores complementares à força de trabalho; e
+Variável - Outros temas ou tópicos dos temas permanentes a serem pesquisados com maior periodicidade ou ocasionalmente.
+Os indicadores mensais utilizam as informações dos últimos três meses consecutivos da pesquisa, existindo, entre um trimestre móvel e o seguinte, repetição das informações de dois meses. Assim, os indicadores da PNAD Contínua produzidos mensalmente não refletem a situação de cada mês, mas, sim, a situação do trimestre móvel que finaliza a cada mês.
+
+Os resultados anuais sobre outros temas ou tópicos são obtidos acumulando-se informações de determinada visita ao longo do ano, ou são concentrados em determinado trimestre.
+
+Temas e tópicos suplementares pesquisados em trimestres específicos do ano:
+
+Educação (2o trimestre); e
+Acesso à televisão e à Internet e posse de telefone móvel celular para uso pessoal (4o trimestre).
+Temas e tópicos pesquisados ao longo do ano em determinada visita:
+
+Habitação (1a visita);
+Características gerais dos moradores (1a visita);
+Informações adicionais da força de trabalho (1a visita);
+Outras formas de trabalho (afazeres domésticos, cuidados de pessoas, produção para o próprio consumo e trabalho voluntário) (5a visita);
+Trabalho de crianças e adolescentes (5a visita); e
+Rendimentos de outras fontes (1a e 5a visitas).
+
+# Instalação
+
+```{r}
+install.packages("PNADcIBGE")
+library(PNADcIBGE)
+```
+
+# Links
+

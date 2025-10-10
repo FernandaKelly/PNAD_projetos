@@ -263,7 +263,7 @@ dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1SR)
 ```{r}
 dadosPNADc2023_1SR %>% 
   dplyr::group_by(cod_SCN) %>% 
-  srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
+  dplyr::summarise(freq = srvyr::survey_count())
 ```
 
 # Total de horas

@@ -73,7 +73,6 @@ library(srvyr)
 1) [Análise de microdados da PNAD Contínua - 2024](https://rpubs.com/gabriel-assuncao-ibge/pnadc)
 2) [Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
 3) [PNAD Contínua no R com srvyr - 2020](https://rpubs.com/leobarone/pnadc_srvyr)
-4) [Introdução aos pacotes “PNADcIBGE”, “Convey” e “Survey” no Software R](https://files.cercomp.ufg.br/weby/up/118/o/NT_013.pdf)
 
 # Desafio
 

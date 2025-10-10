@@ -89,12 +89,10 @@ Variáveis para serem utilizadas:
 - UF
 - horas efetivamente trabalhadas no trabalho principal V4039C: Quantas horas ... trabalhou efetivamente na semana de referência nesse trabalho principal?
 - pessoas ocupadas VD4002: Condição de ocupação na semana de referência para pessoas de 14 anos ou mais de idade
-    - 1	Pessoas ocupadas 
-  	- 2	Pessoas desocupadas 
-	  -	Não aplicável
- 
+      - 1	Pessoas ocupadas 
+  	  - 2	Pessoas desocupadas 
+	    -	Não aplicável
 - lista CNAE 5 digitos V4013: Código da principal atividade desse negócio/empresa 
-
 
 Obs.: Gere as informações com os coeficientes de variação.
 
@@ -211,7 +209,12 @@ Que mesmo que a gente peça só 3 ou 4 variáveis com o parâmetro vars = c(...)
 
 #### 1° TRIMESTRE
 
-
+```{r}
+dadosPNADc2023_1 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 1)  
+dadosPNADc2023_1  <- PNADcIBGE::pnadc_design(dadosPNADc2023_1)
+dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1)
+```
 
 ::: painel-tabset
 
@@ -219,7 +222,7 @@ Que mesmo que a gente peça só 3 ou 4 variáveis com o parâmetro vars = c(...)
 
 ```{r}
 survey::svyby(~VD4002 == "Pessoas ocupadas", ~cod_SCN,
-               design = dadosPNADc2023_1,
+               design = dadosPNADc2023_1SR,
                svytotal,
                na.rm = TRUE,
                vartype=c("se","cv","cvpct","var"))
@@ -250,12 +253,6 @@ library(srvyr)
 
 #### 1° TRIMESTRE
 
-```{r}
-dadosPNADc2023_1SR <- dadosPNADC_2023 %>% 
-  dplyr::filter(Trimestre == 1)  
-dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1SR)
-```
-
 ::: painel-tabset
 
 # Total de pessoas
@@ -263,7 +260,7 @@ dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1SR)
 ```{r}
 dadosPNADc2023_1SR %>% 
   dplyr::group_by(cod_SCN) %>% 
-  dplyr::summarise(freq = srvyr::survey_count())
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
 # Total de horas
@@ -282,9 +279,10 @@ dadosPNADc2023_1SR %>%
 #### 2° TRIMESTRE
 
 ```{r}
-dadosPNADc2023_2SR <- dadosPNADC_2023 %>% 
+dadosPNADc2023_2 <- dadosPNADC_2023 %>% 
   dplyr::filter(Trimestre == 2)  
-dadosPNADc2023_2SR <- srvyr::as_survey(dadosPNADc2023_2SR)
+dadosPNADc2023_2  <- PNADcIBGE::pnadc_design(dadosPNADc2023_2)
+dadosPNADc2023_2SR <- srvyr::as_survey(dadosPNADc2023_2)
 ```
 
 ::: painel-tabset
@@ -294,7 +292,7 @@ dadosPNADc2023_2SR <- srvyr::as_survey(dadosPNADc2023_2SR)
 ```{r}
 dadosPNADc2023_2SR %>% 
   dplyr::group_by(cod_SCN) %>% 
-  srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
 # Total de horas
@@ -313,9 +311,10 @@ dadosPNADc2023_2SR %>%
 #### 3° TRIMESTRE
 
 ```{r}
-dadosPNADc2023_3SR <- dadosPNADC_2023 %>% 
-  dplyr::filter(Trimestre == 3)  
-dadosPNADc2023_3SR <- srvyr::as_survey(dadosPNADc2023_3SR)
+dadosPNADc2023_3 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 3) 
+dadosPNADc2023_3  <- PNADcIBGE::pnadc_design(dadosPNADc2023_3)
+dadosPNADc2023_3SR <- srvyr::as_survey(dadosPNADc2023_3)
 ```
 
 ::: painel-tabset
@@ -325,7 +324,7 @@ dadosPNADc2023_3SR <- srvyr::as_survey(dadosPNADc2023_3SR)
 ```{r}
 dadosPNADc2023_3SR %>% 
   dplyr::group_by(cod_SCN) %>% 
-  srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
 # Total de horas
@@ -345,9 +344,10 @@ dadosPNADc2023_3SR %>%
 
 
 ```{r}
-dadosPNADc2023_4SR <- dadosPNADC_2023 %>% 
+dadosPNADc2023_4 <- dadosPNADC_2023 %>% 
   dplyr::filter(Trimestre == 4)  
-dadosPNADc2023_4SR <- srvyr::as_survey(dadosPNADc2023_4SR)
+dadosPNADc2023_4  <- PNADcIBGE::pnadc_design(dadosPNADc2023_4)
+dadosPNADc2023_4SR <- srvyr::as_survey(dadosPNADc2023_4)
 ```
 
 ::: painel-tabset
@@ -357,7 +357,7 @@ dadosPNADc2023_4SR <- srvyr::as_survey(dadosPNADc2023_4SR)
 ```{r}
 dadosPNADc2023_4SR %>% 
   dplyr::group_by(cod_SCN) %>% 
-  srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
 # Total de horas

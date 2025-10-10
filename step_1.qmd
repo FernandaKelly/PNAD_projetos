@@ -27,34 +27,6 @@ execute:
 options(timeout = 600) 
 ```
 
-# O que é
-
-Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
-
-A PNAD Contínua foi implantada, experimentalmente, em outubro de 2011 e, a partir de janeiro de 2012, em caráter definitivo, em todo o Território Nacional. Sua amostra foi planejada de modo a produzir resultados para Brasil, Grandes Regiões, Unidades da Federação, Regiões Metropolitanas que contêm Municípios das Capitais, Região Integrada de Desenvolvimento - RIDE Grande Teresina, e Municípios das Capitais. Desde sua implantação, a pesquisa, gradualmente, vem ampliando os indicadores investigados e divulgados.
-
-Periodicidade de divulgação das informações:
-
-Mensal - Conjunto restrito de indicadores relacionados à força de trabalho e somente para o nível geográfico de Brasil;
-Trimestral - Conjunto de indicadores relacionados à força de trabalho para todos os níveis de divulgação da pesquisa;
-Anual - Demais temas permanentes da pesquisa e indicadores complementares à força de trabalho; e
-Variável - Outros temas ou tópicos dos temas permanentes a serem pesquisados com maior periodicidade ou ocasionalmente.
-Os indicadores mensais utilizam as informações dos últimos três meses consecutivos da pesquisa, existindo, entre um trimestre móvel e o seguinte, repetição das informações de dois meses. Assim, os indicadores da PNAD Contínua produzidos mensalmente não refletem a situação de cada mês, mas, sim, a situação do trimestre móvel que finaliza a cada mês.
-
-Os resultados anuais sobre outros temas ou tópicos são obtidos acumulando-se informações de determinada visita ao longo do ano, ou são concentrados em determinado trimestre.
-
-Temas e tópicos suplementares pesquisados em trimestres específicos do ano:
-
-Educação (2o trimestre); e
-Acesso à televisão e à Internet e posse de telefone móvel celular para uso pessoal (4o trimestre).
-Temas e tópicos pesquisados ao longo do ano em determinada visita:
-
-Habitação (1a visita);
-Características gerais dos moradores (1a visita);
-Informações adicionais da força de trabalho (1a visita);
-Outras formas de trabalho (afazeres domésticos, cuidados de pessoas, produção para o próprio consumo e trabalho voluntário) (5a visita);
-Trabalho de crianças e adolescentes (5a visita); e
-Rendimentos de outras fontes (1a e 5a visitas).
 
 # Instalação
 
@@ -69,12 +41,6 @@ library(foreign)
 library(srvyr)
 library(reactable)
 ```
-
-# Links auxiliares
-
-1) [Análise de microdados da PNAD Contínua - 2024](https://rpubs.com/gabriel-assuncao-ibge/pnadc)
-2) [Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
-3) [PNAD Contínua no R com srvyr - 2020](https://rpubs.com/leobarone/pnadc_srvyr)
 
 
 # Desafio
@@ -374,54 +340,6 @@ reactable::reactable(table_42, searchable = TRUE, minRows = 5, defaultPageSize =
 ```
 
 :::
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Rascunho
-
-```{r}
-#| echo: false
-#| eval: false
-
-library(foreign)
-library(RCurl)
-
-ftp_url <- "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Trimestral/Microdados/2023/PNADC_012023_20250815.zip"
-destfile <- "populacao.pdf"
-download.file(ftp_url,  destfile, mode = "wb")
-```
-
-```{r}
-#| echo: false
-#| eval: false
-#| 
-url <- "ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Microdados/PNADC_2023_visita1.zip"
-destfile <- "PNADC_2023_visita1.zip"
-
-# Aumentar timeout (o servidor é lento)
-options(timeout = 600)
-
-download.file(url, destfile = destfile, mode = "wb")
-```
-
-
 
 
 

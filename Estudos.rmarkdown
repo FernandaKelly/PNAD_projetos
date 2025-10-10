@@ -27,6 +27,8 @@ execute:
 options(timeout = 600) 
 ```
 
+
+
 # O que é
 
 Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
@@ -58,6 +60,8 @@ Rendimentos de outras fontes (1a e 5a visitas).
 
 # Instalação
 
+
+
 ```{r}
 # install.packages("PNADcIBGE")
 # install.packages("survey")
@@ -66,6 +70,8 @@ library(survey)
 library(foreign)
 library(srvyr)
 ```
+
+
 
 # Links auxiliares
 
@@ -103,6 +109,8 @@ Obs.: Gere as informações com os coeficientes de variação.
 
 A função que podemos utilizar é a função que permite o download, leitura, rotulação, inserção das variáveis para deflacionamento e criação do objeto do plano amostral da pesquisa.
 
+
+
 ```{r}
 help("get_pnadc")
 
@@ -124,76 +132,34 @@ help("get_pnadc")
 # )
 ```
 
+
+
 O interesse é no ano de **2023** e em **todos** os trimestres publicados ao longo desse ano (4 trimestres).
 
-```{r}
-# dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
-#                                          quarter = 1,
-#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE) 
-# 
-# dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
-#                                          quarter = 2,
-#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE) 
-#   
-# 
-# dadosPNADc2023_3 <- PNADcIBGE::get_pnadc(year = 2023,
-#                                          quarter = 3,
-#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE)
-# 
-# dadosPNADc2023_4 <- PNADcIBGE::get_pnadc(year = 2023,
-#                                          quarter = 4,
-#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE)
-
-dadosPNADC_2023 <- dadosPNADc2023_1 %>% 
-  dplyr::bind_rows(dadosPNADc2023_2) %>% 
-  dplyr::bind_rows(dadosPNADc2023_3) %>% 
-  dplyr::bind_rows(dadosPNADc2023_4) %>% 
-  dplyr::mutate(cod_SCN =  dplyr::case_when(V4013 %in% c(
-"01101","01102","01103","01104","01105","01106","01107","01108","01109","01110","01111","01112","01113","01114","01115","01116","01117","01118","01119","01201","01202","01203","01204","01205","01206","01207","01208","01209","01401","01402","01500","01999","02000","03001","03002") ~ 1,
-
-V4013 %in% c("05000","06000","07001","07002","08001","08002","08009","09000") ~ 2,
-
-V4013 %in% c("10010","10021","10022","10030","10091","10092","10093","10099","11000","12000","13001","13002","14001","14002","15011","15012","15020","16001","16002","17001","17002","18000","19010","19020","19030","20010","20020","20090","21000","22010","22020","23010","23091","23099","24001","24002","24003","25001","25002","26010","26020","26030","26041","26042","27010","27090","28000","29001","29002","29003","30010","30020","30030","30090","31000","32001","32002","32003","32009","33001","33002") ~ 3,
-
-
-V4013 %in% c("35010","35021","35022","36000","37000","38000","39000") ~ 4,
-
-V4013 %in% c("41000","42000","43000") ~ 5,
-
-V4013 %in% c("45010","45020","45030","45040","48010","48020","48030","48041","48042","48050","48060","48071","48072","48073","48074","48075","48076","48077","48078","48079","48080","48090","48100") ~ 6,
-
-
-V4013 %in% c("49010","49030","49040","49090","50000","51000","52010","52020","53001","53002") ~ 7,
-
-V4013 %in% c("58000","59000","60001","60002","61000","62000","63000") ~ 8,
-
-V4013 %in% c("64000","65000","66001","66002") ~ 9,
-
-V4013 == "68000" ~ 10,
-
-V4013 %in% c("69000","70000","71000","72000","73010","73020","74000","75000","77010","77020","78000","79000","80000","81011","81012","81020","82001","82002","82003","82009", "90000","91000","92000","93011","93012","93020","94010","94020","94091","94099","95010","95030","96010","96020","96030","96090","97000") ~ 11,
-
-V4013 %in% c("84011","84012","84013","84014","84015","84016","84017","84020") ~ 12,
-
-V4013 %in% c("99000","00000") ~ 0,
-
-.default = NA_integer_)
- ) %>% 
-  dplyr::filter(UF == "Rio Grande do Sul")  %>% 
-  dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") 
-```
 
 
 ```{r}
-# save(dadosPNADC_2023, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
+                                         quarter = 1,
+                                         vars = c("UF", "V4039C", "VD4002", "V4013"),
+                                         design = FALSE) 
 
-load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
+                                         quarter = 2,
+                                         vars = c("UF", "V4039C", "VD4002", "V4013"),
+                                         design = FALSE)
+
+dadosPNADc2023_3 <- PNADcIBGE::get_pnadc(year = 2023,
+                                         quarter = 3,
+                                         vars = c("UF", "V4039C", "VD4002", "V4013"),
+                                         design = FALSE)
+
+dadosPNADc2023_4 <- PNADcIBGE::get_pnadc(year = 2023,
+                                         quarter = 4,
+                                         vars = c("UF", "V4039C", "VD4002", "V4013"),
+                                         design = FALSE)
 ```
+
 
 
 Vamos fazer a leitura dos dados de interesse?
@@ -207,6 +173,8 @@ O que isso significa então?
 Que mesmo que a gente peça só 3 ou 4 variáveis com o parâmetro vars = c(...), o pacote acrescenta automaticamente as variáveis de design e identificação que são necessárias para construir o objeto amostral. Mas as variáveis que foram especificadas se encontram na base.
 
 ### 2023
+
+
 
 ```{r}
 dadosPNADc2023_D1 <- dadosPNADc2023_1$variables %>% 
@@ -247,7 +215,11 @@ V4013 %in% c("99000","00000") ~ 0,
   
 ```
 
+
+
 #### 1° TRIMESTRE
+
+
 
 ```{r}
 dadosPNADc2023_1 <- dadosPNADc2023_1 %>% 
@@ -292,9 +264,13 @@ V4013 %in% c("99000","00000") ~ 0,
 dadosPNADc2023_1  <- pnadc_design(dadosPNADc2023_1)
 ```
 
+
+
 ::: painel-tabset
 
 # Total de pessoas
+
+
 
 ```{r}
 survey::svyby(~VD4002 == "Pessoas ocupadas", ~cod_SCN,
@@ -304,7 +280,11 @@ survey::svyby(~VD4002 == "Pessoas ocupadas", ~cod_SCN,
                vartype=c("se","cv","cvpct","var"))
 ```
 
+
+
 # Total de horas
+
+
 
 ```{r}
 
@@ -318,24 +298,36 @@ survey::svyby(~V4039C, ~cod_SCN,
 #svyby(~V4013, ~UF, design, svytotal, na.rm = TRUE)
 ```
 
+
+
 :::
 
 
 # Pacote srvyr
 
+
+
 ```{r}
 library(srvyr)
 ```
 
+
+
 #### 1° TRIMESTRE
+
+
 
 ```{r}
 dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1)
 ```
 
+
+
 ::: painel-tabset
 
 # Total de pessoas
+
+
 
 ```{r}
 dadosPNADc2023_1SR %>% 
@@ -343,7 +335,11 @@ dadosPNADc2023_1SR %>%
   srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
 ```
 
+
+
 # Total de horas
+
+
 
 ```{r}
 
@@ -354,9 +350,13 @@ dadosPNADc2023_1SR %>%
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
 
+
+
 :::
 
 #### 2° TRIMESTRE
+
+
 
 ```{r}
 dadosPNADc2023_2  <- PNADcIBGE::pnadc_design(dadosPNADc2023_2)
@@ -403,9 +403,13 @@ V4013 %in% c("99000","00000") ~ 0,
 
 ```
 
+
+
 ::: painel-tabset
 
 # Total de pessoas
+
+
 
 ```{r}
 dadosPNADc2023_2SR %>% 
@@ -413,7 +417,11 @@ dadosPNADc2023_2SR %>%
   srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
 ```
 
+
+
 # Total de horas
+
+
 
 ```{r}
 
@@ -424,9 +432,13 @@ dadosPNADc2023_2SR %>%
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
 
+
+
 :::
 
 #### 3° TRIMESTRE
+
+
 
 ```{r}
 dadosPNADc2023_3  <- PNADcIBGE::pnadc_design(dadosPNADc2023_3)
@@ -473,9 +485,13 @@ V4013 %in% c("99000","00000") ~ 0,
 
 ```
 
+
+
 ::: painel-tabset
 
 # Total de pessoas
+
+
 
 ```{r}
 dadosPNADc2023_3SR %>% 
@@ -483,7 +499,11 @@ dadosPNADc2023_3SR %>%
   srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
 ```
 
+
+
 # Total de horas
+
+
 
 ```{r}
 
@@ -494,9 +514,13 @@ dadosPNADc2023_3SR %>%
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
 
+
+
 :::
 
 #### 4° TRIMESTRE
+
+
 
 ```{r}
 dadosPNADc2023_4  <- PNADcIBGE::pnadc_design(dadosPNADc2023_4)
@@ -544,9 +568,13 @@ V4013 %in% c("99000","00000") ~ 0,
 ```
 
 
+
+
 ::: painel-tabset
 
 # Total de pessoas
+
+
 
 ```{r}
 dadosPNADc2023_4SR %>% 
@@ -554,7 +582,11 @@ dadosPNADc2023_4SR %>%
   srvyr::survey_count(vartype = c("se", "ci", "var", "cv"))
 ```
 
+
+
 # Total de horas
+
+
 
 ```{r}
 
@@ -564,6 +596,8 @@ dadosPNADc2023_4SR %>%
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
+
+
 
 :::
 
@@ -588,6 +622,8 @@ dadosPNADc2023_4SR %>%
 
 # Rascunho
 
+
+
 ```{r}
 library(foreign)
 library(RCurl)
@@ -606,23 +642,4 @@ options(timeout = 600)
 
 download.file(url, destfile = destfile, mode = "wb")
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,0 +1,434 @@
+---
+title: "PNAD Contínua" # Título do relatório
+subtitle: "**Pacote: PNADcIBGE**"
+author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
+lang: pt 
+date: "`r format(Sys.Date())`" 
+date-format: short 
+toc: true 
+format: 
+    html: 
+      embed-resources: true
+      #css: ["custom.css"] 
+      code-fold: false 
+      code-tools: true  
+      theme: 
+        light: cosmo
+        dark: superhero 
+#title-block-banner: "#874a9c" 
+code-annotations: hover 
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+```{r}
+options(timeout = 600) 
+```
+
+# O que é
+
+Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País. Para atender a tais objetivos, a pesquisa foi planejada para produzir indicadores trimestrais sobre a força de trabalho e indicadores anuais sobre temas suplementares permanentes (como trabalho e outras formas de trabalho, cuidados de pessoas e afazeres domésticos, tecnologia da informação e da comunicação etc.), investigados em um trimestre específico ou aplicados em uma parte da amostra a cada trimestre e acumulados para gerar resultados anuais, sendo produzidos, também, com periodicidade variável, indicadores sobre outros temas suplementares. Tem como unidade de investigação o domicílio.
+
+A PNAD Contínua foi implantada, experimentalmente, em outubro de 2011 e, a partir de janeiro de 2012, em caráter definitivo, em todo o Território Nacional. Sua amostra foi planejada de modo a produzir resultados para Brasil, Grandes Regiões, Unidades da Federação, Regiões Metropolitanas que contêm Municípios das Capitais, Região Integrada de Desenvolvimento - RIDE Grande Teresina, e Municípios das Capitais. Desde sua implantação, a pesquisa, gradualmente, vem ampliando os indicadores investigados e divulgados.
+
+Periodicidade de divulgação das informações:
+
+Mensal - Conjunto restrito de indicadores relacionados à força de trabalho e somente para o nível geográfico de Brasil;
+Trimestral - Conjunto de indicadores relacionados à força de trabalho para todos os níveis de divulgação da pesquisa;
+Anual - Demais temas permanentes da pesquisa e indicadores complementares à força de trabalho; e
+Variável - Outros temas ou tópicos dos temas permanentes a serem pesquisados com maior periodicidade ou ocasionalmente.
+Os indicadores mensais utilizam as informações dos últimos três meses consecutivos da pesquisa, existindo, entre um trimestre móvel e o seguinte, repetição das informações de dois meses. Assim, os indicadores da PNAD Contínua produzidos mensalmente não refletem a situação de cada mês, mas, sim, a situação do trimestre móvel que finaliza a cada mês.
+
+Os resultados anuais sobre outros temas ou tópicos são obtidos acumulando-se informações de determinada visita ao longo do ano, ou são concentrados em determinado trimestre.
+
+Temas e tópicos suplementares pesquisados em trimestres específicos do ano:
+
+Educação (2o trimestre); e
+Acesso à televisão e à Internet e posse de telefone móvel celular para uso pessoal (4o trimestre).
+Temas e tópicos pesquisados ao longo do ano em determinada visita:
+
+Habitação (1a visita);
+Características gerais dos moradores (1a visita);
+Informações adicionais da força de trabalho (1a visita);
+Outras formas de trabalho (afazeres domésticos, cuidados de pessoas, produção para o próprio consumo e trabalho voluntário) (5a visita);
+Trabalho de crianças e adolescentes (5a visita); e
+Rendimentos de outras fontes (1a e 5a visitas).
+
+# Instalação
+
+```{r}
+# install.packages("PNADcIBGE")
+# install.packages("survey")
+library(PNADcIBGE)
+library(survey)
+library(foreign)
+library(srvyr)
+```
+
+# Links auxiliares
+
+1) [Análise de microdados da PNAD Contínua - 2024](https://rpubs.com/gabriel-assuncao-ibge/pnadc)
+2) [Indicadores no R: Conhecendo o pacote survey - 2023](https://rpubs.com/caiocgonc/survey)
+3) [PNAD Contínua no R com srvyr - 2020](https://rpubs.com/leobarone/pnadc_srvyr)
+4) [Introdução aos pacotes “PNADcIBGE”, “Convey” e “Survey” no Software R](https://files.cercomp.ufg.br/weby/up/118/o/NT_013.pdf)
+
+# Desafio
+
+Informações do Rio Grande do Sul para cada um dos trimestres de 2023:
+
+a) Total de pessoas ocupadas para cada grupo de atividades de 1 a 10, no trabalho principal
+b) Total de horas efetivamente trabalhadas para cada grupo de atividades de 1 a 10, no trabalho principal
+
+
+Variáveis para serem utilizadas:
+
+- Ano
+- Trimestre
+- UF
+- horas efetivamente trabalhadas no trabalho principal V4039C: Quantas horas ... trabalhou efetivamente na semana de referência nesse trabalho principal?
+- pessoas ocupadas VD4002: Condição de ocupação na semana de referência para pessoas de 14 anos ou mais de idade
+      - 1	Pessoas ocupadas 
+  	  - 2	Pessoas desocupadas 
+	    -	Não aplicável
+- lista CNAE 5 digitos V4013: Código da principal atividade desse negócio/empresa 
+
+Obs.: Gere as informações com os coeficientes de variação.
+
+
+## Resposta
+
+A função que podemos utilizar é a função que permite o download, leitura, rotulação, inserção das variáveis para deflacionamento e criação do objeto do plano amostral da pesquisa.
+
+```{r}
+help("get_pnadc")
+
+# get_pnadc(
+#   year,
+#   quarter = NULL,
+#   interview = NULL,
+#   topic = NULL,
+#   selected = FALSE,
+#   vars = NULL,
+#   defyear = NULL,
+#   defperiod = NULL,
+#   labels = TRUE,
+#   deflator = TRUE,
+#   design = TRUE,
+#   reload = TRUE,
+#   curlopts = list(),
+#   savedir = tempdir()
+# )
+```
+
+O interesse é no ano de **2023** e em **todos** os trimestres publicados ao longo desse ano (4 trimestres).
+
+```{r}
+# dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 1,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+# 
+# dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 2,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE) 
+#   
+# 
+# dadosPNADc2023_3 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 3,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+# 
+# dadosPNADc2023_4 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 4,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+
+dadosPNADC_2023 <- dadosPNADc2023_1 %>% 
+  dplyr::bind_rows(dadosPNADc2023_2) %>% 
+  dplyr::bind_rows(dadosPNADc2023_3) %>% 
+  dplyr::bind_rows(dadosPNADc2023_4) %>% 
+  dplyr::mutate(cod_SCN =  dplyr::case_when(V4013 %in% c(
+"01101","01102","01103","01104","01105","01106","01107","01108","01109","01110","01111","01112","01113","01114","01115","01116","01117","01118","01119","01201","01202","01203","01204","01205","01206","01207","01208","01209","01401","01402","01500","01999","02000","03001","03002") ~ 1,
+
+V4013 %in% c("05000","06000","07001","07002","08001","08002","08009","09000") ~ 2,
+
+V4013 %in% c("10010","10021","10022","10030","10091","10092","10093","10099","11000","12000","13001","13002","14001","14002","15011","15012","15020","16001","16002","17001","17002","18000","19010","19020","19030","20010","20020","20090","21000","22010","22020","23010","23091","23099","24001","24002","24003","25001","25002","26010","26020","26030","26041","26042","27010","27090","28000","29001","29002","29003","30010","30020","30030","30090","31000","32001","32002","32003","32009","33001","33002") ~ 3,
+
+
+V4013 %in% c("35010","35021","35022","36000","37000","38000","39000") ~ 4,
+
+V4013 %in% c("41000","42000","43000") ~ 5,
+
+V4013 %in% c("45010","45020","45030","45040","48010","48020","48030","48041","48042","48050","48060","48071","48072","48073","48074","48075","48076","48077","48078","48079","48080","48090","48100") ~ 6,
+
+
+V4013 %in% c("49010","49030","49040","49090","50000","51000","52010","52020","53001","53002") ~ 7,
+
+V4013 %in% c("58000","59000","60001","60002","61000","62000","63000") ~ 8,
+
+V4013 %in% c("64000","65000","66001","66002") ~ 9,
+
+V4013 == "68000" ~ 10,
+
+V4013 %in% c("69000","70000","71000","72000","73010","73020","74000","75000","77010","77020","78000","79000","80000","81011","81012","81020","82001","82002","82003","82009", "90000","91000","92000","93011","93012","93020","94010","94020","94091","94099","95010","95030","96010","96020","96030","96090","97000") ~ 11,
+
+V4013 %in% c("84011","84012","84013","84014","84015","84016","84017","84020") ~ 12,
+
+V4013 %in% c("99000","00000") ~ 0,
+
+.default = NA_integer_)
+ ) %>% 
+  dplyr::filter(UF == "Rio Grande do Sul")  %>% 
+  #dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+```
+
+
+```{r}
+# save(dadosPNADC_2023, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+```
+
+
+Vamos fazer a leitura dos dados de interesse?
+
+No parâmetro *vars* eu adicionei somente 3 variáveis, mas o retorno é de 220 colunas, o que não condiz com a seleção feita. O que são essas variáveis de design, obrigatórias, e porque elas aparecem mesmo que a gente não peça?
+
+A PNADc é uma pesquisa amostral complexa, com plano amostral estratificado e em múltiplos estágios. Isso significa que, para calcular médias, proporções, totais, é necessário usar pesos e variáveis de estrato e unidade amostral, caso contrário, as estimativas ficam enviesadas. **Essas variáveis são chamadas de variáveis de design (survey design variables).**
+
+O que isso significa então?
+
+Que mesmo que a gente peça só 3 ou 4 variáveis com o parâmetro vars = c(...), o pacote acrescenta automaticamente as variáveis de design e identificação que são necessárias para construir o objeto amostral. Mas as variáveis que foram especificadas se encontram na base.
+
+### 2023
+
+
+#### 1° TRIMESTRE
+
+```{r}
+dadosPNADc2023_1 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 1)  
+dadosPNADc2023_1  <- PNADcIBGE::pnadc_design(dadosPNADc2023_1)
+dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1)
+```
+
+::: painel-tabset
+
+# Total de pessoas
+
+```{r}
+survey::svyby(~VD4002 == "Pessoas ocupadas", ~cod_SCN,
+               design = dadosPNADc2023_1SR,
+               svytotal,
+               na.rm = TRUE,
+               vartype=c("se","cv","cvpct","var"))
+```
+
+# Total de horas
+
+```{r}
+
+survey::svyby(~V4039C, ~cod_SCN,
+               design = dadosPNADc2023_1,
+               svytotal,
+               na.rm = TRUE,
+              vartype=c("se","cv","cvpct","var"))
+
+#survey::svytotal(~V4039C, design = dadosPNADc2023_1, na.rm = TRUE
+#svyby(~V4013, ~UF, design, svytotal, na.rm = TRUE)
+```
+
+:::
+
+
+# Pacote srvyr
+
+```{r}
+library(srvyr)
+```
+
+#### 1° TRIMESTRE
+
+::: painel-tabset
+
+# Total de pessoas
+
+```{r}
+dadosPNADc2023_1SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total de horas
+
+```{r}
+
+dadosPNADc2023_1SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(Qtd_horas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+:::
+
+#### 2° TRIMESTRE
+
+```{r}
+dadosPNADc2023_2 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 2)  
+dadosPNADc2023_2  <- PNADcIBGE::pnadc_design(dadosPNADc2023_2)
+dadosPNADc2023_2SR <- srvyr::as_survey(dadosPNADc2023_2)
+```
+
+::: painel-tabset
+
+# Total de pessoas
+
+```{r}
+dadosPNADc2023_2SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total de horas
+
+```{r}
+
+dadosPNADc2023_2SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(Qtd_horas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+:::
+
+#### 3° TRIMESTRE
+
+```{r}
+dadosPNADc2023_3 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 3) 
+dadosPNADc2023_3  <- PNADcIBGE::pnadc_design(dadosPNADc2023_3)
+dadosPNADc2023_3SR <- srvyr::as_survey(dadosPNADc2023_3)
+```
+
+::: painel-tabset
+
+# Total de pessoas
+
+```{r}
+dadosPNADc2023_3SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total de horas
+
+```{r}
+
+dadosPNADc2023_3SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(Qtd_horas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+:::
+
+#### 4° TRIMESTRE
+
+
+```{r}
+dadosPNADc2023_4 <- dadosPNADC_2023 %>% 
+  dplyr::filter(Trimestre == 4)  
+dadosPNADc2023_4  <- PNADcIBGE::pnadc_design(dadosPNADc2023_4)
+dadosPNADc2023_4SR <- srvyr::as_survey(dadosPNADc2023_4)
+```
+
+::: painel-tabset
+
+# Total de pessoas
+
+```{r}
+dadosPNADc2023_4SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total de horas
+
+```{r}
+
+dadosPNADc2023_4SR %>% 
+  dplyr::group_by(cod_SCN) %>% 
+  dplyr::summarise(Qtd_horas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Rascunho
+
+```{r}
+library(foreign)
+library(RCurl)
+
+ftp_url <- "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Trimestral/Microdados/2023/PNADC_012023_20250815.zip"
+destfile <- "populacao.pdf"
+download.file(ftp_url,  destfile, mode = "wb")
+```
+
+```{r}
+url <- "ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Microdados/PNADC_2023_visita1.zip"
+destfile <- "PNADC_2023_visita1.zip"
+
+# Aumentar timeout (o servidor é lento)
+options(timeout = 600)
+
+download.file(url, destfile = destfile, mode = "wb")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

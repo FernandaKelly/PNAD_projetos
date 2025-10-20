@@ -128,7 +128,7 @@ O interesse é no ano de **2023** e em **todos** os trimestres publicados ao lon
 # dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
 #                                          quarter = 1,
 #                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE) 
+#                                          design = FALSE)
 # 
 # dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
 #                                          quarter = 2,
@@ -182,7 +182,7 @@ V4013 %in% c("99000","00000") ~ 0,
 .default = NA_integer_)
  ) %>% 
   dplyr::filter(UF == "Rio Grande do Sul")  %>% 
-  dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>% 
+  #dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>% 
   dplyr::filter(VD4002 == "Pessoas ocupadas") 
 ```
 

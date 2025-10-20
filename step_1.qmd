@@ -80,13 +80,13 @@ O interesse é no ano de **2023** e em **todos** os trimestres publicados ao lon
 # dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
 #                                          quarter = 1,
 #                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE) 
+#                                          design = FALSE)
 # 
 # dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
 #                                          quarter = 2,
 #                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
-#                                          design = FALSE) 
-#   
+#                                          design = FALSE)
+# 
 # 
 # dadosPNADc2023_3 <- PNADcIBGE::get_pnadc(year = 2023,
 #                                          quarter = 3,
@@ -98,10 +98,17 @@ O interesse é no ano de **2023** e em **todos** os trimestres publicados ao lon
 #                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
 #                                          design = FALSE)
 
-# dadosPNADC_2023 <- dadosPNADc2023_1 %>% 
-#   dplyr::bind_rows(dadosPNADc2023_2) %>% 
-#   dplyr::bind_rows(dadosPNADc2023_3) %>% 
-#   dplyr::bind_rows(dadosPNADc2023_4) %>% 
+```
+
+```{r}
+#| echo: false
+#| eval: false
+
+
+# dadosPNADC_2023_Merge <- dadosPNADc2023_1 %>%
+#   dplyr::bind_rows(dadosPNADc2023_2) %>%
+#   dplyr::bind_rows(dadosPNADc2023_3) %>%
+#   dplyr::bind_rows(dadosPNADc2023_4) %>%
 #   dplyr::mutate(cod_SCN =  dplyr::case_when(V4013 %in% c(
 # "01101","01102","01103","01104","01105","01106","01107","01108","01109","01110","01111","01112","01113","01114","01115","01116","01117","01118","01119","01201","01202","01203","01204","01205","01206","01207","01208","01209","01401","01402","01500","01999","02000","03001","03002") ~ 1,
 # 
@@ -132,17 +139,17 @@ O interesse é no ano de **2023** e em **todos** os trimestres publicados ao lon
 # V4013 %in% c("99000","00000") ~ 0,
 # 
 # .default = NA_integer_)
-#  ) %>% 
-#   dplyr::filter(UF == "Rio Grande do Sul")  %>% 
-#   dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>% 
-#   dplyr::filter(VD4002 == "Pessoas ocupadas") 
+#  ) %>%
+#   dplyr::filter(UF == "Rio Grande do Sul")  %>%
+#   #dplyr::filter(cod_SCN == c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) %>%
+#   dplyr::filter(VD4002 == "Pessoas ocupadas")
 ```
 
 
 ```{r}
-# save(dadosPNADC_2023, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+# save(dadosPNADC_2023_Merge, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/PNAD_projetos/Dados/dadosPNADC_2023_Merge.RData")
 
-load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_2023.RData")
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/PNAD_projetos/Dados/dadosPNADC_2023_Merge.RData")
 ```
 
 
@@ -162,7 +169,7 @@ Que mesmo que a gente peça só 3 ou 4 variáveis com o parâmetro vars = c(...)
 #### 1° TRIMESTRE
 
 ```{r}
-dadosPNADc2023_1 <- dadosPNADC_2023 %>% 
+dadosPNADc2023_1 <- dadosPNADC_2023_Merge %>% 
   dplyr::filter(Trimestre == 1)  
 dadosPNADc2023_1  <- PNADcIBGE::pnadc_design(dadosPNADc2023_1)
 dadosPNADc2023_1SR <- srvyr::as_survey(dadosPNADc2023_1)
@@ -239,7 +246,7 @@ reactable::reactable(table_12, searchable = TRUE, minRows = 5, defaultPageSize =
 #### 2° TRIMESTRE
 
 ```{r}
-dadosPNADc2023_2 <- dadosPNADC_2023 %>% 
+dadosPNADc2023_2 <- dadosPNADC_2023_Merge %>% 
   dplyr::filter(Trimestre == 2)  
 dadosPNADc2023_2  <- PNADcIBGE::pnadc_design(dadosPNADc2023_2)
 dadosPNADc2023_2SR <- srvyr::as_survey(dadosPNADc2023_2)
@@ -275,7 +282,7 @@ reactable::reactable(table_22, searchable = TRUE, minRows = 5, defaultPageSize =
 #### 3° TRIMESTRE
 
 ```{r}
-dadosPNADc2023_3 <- dadosPNADC_2023 %>% 
+dadosPNADc2023_3 <- dadosPNADC_2023_Merge %>% 
   dplyr::filter(Trimestre == 3) 
 dadosPNADc2023_3  <- PNADcIBGE::pnadc_design(dadosPNADc2023_3)
 dadosPNADc2023_3SR <- srvyr::as_survey(dadosPNADc2023_3)
@@ -310,7 +317,7 @@ reactable::reactable(table_32, searchable = TRUE, minRows = 5, defaultPageSize =
 
 
 ```{r}
-dadosPNADc2023_4 <- dadosPNADC_2023 %>% 
+dadosPNADc2023_4 <- dadosPNADC_2023_Merge %>% 
   dplyr::filter(Trimestre == 4)  
 dadosPNADc2023_4  <- PNADcIBGE::pnadc_design(dadosPNADc2023_4)
 dadosPNADc2023_4SR <- srvyr::as_survey(dadosPNADc2023_4)
@@ -342,6 +349,19 @@ reactable::reactable(table_42, searchable = TRUE, minRows = 5, defaultPageSize =
 :::
 
 
+```{r}
+sheets <- list("1TRI N"        = table_11, 
+               "1TRI HORAS"    = table_12,
+               "2TRI N"        = table_21,
+               "2TRI HORAS"    = table_22,
+               "3TRI N"        = table_31,
+               "3TRI HORAS"    = table_32,
+               "4TRI N"        = table_41,
+               "4TRI HORAS"    = table_42)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/PNAD_projetos/Dados/tab_2023.xlsx"))
+```
 
 
 

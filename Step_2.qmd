@@ -64,7 +64,6 @@ save(dadosPNADc2023_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Gover
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
 ```
 
-
 ```{r}
 dadosPNADc2023_RS <- dadosPNADc2023_completo %>% 
   dplyr::filter(UF == "Rio Grande do Sul") %>% 
@@ -176,6 +175,7 @@ table_2P <- dadosPNADc2023_RSSRPR %>%
 reactable::reactable(table_2P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
 
+
 ## Total de horas Efetivas
 
 
@@ -250,6 +250,48 @@ table_3S <- dadosPNADc2023_RSSRSEC %>%
 reactable::reactable(table_3S, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
 
+# Principal & Secundário
+
+```{r}
+dadosPNADc2023R_SPRSEC <- dadosPNADc2023_RS %>% 
+  dplyr::filter(!(is.na(V4013))) %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+dadosPNADc2023R_SPRSEC  <- PNADcIBGE::pnadc_design(dadosPNADc2023R_SPRSEC)
+dadosPNADc2023RS_SR <- srvyr::as_survey(dadosPNADc2023R_SPRSEC)
+```
+
+## Total de horas Habituais
+
+```{r}
+
+table_2PS <- dadosPNADc2023RS_SR %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::mutate(somaH = sum(V4039, V4056, na.rm = TRUE)) %>% 
+  dplyr::group_by(Trimestre, cod_SCN_PR, cod_SCN_SEC) %>% 
+  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(somaH,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")),2))
+
+reactable::reactable(table_2PS, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+```
+
+## Total de horas Efetivas
+
+```{r}
+
+table_3PS <- dadosPNADc2023RS_SR %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::mutate(somaH = sum(V4039C, V4056C, na.rm = TRUE)) %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(somaH,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")),2))
+
+reactable::reactable(table_3PS, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+```
 
 # Excel
 
@@ -268,6 +310,12 @@ writexl::write_xlsx(sheets,
 
 
 
+```{r}
+dadosPNADc2023R_SPRSEC %>% dplyr::filter(cod_SCN_PR == 1 & cod_SCN_SEC == 3) %>%  dplyr::select(cod_SCN_PR, cod_SCN_SEC, Trimestre, V4039, V4056 )
+
+dadosPNADc2023R_SPRSEC %>% 
+  janitor::tabyl(cod_SCN_PR, cod_SCN_SEC)
+```
 
 
 

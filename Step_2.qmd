@@ -274,7 +274,7 @@ table_2PS <- dadosPNADc2023RS_SR %>%
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")),2))
 
-reactable::reactable(table_2PS, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+reactable::reactable(table_2PS, searchable = TRUE, minRows = 5, defaultPageSize = 10)
 ```
 
 ## Total de horas Efetivas

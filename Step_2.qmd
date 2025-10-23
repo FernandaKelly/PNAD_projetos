@@ -269,7 +269,7 @@ table_2PS <- dadosPNADc2023RS_SR %>%
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::mutate(somaH = sum(V4039, V4056, na.rm = TRUE)) %>% 
-  dplyr::group_by(Trimestre, cod_SCN_PR, cod_SCN_SEC) %>% 
+  dplyr::group_by(Trimestre) %>% 
   dplyr::summarise(Qtd_horas = round(srvyr::survey_total(somaH,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")),2))
@@ -296,15 +296,11 @@ reactable::reactable(table_3PS, searchable = TRUE, minRows = 5, defaultPageSize 
 # Excel
 
 ```{r}
-sheets <- list("N PRINCIPAL"           = table_1P, 
-               "HABITUAL PRINCIPAL"    = table_2P,
-               "EFETIVA PRINCIPAL"     = table_3P,
-               "N SECUNDÁRIO"          = table_1S,
-               "HABITUAL SECUNDÁRIO"   = table_2S,
-               "EFETIVA SECUNDÁRIO"    = table_3S)
+sheets <- list("HABITUAL"   = table_2PS, 
+               "EFETIVA"    = table_3PS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS_2023.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023.xlsx"))
 ```
 
 

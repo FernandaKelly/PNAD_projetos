@@ -306,12 +306,12 @@ writexl::write_xlsx(sheets,
 
 
 
-```{r}
-dadosPNADc2023R_SPRSEC %>% dplyr::filter(cod_SCN_PR == 1 & cod_SCN_SEC == 3) %>%  dplyr::select(cod_SCN_PR, cod_SCN_SEC, Trimestre, V4039, V4056 )
+<!-- ```{r} -->
+<!-- dadosPNADc2023R_SPRSEC %>% dplyr::filter(cod_SCN_PR == 1 & cod_SCN_SEC == 3) %>%  dplyr::select(cod_SCN_PR, cod_SCN_SEC, Trimestre, V4039, V4056 ) -->
 
-dadosPNADc2023R_SPRSEC %>% 
-  janitor::tabyl(cod_SCN_PR, cod_SCN_SEC)
-```
+<!-- dadosPNADc2023R_SPRSEC %>%  -->
+<!--   janitor::tabyl(cod_SCN_PR, cod_SCN_SEC) -->
+<!-- ``` -->
 
 
 

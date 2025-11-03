@@ -293,14 +293,135 @@ table_3PS <- dadosPNADc2023RS_SR %>%
 reactable::reactable(table_3PS, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
 
+# Teste (deu certo!)
+
+## Contagem
+
+```{r}
+
+teste1 <- dadosPNADc2023_RS %>%
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  #dplyr::filter(atividade != "") %>%              # remove campos vazios
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(total = n())
+
+teste2 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(teste1, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = total) 
+# %>%
+#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
+#   dplyr::rename(total_secundario  = total) 
+
+
+teste2  <- PNADcIBGE::pnadc_design(teste2)
+teste_SV <- srvyr::as_survey(teste2)
+
+
+table_teste <- teste_SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR) %>% 
+  dplyr::summarise(freq = round(srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),2))
+
+reactable::reactable(table_teste, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+
+
+```
+
+
+## Horas habituais
+
+```{r}
+
+teste3 <- dadosPNADc2023_RS %>%
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  #dplyr::filter(atividade != "") %>%              # remove campos vazios
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
+
+teste4 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(teste3, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaH) 
+# %>%
+#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
+#   dplyr::rename(total_secundario  = total) 
+
+
+teste4  <- PNADcIBGE::pnadc_design(teste4)
+teste_SV4 <- srvyr::as_survey(teste4)
+
+
+table_teste4 <- teste_SV4 %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR) %>% 
+  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")),2))
+
+reactable::reactable(table_teste4, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+
+
+```
+
+
+## Horas efetivas
+
+```{r}
+
+teste5 <- dadosPNADc2023_RS %>%
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  #dplyr::filter(atividade != "") %>%              # remove campos vazios
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaH = base::sum(V4039C, V4056C, na.rm = TRUE))
+
+teste6 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(teste5, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaH) 
+# %>%
+#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
+#   dplyr::rename(total_secundario  = total) 
+
+
+teste6  <- PNADcIBGE::pnadc_design(teste6)
+teste_SV6 <- srvyr::as_survey(teste6)
+
+
+table_teste6 <- teste_SV6 %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR) %>% 
+  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")),2))
+
+reactable::reactable(table_teste6, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+
+
+```
+
+
 # Excel
 
 ```{r}
-sheets <- list("HABITUAL"   = table_2PS, 
-               "EFETIVA"    = table_3PS)
+sheets <- list("N"          = table_teste,
+               "HABITUAL"   = table_teste4, 
+               "EFETIVA"    = table_teste6)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023_2.xlsx"))
 ```
 
 

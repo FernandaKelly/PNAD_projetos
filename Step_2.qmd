@@ -67,21 +67,42 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 ```{r}
 dadosPNADc2023_RS <- dadosPNADc2023_completo %>% 
   dplyr::filter(UF == "Rio Grande do Sul") %>% 
-  dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c(
-"01101","01102","01103","01104","01105","01106","01107","01108","01109","01110","01111","01112","01113","01114","01115","01116","01117","01118","01119","01201","01202","01203","01204","01205","01206","01207","01208","01209","01401","01402","01500","01999","02000","03001","03002") ~ 1,
+  dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
+                                                            "01106","01107","01108","01109","01110",
+                                                            "01111","01112","01113","01114","01115",
+                                                            "01116","01117","01118","01119","01201",
+                                                            "01202","01203","01204","01205","01206",
+                                                            "01207","01208","01209","01401","01402",
+                                                            "01500","01999","02000","03001","03002") ~ 1,
 
-V4013 %in% c("05000","06000","07001","07002","08001","08002","08009","09000") ~ 2,
+V4013 %in% c("05000","06000","07001","07002","08001",
+             "08002","08009","09000") ~ 2,
 
-V4013 %in% c("10010","10021","10022","10030","10091","10092","10093","10099","11000","12000","13001","13002","14001","14002","15011","15012","15020","16001","16002","17001","17002","18000","19010","19020","19030","20010","20020","20090","21000","22010","22020","23010","23091","23099","24001","24002","24003","25001","25002","26010","26020","26030","26041","26042","27010","27090","28000","29001","29002","29003","30010","30020","30030","30090","31000","32001","32002","32003","32009","33001","33002") ~ 3,
+V4013 %in% c("10010","10021","10022","10030","10091",
+             "10092","10093","10099","11000","12000",
+             "13001","13002","14001","14002","15011",
+             "15012","15020","16001","16002","17001",
+             "17002","18000","19010","19020","19030",
+             "20010","20020","20090","21000","22010",
+             "22020","23010","23091","23099","24001",
+             "24002","24003","25001","25002","26010",
+             "26020","26030","26041","26042","27010",
+             "27090","28000","29001","29002","29003",
+             "30010","30020","30030","30090","31000",
+             "32001","32002","32003","32009","33001","33002") ~ 3,
 
 V4013 %in% c("35010","35021","35022","36000","37000","38000","39000") ~ 4,
 
 V4013 %in% c("41000","42000","43000") ~ 5,
 
-V4013 %in% c("45010","45020","45030","45040","48010","48020","48030","48041","48042","48050","48060","48071","48072","48073","48074","48075","48076","48077","48078","48079","48080","48090","48100") ~ 6,
+V4013 %in% c("45010","45020","45030","45040","48010",
+             "48020","48030","48041","48042","48050",
+             "48060","48071","48072","48073","48074",
+             "48075","48076","48077","48078","48079",
+             "48080","48090","48100") ~ 6,
 
-
-V4013 %in% c("49010","49030","49040","49090","50000","51000","52010","52020","53001","53002") ~ 7,
+V4013 %in% c("49010","49030","49040","49090","50000",
+             "51000","52010","52020","53001","53002") ~ 7,
 
 V4013 %in% c("58000","59000","60001","60002","61000","62000","63000") ~ 8,
 
@@ -89,7 +110,13 @@ V4013 %in% c("64000","65000","66001","66002") ~ 9,
 
 V4013 == "68000" ~ 10,
 
-V4013 %in% c("69000","70000","71000","72000","73010","73020","74000","75000","77010","77020","78000","79000","80000","81011","81012","81020","82001","82002","82003","82009", "90000","91000","92000","93011","93012","93020","94010","94020","94091","94099","95010","95030","96010","96020","96030","96090","97000") ~ 11,
+V4013 %in% c("69000","70000","71000","72000","73010",
+             "73020","74000","75000","77010","77020",
+             "78000","79000","80000","81011","81012",
+             "81020","82001","82002","82003","82009",   
+             "90000","91000","92000","93011","93012",
+             "93020","94010","94020","94091","94099",
+             "95010","95030","96010","96020","96030","96090","97000") ~ 11,
 
 V4012 == "Trabalhador doméstico" | V4012 == "Empregado do setor privado" | V4012 == "Empregador" | V4012 == "Conta própria" | V4012 == "Trabalhador familiar não remunerado" & V4013 %in% c("85011","85012","85013","85014","85021","85029","86001","86002","86003","86004","86009","87000","88000") ~ 11,
 
@@ -103,20 +130,42 @@ V4013 %in% c("99000","00000") ~ 0,
  )  %>% 
  
     dplyr::mutate(cod_SCN_SEC =  dplyr::case_when(V4044 %in% c(
-"01101","01102","01103","01104","01105","01106","01107","01108","01109","01110","01111","01112","01113","01114","01115","01116","01117","01118","01119","01201","01202","01203","01204","01205","01206","01207","01208","01209","01401","01402","01500","01999","02000","03001","03002") ~ 1,
+"01101","01102","01103","01104","01105",
+"01106","01107","01108","01109","01110",
+"01111","01112","01113","01114","01115",
+"01116","01117","01118","01119","01201",
+"01202","01203","01204","01205","01206",
+"01207","01208","01209","01401","01402",
+"01500","01999","02000","03001","03002") ~ 1,
 
 V4044 %in% c("05000","06000","07001","07002","08001","08002","08009","09000") ~ 2,
 
-V4044 %in% c("10010","10021","10022","10030","10091","10092","10093","10099","11000","12000","13001","13002","14001","14002","15011","15012","15020","16001","16002","17001","17002","18000","19010","19020","19030","20010","20020","20090","21000","22010","22020","23010","23091","23099","24001","24002","24003","25001","25002","26010","26020","26030","26041","26042","27010","27090","28000","29001","29002","29003","30010","30020","30030","30090","31000","32001","32002","32003","32009","33001","33002") ~ 3,
+V4044 %in% c("10010","10021","10022","10030","10091",
+             "10092","10093","10099","11000","12000",
+             "13001","13002","14001","14002","15011",
+             "15012","15020","16001","16002","17001",
+             "17002","18000","19010","19020","19030",
+             "20010","20020","20090","21000","22010",
+             "22020","23010","23091","23099","24001",
+             "24002","24003","25001","25002","26010",
+             "26020","26030","26041","26042","27010",
+             "27090","28000","29001","29002","29003",
+             "30010","30020","30030","30090","31000",
+             "32001","32002","32003","32009","33001","33002") ~ 3,
 
 V4044 %in% c("35010","35021","35022","36000","37000","38000","39000") ~ 4,
 
 V4044 %in% c("41000","42000","43000") ~ 5,
 
-V4044 %in% c("45010","45020","45030","45040","48010","48020","48030","48041","48042","48050","48060","48071","48072","48073","48074","48075","48076","48077","48078","48079","48080","48090","48100") ~ 6,
+V4044 %in% c("45010","45020","45030","45040","48010",
+             "48020","48030","48041","48042","48050",
+             "48060","48071","48072","48073","48074",
+             "48075","48076","48077","48078","48079",
+             "48080","48090","48100") ~ 6,
 
 
-V4044 %in% c("49010","49030","49040","49090","50000","51000","52010","52020","53001","53002") ~ 7,
+V4044 %in% c("49010","49030","49040","49090","50000",
+             "51000","52010","52020","53001","53002") ~ 7,
 
 V4044 %in% c("58000","59000","60001","60002","61000","62000","63000") ~ 8,
 
@@ -124,9 +173,15 @@ V4044 %in% c("64000","65000","66001","66002") ~ 9,
 
 V4044 == "68000" ~ 10,
 
-V4044 %in% c("69000","70000","71000","72000","73010","73020","74000","75000","77010","77020","78000","79000","80000","81011","81012","81020","82001","82002","82003","82009", "90000","91000","92000","93011","93012","93020","94010","94020","94091","94099","95010","95030","96010","96020","96030","96090","97000") ~ 11,
+V4044 %in% c("69000","70000","71000","72000","73010",
+             "73020","74000","75000","77010","77020",
+             "78000","79000","80000","81011","81012",
+             "81020","82001","82002","82003","82009", 
+             "90000","91000","92000","93011","93012",
+             "93020","94010","94020","94091","94099",
+             "95010","95030","96010","96020","96030","96090","97000") ~ 11,
 
-V4043 == "Trabalhador doméstico" | V4043 == "Empregado do setor privado" | V4043 == "Empregador" | V4043 == "Conta própria" | V4043 == "Trabalhador não remunerado em ajuda a membro do domicílio ou parente" & V4044 %in% c("85011","85012","85013","85014","85021","85029","86001","86002","86003","86004","86009","87000","88000") ~ 11,
+V4043 == "Trabalhador doméstico" | V4043 == "Empregado do setor privado" | V4043 == "Empregador" | V4043 == "Conta própria" | V4043 == "Trabalhador não remunerado em ajuda a membro do domicílio ou parente" & V4044 %in% c("85011","85012","85013","85014","85021",                                                                                                                                                   "85029","86001","86002","86003","86004","86009","87000","88000") ~ 11,
 
 V4044 %in% c("84011","84012","84013","84014","84015","84016","84017","84020") ~ 12,
 
@@ -154,11 +209,18 @@ dadosPNADc2023_RSSRPR <- srvyr::as_survey(dadosPNADc2023_RSPR)
 ```{r}
 table_1P <- dadosPNADc2023_RSSRPR %>% 
   dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
-  dplyr::summarise(freq = round(srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),2))
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_1P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
 
+```{r}
+table_1P <- dadosPNADc2023_RSSRPR %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+reactable::reactable(table_1P, searchable = TRUE, minRows = 10, defaultPageSize = 10)
+```
 
 ## Total de horas Habituais
 
@@ -168,11 +230,11 @@ table_2P <- dadosPNADc2023_RSSRPR %>%
   # dplyr::filter(!(is.na(V4013))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
-  dplyr::summarise(Qtd_horasHabituais = round(srvyr::survey_total(V4039,
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
-reactable::reactable(table_2P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+reactable::reactable(table_2P, searchable = TRUE, minRows = 10, defaultPageSize = 10)
 ```
 
 
@@ -185,9 +247,9 @@ table_3P <- dadosPNADc2023_RSSRPR %>%
   # dplyr::filter(!(is.na(V4013))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
-  dplyr::summarise(Qtd_horasEfetivas = round(srvyr::survey_total(V4039C,
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_3P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
@@ -213,7 +275,7 @@ table_1S <- dadosPNADc2023_RSSRSEC %>%
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
-  dplyr::summarise(freq = round(srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),2))
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_1S, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
@@ -223,13 +285,13 @@ reactable::reactable(table_1S, searchable = TRUE, minRows = 5, defaultPageSize =
 
 ```{r}
 
-table_2S <- dadosPNADc2023_RSSRSEC %>% 
+table_2S <- dadosPNADc2023_RSSRSEC %>%
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
-  dplyr::summarise(Qtd_horasHabituais = round(srvyr::survey_total(V4056,
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_2S, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
@@ -243,9 +305,9 @@ table_3S <- dadosPNADc2023_RSSRSEC %>%
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
-  dplyr::summarise(Qtd_horasEfetivas = round(srvyr::survey_total(V4056C,
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_3S, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
@@ -299,35 +361,34 @@ reactable::reactable(table_3PS, searchable = TRUE, minRows = 5, defaultPageSize 
 
 ```{r}
 
-teste1 <- dadosPNADc2023_RS %>%
-  dplyr::filter(!(is.na(V4044))) %>% 
+dadosPNADc2023_PS_1 <- dadosPNADc2023_RS %>%
+  #dplyr::filter(!(is.na(V4044))) %>% 
   dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
                       names_to = "tipo",
                       values_to = "atividade") %>%
-  #dplyr::filter(atividade != "") %>%              # remove campos vazios
   dplyr::group_by(atividade) %>%
   dplyr::summarise(total = n())
 
-teste2 <- dadosPNADc2023_RS %>% 
-  dplyr::left_join(teste1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total) 
+dadosPNADc2023_PS_2 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(dadosPNADc2023_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = total)
 # %>%
 #   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total) 
+#   dplyr::rename(total_secundario  = total)
 
 
-teste2  <- PNADcIBGE::pnadc_design(teste2)
-teste_SV <- srvyr::as_survey(teste2)
+dadosPNADc2023_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc2023_PS_2)
+dadosPNADc2023_PS_2SV <- srvyr::as_survey(dadosPNADc2023_PS_2)
 
 
-table_teste <- teste_SV %>% 
+table_1PS <- dadosPNADc2023_PS_2SV %>% 
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR) %>% 
-  dplyr::summarise(freq = round(srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),2))
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
-reactable::reactable(table_teste, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+reactable::reactable(table_1PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
 
 
 ```
@@ -337,37 +398,31 @@ reactable::reactable(table_teste, searchable = TRUE, minRows = 5, defaultPageSiz
 
 ```{r}
 
-teste3 <- dadosPNADc2023_RS %>%
-  dplyr::filter(!(is.na(V4044))) %>% 
+dadosPNADc2023_PS_3 <- dadosPNADc2023_RS %>%
   dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
   tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
                       names_to = "tipo",
                       values_to = "atividade") %>%
-  #dplyr::filter(atividade != "") %>%              # remove campos vazios
   dplyr::group_by(atividade) %>%
   dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
 
-teste4 <- dadosPNADc2023_RS %>% 
-  dplyr::left_join(teste3, by = c("cod_SCN_PR" = "atividade")) %>% 
+dadosPNADc2023_PS_4 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(dadosPNADc2023_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
   dplyr::rename(total_principal = somaH) 
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total) 
+
+dadosPNADc2023_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc2023_PS_4)
+dadosPNADc2023_PS_4SV <- srvyr::as_survey(dadosPNADc2023_PS_4)
 
 
-teste4  <- PNADcIBGE::pnadc_design(teste4)
-teste_SV4 <- srvyr::as_survey(teste4)
-
-
-table_teste4 <- teste_SV4 %>% 
+table_2PS <- dadosPNADc2023_PS_4SV %>% 
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR) %>% 
-  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(total_principal,
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
-reactable::reactable(table_teste4, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+reactable::reactable(table_2PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
 
 
 ```
@@ -377,37 +432,30 @@ reactable::reactable(table_teste4, searchable = TRUE, minRows = 5, defaultPageSi
 
 ```{r}
 
-teste5 <- dadosPNADc2023_RS %>%
-  dplyr::filter(!(is.na(V4044))) %>% 
+dadosPNADc2023_PS_5 <- dadosPNADc2023_RS %>%
   dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
   tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
                       names_to = "tipo",
                       values_to = "atividade") %>%
-  #dplyr::filter(atividade != "") %>%              # remove campos vazios
   dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039C, V4056C, na.rm = TRUE))
+  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
 
-teste6 <- dadosPNADc2023_RS %>% 
-  dplyr::left_join(teste5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total) 
+dadosPNADc2023_PS_6 <- dadosPNADc2023_RS %>% 
+  dplyr::left_join(dadosPNADc2023_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaE)
 
+dadosPNADc2023_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc2023_PS_6)
+dadosPNADc2023_PS_6SV <- srvyr::as_survey(dadosPNADc2023_PS_6)
 
-teste6  <- PNADcIBGE::pnadc_design(teste6)
-teste_SV6 <- srvyr::as_survey(teste6)
-
-
-table_teste6 <- teste_SV6 %>% 
+table_3PS <- dadosPNADc2023_PS_6SV %>% 
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR) %>% 
-  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(total_principal,
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
                                                    na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
+                                                   vartype = c("se", "ci", "var", "cv")))
 
-reactable::reactable(table_teste6, searchable = TRUE, minRows = 5, defaultPageSize = 4)
+reactable::reactable(table_3PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
 
 
 ```
@@ -416,16 +464,13 @@ reactable::reactable(table_teste6, searchable = TRUE, minRows = 5, defaultPageSi
 # Excel
 
 ```{r}
-sheets <- list("N"          = table_teste,
-               "HABITUAL"   = table_teste4, 
-               "EFETIVA"    = table_teste6)
+sheets <- list("N"          = table_1PS,
+               "HABITUAL"   = table_2PS, 
+               "EFETIVA"    = table_3PS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023_2.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023_3.xlsx"))
 ```
-
-
-
 
 <!-- ```{r} -->
 <!-- dadosPNADc2023R_SPRSEC %>% dplyr::filter(cod_SCN_PR == 1 & cod_SCN_SEC == 3) %>%  dplyr::select(cod_SCN_PR, cod_SCN_SEC, Trimestre, V4039, V4056 ) -->

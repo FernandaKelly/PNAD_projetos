@@ -214,13 +214,7 @@ table_1P <- dadosPNADc2023_RSSRPR %>%
 reactable::reactable(table_1P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
 
-```{r}
-table_1P <- dadosPNADc2023_RSSRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
-reactable::reactable(table_1P, searchable = TRUE, minRows = 10, defaultPageSize = 10)
-```
 
 ## Total de horas Habituais
 
@@ -464,12 +458,15 @@ reactable::reactable(table_3PS, searchable = TRUE, minRows = 10, defaultPageSize
 # Excel
 
 ```{r}
-sheets <- list("N"          = table_1PS,
-               "HABITUAL"   = table_2PS, 
-               "EFETIVA"    = table_3PS)
+sheets <- list("N PRINCIPAL"          = table_1P,
+               "HABITUAL PRINCIPAL"   = table_2P, 
+               "EFETIVA PRINCIPAL"    = table_3P,
+               "N SECUNDÁRIO"          = table_1S,
+               "HABITUAL SECUNDÁRIO"   = table_2S, 
+               "EFETIVA SECUNDÁRIO"    = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabSOMA_2023_3.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS_2023_2.xlsx"))
 ```
 
 <!-- ```{r} -->

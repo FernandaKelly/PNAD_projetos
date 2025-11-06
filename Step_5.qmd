@@ -247,48 +247,155 @@ V4044 %in% c("99000","00000") ~ 0,
  ) 
 ```
 
+<!-- ```{r} -->
+<!-- dadosPNADc2023_BR <- dadosPNADc2023_BR %>%  -->
+<!--   dplyr::filter(Trimestre == 1)  -->
+<!-- ``` -->
+
 ```{r}
-dadosPNADc2023_BR <- dadosPNADc2023_completo %>% 
-  dplyr::filter(Trimestre == 1) 
+gc()
 ```
 
 # Principal
 
+<!-- ```{r} -->
+
+<!-- dadosPNADc2023_BRP  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR) -->
+<!-- dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BRP) -->
+
+<!-- table_P <- dadosPNADc2023_BR_PSV %>%  -->
+<!--   dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>%  -->
+<!--   dplyr::group_by(V4013) %>%  -->
+<!--   dplyr::summarise(N_P = srvyr::survey_total(VD4002 == 1, -->
+<!--                                              vartype = c("se", "ci", "var", "cv"), -->
+<!--                                              na.rm = TRUE)) -->
+
+<!-- ``` -->
+
+## Pessoas ocupadas
+
+```{r}
+dadosPNADc2023_BRPR <- dadosPNADc2023_BR %>% 
+  dplyr::filter(!(is.na(V4013))) %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+dadosPNADc2023_BRPR  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BRPR)
+dadosPNADc2023_BRSRPR <- srvyr::as_survey(dadosPNADc2023_BRPR)
+```
+
+### Total de Pessoas
+
+```{r}
+table_1P <- dadosPNADc2023_BRSRPR %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Habituais
+
 ```{r}
 
-dadosPNADc2023_BR  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR)
-dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BR)
+table_2P <- dadosPNADc2023_BRSRPR %>%  
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
 
-table_P <- dadosPNADc2023_BR_PSV %>% 
-  dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>% 
-  dplyr::group_by(V4013) %>% 
-  dplyr::summarise(N_P = srvyr::survey_total(VD4002 == 1, na.rm = TRUE))
+```
 
+
+### Total de horas Efetivas
+
+
+```{r}
+
+table_3P <- dadosPNADc2023_BRSRPR %>%
+  dplyr::filter(V4039C != 0) %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
 ```
 
 # Secundário 
 
+<!-- # ```{r} -->
+<!-- #  -->
+<!-- # dadosPNADc2023_BRS  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR) -->
+<!-- # dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BRS) -->
+<!-- #  -->
+<!-- # table_S <- dadosPNADc2023_BR_PSV %>%                                            -->
+<!-- #   dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>%                                               -->
+<!-- #   dplyr::group_by(V4044) %>%  -->
+<!-- #   dplyr::summarise(N_S = srvyr::survey_total(VD4002 == 1, -->
+<!-- #                                              vartype = c("se", "ci", "var", "cv"), -->
+<!-- #                                              na.rm = TRUE)) -->
+<!-- #  -->
+<!-- # ``` -->
+
+## Pessoas Ocupadas
+
 ```{r}
 
-dadosPNADc2023_BR  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR)
-dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BR)
-
-table_S <- dadosPNADc2023_BR_PSV %>%                                           
-  dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>%                                              
-  dplyr::group_by(V4044) %>% 
-  dplyr::summarise(N_S = srvyr::survey_total(VD4002 == 1, na.rm = TRUE))
-
+dadosPNADc2023_BRSEC <-  dadosPNADc2023_BR %>% 
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas")  
+  
+dadosPNADc2023_BRSEC  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BRSEC)
+dadosPNADc2023_BRSRSEC <- srvyr::as_survey(dadosPNADc2023_BRSEC)
 ```
 
+### Total de Pessoas
+
+```{r}
+table_1S <- dadosPNADc2023_BRSRSEC %>% 
+  dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+
+### Total de horas Habituais
+
+```{r}
+
+table_2S <- dadosPNADc2023_BRSRSEC %>% 
+  dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Efetivas
+
+
+```{r}
+
+table_3S <- dadosPNADc2023_BRSRSEC %>%  
+  dplyr::filter(V4056C != 0) %>% 
+  dplyr::group_by(cod_SCN_SEC, Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total
 
 # Excel
 
 ```{r}
 sheets <- list("PRINCIPAL"    = table_P,
-               "SECUNDARIO"   = table_S)
+               "SECUNDARIO"   = table_S,
+               
+               "N PRINCIPAL"          = table_1P,
+               "HABITUAL PRINCIPAL"   = table_2P, 
+               "EFETIVA PRINCIPAL"    = table_3P,
+               
+               "N SECUNDÁRIO"          = table_1S,
+               "HABITUAL SECUNDÁRIO"   = table_2S, 
+               "EFETIVA SECUNDÁRIO"    = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_1.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_2.xlsx"))
 ```
 
 

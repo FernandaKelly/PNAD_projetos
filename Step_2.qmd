@@ -257,7 +257,8 @@ V4043 == "Militar do exército, da marinha, da aeronáutica, da polícia militar
 V4043 == "Empregado do setor público (inclusive empresas de economia mista)" & V4044 %in% c("85011","85012","85013",
                                                                                             "85014","85021","85029",
                                                                                             "86001","86002","86003",
-                                                                                            "86004","86009","87000","88000") ~ 12,
+                                                                                            "86004","86009","87000",
+                                                                                            "88000") ~ 12,
 
 ########################################################
 
@@ -287,8 +288,6 @@ table_1P <- dadosPNADc2023_RSSRPR %>%
 
 reactable::reactable(table_1P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
-
-
 
 ## Total de horas Habituais
 
@@ -321,8 +320,6 @@ table_3P <- dadosPNADc2023_RSSRPR %>%
 
 reactable::reactable(table_3P, searchable = TRUE, minRows = 5, defaultPageSize = 4)
 ```
-
-
 
 # Secundário
 
@@ -381,49 +378,6 @@ reactable::reactable(table_3S, searchable = TRUE, minRows = 5, defaultPageSize =
 ```
 
 # Principal & Secundário
-
-```{r}
-dadosPNADc2023R_SPRSEC <- dadosPNADc2023_RS %>% 
-  dplyr::filter(!(is.na(V4013))) %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") 
-
-dadosPNADc2023R_SPRSEC  <- PNADcIBGE::pnadc_design(dadosPNADc2023R_SPRSEC)
-dadosPNADc2023RS_SR <- srvyr::as_survey(dadosPNADc2023R_SPRSEC)
-```
-
-## Total de horas Habituais
-
-```{r}
-
-table_2PS <- dadosPNADc2023RS_SR %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::mutate(somaH = sum(V4039, V4056, na.rm = TRUE)) %>% 
-  dplyr::group_by(Trimestre) %>% 
-  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(somaH,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
-
-reactable::reactable(table_2PS, searchable = TRUE, minRows = 5, defaultPageSize = 10)
-```
-
-## Total de horas Efetivas
-
-```{r}
-
-table_3PS <- dadosPNADc2023RS_SR %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::mutate(somaH = sum(V4039C, V4056C, na.rm = TRUE)) %>% 
-  dplyr::group_by(Trimestre) %>% 
-  dplyr::summarise(Qtd_horas = round(srvyr::survey_total(somaH,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")),2))
-
-reactable::reactable(table_3PS, searchable = TRUE, minRows = 5, defaultPageSize = 4)
-```
-
-# Teste (deu certo!)
 
 ## Contagem
 

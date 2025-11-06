@@ -39,27 +39,27 @@ library(purrr)
 ```
 
 ```{r}
-# Vetor com os trimestres
-trimestres <- 1:4
-
-# Função para baixar os dados de cada trimestre
-baixar_pnad <- function(t) {
-  get_pnadc(year = 2023,
-            quarter = t,
-            #vars = c("UF", "V4039C", "VD4002", "V4013"),
-            design = FALSE)
-}
-
-# Aplicando a função para todos os trimestres
-dadosPNADc2023 <- map(trimestres, baixar_pnad)
-# Nomeando cada elemento da lista
-names(dadosPNADc2023) <- paste0("Trimestre_", trimestres)
-# Se quiser juntar tudo em um único dataframe:
-dadosPNADc2023_completo <- dplyr::bind_rows(dadosPNADc2023, .id = "Trimestre")
+# # Vetor com os trimestres
+# trimestres <- 1:4
+# 
+# # Função para baixar os dados de cada trimestre
+# baixar_pnad <- function(t) {
+#   get_pnadc(year = 2023,
+#             quarter = t,
+#             #vars = c("UF", "V4039C", "VD4002", "V4013"),
+#             design = FALSE)
+# }
+# 
+# # Aplicando a função para todos os trimestres
+# dadosPNADc2023 <- map(trimestres, baixar_pnad)
+# # Nomeando cada elemento da lista
+# names(dadosPNADc2023) <- paste0("Trimestre_", trimestres)
+# # Se quiser juntar tudo em um único dataframe:
+# dadosPNADc2023_completo <- dplyr::bind_rows(dadosPNADc2023, .id = "Trimestre")
 ```
 
 ```{r}
-save(dadosPNADc2023_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
+# save(dadosPNADc2023_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
 
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
 ```
@@ -121,19 +121,43 @@ V4013 %in% c("55000","56011","56012","56020","69000",
 "95030","96010","96020","96030","96090",
 "97000") ~ 11,
 
-V4012 == "Trabalhador doméstico" | V4012 == "Empregado do setor privado" | V4012 == "Empregador" | V4012 == "Conta própria" | V4012 == "Trabalhador familiar não remunerado" & V4013 %in% c("85011","85012","85013","85014","85021",
-                                                                                                                                                                                            "85029","86001","86002","86003","86004",
-                                                                                                                                                                                            "86009","87000","88000") ~ 11,
+V4012 == "Trabalhador doméstico" & V4013 %in% c("85011","85012","85013",
+                                                "85014","85021","85029",
+                                                "86001","86002","86003",
+                                                "86004","86009","87000","88000") ~ 11,
+V4012 == "Empregado do setor privado" & V4013 %in% c("85011","85012","85013",
+                                                     "85014","85021","85029",
+                                                     "86001","86002","86003",
+                                                     "86004","86009","87000","88000") ~ 11,
+V4012 == "Empregador" & V4013 %in% c("85011","85012","85013",
+                                     "85014","85021","85029",
+                                     "86001","86002","86003",
+                                     "86004","86009","87000","88000") ~ 11,
+V4012 == "Conta própria" & V4013 %in% c("85011","85012","85013",
+                                        "85014","85021","85029",
+                                        "86001","86002","86003",
+                                        "86004","86009","87000","88000") ~ 11,
+V4012 == "Trabalhador familiar não remunerado" & V4013 %in% c("85011","85012","85013",
+                                                              "85014","85021","85029",
+                                                              "86001","86002","86003",
+                                                              "86004","86009","87000","88000") ~ 11,
 
 ########################################################
 
 V4013 %in% c("84011","84012","84013","84014","84015","84016","84017","84020") ~ 12,
 
-V4012 == "Militar do exército, da marinha, da aeronáutica, da polícia militar ou do corpo de bombeiros militar" | V4012 == "Empregado do setor público (inclusive empresas de economia mista)" & V4013 %in% c("85011","85012","85013","85014","85021",
-                                                                                                                                                                                                              "85029","86001","86002","86003","86004",
-                                                                                                                                                                                                              "86009","87000","88000") ~ 12,
+V4012 == "Militar do exército, da marinha, da aeronáutica, da polícia militar ou do corpo de bombeiros militar" & V4013 %in% c("85011","85012","85013",
+                                                                                                                               "85014","85021","85029",
+                                                                                                                               "86001","86002","86003",
+                                                                                                                               "86004","86009","87000",
+                                                                                                                               "88000") ~ 12,
+V4012 == "Empregado do setor público (inclusive empresas de economia mista)" & V4013 %in% c("85011","85012","85013",
+                                                                                            "85014","85021","85029",
+                                                                                            "86001","86002","86003",
+                                                                                            "86004","86009","87000","88000") ~ 12,
 
 ########################################################
+
 V4013 %in% c("99000","00000") ~ 0,
 
 .default = NA_integer_)
@@ -199,18 +223,41 @@ V4044 %in% c(
 
 
 
-V4043 == "Trabalhador doméstico" | V4043 == "Empregado do setor privado" | V4043 == "Empregador" | V4043 == "Conta própria" | V4043 == "Trabalhador não remunerado em ajuda a membro do domicílio ou parente" & V4044 %in% c("85011","85012","85013","85014","85021",
-                                                                                                                                                                                                                             "85029","86001","86002","86003","86004",
-                                                                                                                                                                                                                             "86009","87000","88000") ~ 11,
+V4043 == "Trabalhador doméstico" & V4044 %in% c("85011","85012","85013",
+                                                "85014","85021", "85029",
+                                                "86001","86002","86003",
+                                                "86004","86009","87000","88000") ~ 11,
+V4043 == "Empregado do setor privado" & V4044 %in% c("85011","85012","85013",
+                                                     "85014","85021", "85029",
+                                                     "86001","86002","86003",
+                                                     "86004","86009","87000","88000") ~ 11,
+V4043 == "Empregador" & V4044 %in% c("85011","85012","85013",
+                                     "85014","85021", "85029",
+                                     "86001","86002","86003",
+                                     "86004","86009","87000","88000") ~ 11,
+V4043 == "Conta própria" & V4044 %in% c("85011","85012","85013",
+                                        "85014","85021", "85029",
+                                        "86001","86002","86003",
+                                        "86004","86009","87000","88000") ~ 11,
+V4043 == "Trabalhador não remunerado em ajuda a membro do domicílio ou parente" & V4044 %in% c("85011","85012","85013",
+                                                                                               "85014","85021", "85029",
+                                                                                               "86001","86002","86003",
+                                                                                               "86004","86009","87000","88000") ~ 11,
 
 
 ####################################################################
 
 V4044 %in% c("84011","84012","84013","84014","84015","84016","84017","84020") ~ 12,
 
-V4043 == "Militar do exército, da marinha, da aeronáutica, da polícia militar ou do corpo de bombeiros militar" | V4043 == "Empregado do setor público (inclusive empresas de economia mista)" & V4044 %in% c("85011","85012","85013","85014","85021",
-                                                                                                                                                                                                              "85029","86001","86002","86003","86004",
-                                                                                                                                                                                                              "86009","87000","88000") ~ 12,
+V4043 == "Militar do exército, da marinha, da aeronáutica, da polícia militar ou do corpo de bombeiros militar" & V4044 %in% c("85011","85012","85013",
+                                                                                                                               "85014","85021","85029",
+                                                                                                                               "86001","86002","86003",
+                                                                                                                               "86004","86009","87000",
+                                                                                                                               "88000") ~ 12,
+V4043 == "Empregado do setor público (inclusive empresas de economia mista)" & V4044 %in% c("85011","85012","85013",
+                                                                                            "85014","85021","85029",
+                                                                                            "86001","86002","86003",
+                                                                                            "86004","86009","87000","88000") ~ 12,
 
 ########################################################
 
@@ -493,7 +540,7 @@ sheets <- list("N PRINCIPAL"          = table_1P,
                "EFETIVA SECUNDÁRIO"    = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS_2023_3.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS_2023_4.xlsx"))
 ```
 
 <!-- ```{r} -->

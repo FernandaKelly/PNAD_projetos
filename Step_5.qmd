@@ -380,11 +380,86 @@ table_3S <- dadosPNADc2023_BRSRSEC %>%
 
 # Total
 
+## Principal
+
+### Pessoas Ocupadas
+
+```{r}
+table_1TP <- dadosPNADc2023_BRSRPR %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+### Horas Habituais
+
+```{r}
+
+table_2TP <- dadosPNADc2023_BRSRPR %>%  
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE,
+                                                 vartype = c("se", "ci", "var", "cv")))
+```
+
+### Horas Efetivas
+
+```{r}
+table_3TP <- dadosPNADc2023_BRSRPR %>%
+  dplyr::filter(V4039C != 0) %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+## Secundário
+
+### Total de Pessoas
+
+```{r}
+table_1TS <- dadosPNADc2023_BRSRSEC %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+
+### Total de horas Habituais
+
+```{r}
+
+table_2TS <- dadosPNADc2023_BRSRSEC %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Efetivas
+
+
+```{r}
+
+table_3TS <- dadosPNADc2023_BRSRSEC %>%  
+  dplyr::filter(V4056C != 0) %>% 
+  dplyr::group_by(Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+# Mensagem
+
+
+
 # Excel
 
 ```{r}
-sheets <- list("PRINCIPAL"    = table_P,
-               "SECUNDARIO"   = table_S,
+sheets <- list("N TOTAL"          = table_1TP,
+               "HABITUAL TOTAL"   = table_2TP, 
+               "EFETIVA TOTAL"    = table_3TP,
+               
+               "N TOTAL"          = table_1TS,
+               "HABITUAL TOTAL"   = table_2TS, 
+               "EFETIVA TOTAL"    = table_3TS,
                
                "N PRINCIPAL"          = table_1P,
                "HABITUAL PRINCIPAL"   = table_2P, 
@@ -395,7 +470,7 @@ sheets <- list("PRINCIPAL"    = table_P,
                "EFETIVA SECUNDÁRIO"    = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_2.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_3.xlsx"))
 ```
 
 

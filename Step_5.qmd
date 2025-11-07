@@ -450,16 +450,19 @@ table_3TS <- dadosPNADc2023_BRSRSEC %>%
 
 
 
+
+
+
 # Excel
 
 ```{r}
-sheets <- list("N TOTAL"          = table_1TP,
-               "HABITUAL TOTAL"   = table_2TP, 
-               "EFETIVA TOTAL"    = table_3TP,
+sheets <- list("N TOTAL PRINCIPAL" = table_1TP,
+               "HABITUAL TOTAL"    = table_2TP, 
+               "EFETIVA TOTAL"     = table_3TP,
                
-               "N TOTAL"          = table_1TS,
-               "HABITUAL TOTAL"   = table_2TS, 
-               "EFETIVA TOTAL"    = table_3TS,
+               "N TOTAL SECUNDÁRIO" = table_1TS,
+               "HABITUAL TOTAL"     = table_2TS, 
+               "EFETIVA TOTAL"      = table_3TS,
                
                "N PRINCIPAL"          = table_1P,
                "HABITUAL PRINCIPAL"   = table_2P, 

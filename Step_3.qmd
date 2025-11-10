@@ -1,6 +1,6 @@
 ---
 title: "PNAD Contínua" # Título do relatório
-subtitle: "**Pacote: PNADcIBGE**"
+subtitle: "**Baixar dados**"
 author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
 lang: pt 
 date: "`r format(Sys.Date())`" 
@@ -35,7 +35,10 @@ library(foreign)
 library(srvyr)
 library(reactable)
 library(purrr)
+library(furrr)
 ```
+
+# Trimestre
 
 ```{r}
 # Vetor com os trimestres
@@ -63,8 +66,30 @@ save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Gover
 ```
 
 
+# Visitas
 
 
+```{r}
+visita5_2020 <- PNADcIBGE::get_pnadc(year = 2020,
+                                     interview = 5,
+                                     design = FALSE)
+visita5_2021 <- PNADcIBGE::get_pnadc(year = 2021,
+                                     interview = 5,
+                                     design = FALSE)
+
+visita5_2022 <- PNADcIBGE::get_pnadc(year = 2022,
+                                     interview = 5,
+                                     design = FALSE)
+
+visita5_pnad <- visita5_2020 %>% 
+  dplyr::bind_rows(visita5_2021) %>% 
+  dplyr::bind_rows(visita5_2022)
+
+```
+
+```{r}
+save(visita5_pnad, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_completo.RData")
+```
 
 
 

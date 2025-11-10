@@ -36,6 +36,7 @@ library(srvyr)
 library(reactable)
 library(purrr)
 library(furrr)
+library(future)
 ```
 
 # Trimestre
@@ -68,22 +69,24 @@ save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Gover
 
 # Visitas
 
+```{r}
+future::plan(multisession, workers = 3)
+```
+
 
 ```{r}
-visita5_2020 <- PNADcIBGE::get_pnadc(year = 2020,
-                                     interview = 5,
-                                     design = FALSE)
-visita5_2021 <- PNADcIBGE::get_pnadc(year = 2021,
-                                     interview = 5,
-                                     design = FALSE)
+anos <- 2020:2022
 
-visita5_2022 <- PNADcIBGE::get_pnadc(year = 2022,
-                                     interview = 5,
-                                     design = FALSE)
-
-visita5_pnad <- visita5_2020 %>% 
-  dplyr::bind_rows(visita5_2021) %>% 
-  dplyr::bind_rows(visita5_2022)
+visita5_pnad <- future_map_dfr(
+  anos,
+  \(ano) {
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = 5,
+      design = FALSE
+    ) 
+  }
+)
 
 ```
 

@@ -57,7 +57,7 @@ baixar_pnad <- function(t) {
 dadosPNADc2012 <- map(trimestres, baixar_pnad)
 # Nomeando cada elemento da lista
 names(dadosPNADc2012) <- paste0("Trimestre_", trimestres)
-# Se quiser juntar tudo em um único dataframe:
+
 dadosPNADc2012_completo <- dplyr::bind_rows(dadosPNADc2012, .id = "Trimestre")
 
 ```
@@ -69,17 +69,135 @@ save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Gover
 
 # Visitas
 
+## 1
+
 ```{r}
-future::plan(multisession, workers = 3)
+future::plan(multisession, workers = 7)
 ```
 
+### 2012 - 2015
+
+```{r}
+
+# Parâmetros ----
+anos <- 2012:2015
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_12_15 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_12_15, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_12_15.RData")
+```
+
+### 2016 - 2019
+
+```{r}
+
+# Parâmetros ----
+anos <- 2016:2019
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_16_19 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_16_19, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_16_19.RData")
+```
+
+### 2023 - 2024
+
+```{r}
+
+# Parâmetros ----
+anos <- 2023:2024
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_23_24 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_23_24, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_23_24.RData")
+```
+
+### 2025
+
+```{r}
+
+dadosPNADc1VISITA_25_1 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 1,
+      design = FALSE
+    ) 
+
+dadosPNADc1VISITA_25_2 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 2,
+      design = FALSE
+    )
+
+```
+
+```{r}
+dadosPNADc1VISITA_25 <-  dadosPNADc1VISITA_25_1 %>% 
+                         dplyr::bind_rows(dadosPNADc1VISITA_25_2)
+```
+
+```{r}
+save(dadosPNADc1VISITA_25, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc1VISITA_25.RData")
+```
+
+## 5
+
+### 2020 - 2022
+
+```{r}
+future::plan(multisession, workers = 7)
+```
 
 ```{r}
 anos <- 2020:2022
 
-visita5_pnad <- future_map_dfr(
+visita5_pnad <- furrr::future_map_dfr(
   anos,
   \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
     PNADcIBGE::get_pnadc(
       year = ano,
       interview = 5,

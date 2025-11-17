@@ -46,7 +46,14 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 
 ```{r}
 dadosPNADc2023_BR <- dadosPNADc2023_completo %>% 
-  #dplyr::filter(UF == "Rio Grande do Sul") %>% 
+    #dplyr::filter(UF == "Rio Grande do Sul") %>% 
+    # ANOS 2012 - 2015 USAR:
+    # dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
+    #                                   VD4032,
+    #                                   V4039C),
+    #             V4056C = base::ifelse(is.na(V4056C),
+    #                                   VD4033,
+    #                                   V4056C)) %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -247,30 +254,11 @@ V4044 %in% c("99000","00000") ~ 0,
  ) 
 ```
 
-<!-- ```{r} -->
-<!-- dadosPNADc2023_BR <- dadosPNADc2023_BR %>%  -->
-<!--   dplyr::filter(Trimestre == 1)  -->
-<!-- ``` -->
-
 ```{r}
 gc()
 ```
 
 # Principal
-
-<!-- ```{r} -->
-
-<!-- dadosPNADc2023_BRP  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR) -->
-<!-- dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BRP) -->
-
-<!-- table_P <- dadosPNADc2023_BR_PSV %>%  -->
-<!--   dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>%  -->
-<!--   dplyr::group_by(V4013) %>%  -->
-<!--   dplyr::summarise(N_P = srvyr::survey_total(VD4002 == 1, -->
-<!--                                              vartype = c("se", "ci", "var", "cv"), -->
-<!--                                              na.rm = TRUE)) -->
-
-<!-- ``` -->
 
 ## Pessoas ocupadas
 
@@ -318,20 +306,6 @@ table_3P <- dadosPNADc2023_BRSRPR %>%
 ```
 
 # Secundário 
-
-<!-- # ```{r} -->
-<!-- #  -->
-<!-- # dadosPNADc2023_BRS  <- PNADcIBGE::pnadc_design(dadosPNADc2023_BR) -->
-<!-- # dadosPNADc2023_BR_PSV <- srvyr::as_survey(dadosPNADc2023_BRS) -->
-<!-- #  -->
-<!-- # table_S <- dadosPNADc2023_BR_PSV %>%                                            -->
-<!-- #   dplyr::mutate(VD4002 = base::as.numeric(VD4002)) %>%                                               -->
-<!-- #   dplyr::group_by(V4044) %>%  -->
-<!-- #   dplyr::summarise(N_S = srvyr::survey_total(VD4002 == 1, -->
-<!-- #                                              vartype = c("se", "ci", "var", "cv"), -->
-<!-- #                                              na.rm = TRUE)) -->
-<!-- #  -->
-<!-- # ``` -->
 
 ## Pessoas Ocupadas
 
@@ -446,6 +420,111 @@ table_3TS <- dadosPNADc2023_BRSRSEC %>%
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
 
+# Principal & Secundário
+
+## Contagem
+
+```{r}
+
+dadosPNADc_PS_1 <- dadosPNADC_ANOS_RS %>%
+  #dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(total = n())
+
+dadosPNADc_PS_2 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = total)
+# %>%
+#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
+#   dplyr::rename(total_secundario  = total)
+
+
+dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
+dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
+
+
+table_1PS <- dadosPNADc_PS_2SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+reactable::reactable(table_1PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
+
+
+```
+
+
+## Horas habituais
+
+```{r}
+
+dadosPNADc_PS_3 <- dadosPNADC_ANOS_RS %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
+
+dadosPNADc_PS_4 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaH) 
+
+dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
+dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
+
+
+table_2PS <- dadosPNADc_PS_4SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+
+reactable::reactable(table_2PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
+
+
+```
+
+
+## Horas efetivas
+
+```{r}
+
+dadosPNADc_PS_5 <- dadosPNADC_ANOS_RS %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
+
+dadosPNADc_PS_6 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaE)
+
+dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
+dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
+
+table_3PS <- dadosPNADc_PS_6SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
+  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+
+reactable::reactable(table_3PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
+
+
+```
+
 # Mensagem
 
 
@@ -470,7 +549,11 @@ sheets <- list("N TOTAL PRINCIPAL" = table_1TP,
                
                "N SECUNDÁRIO"          = table_1S,
                "HABITUAL SECUNDÁRIO"   = table_2S, 
-               "EFETIVA SECUNDÁRIO"    = table_3S)
+               "EFETIVA SECUNDÁRIO"    = table_3S,
+                       
+              "N P&S"                          = table_1PS,
+              "HABITUAL P&S"                   = table_2PS,
+              "EFETIVA P&S"                    = table_3PS))
 
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_3.xlsx"))

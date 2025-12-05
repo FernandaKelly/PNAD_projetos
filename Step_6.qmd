@@ -1,0 +1,365 @@
+---
+title: "PNAD Contínua" # Título do relatório
+subtitle: "**Dados: 2012 - 2024 (Rio Grande do Sul)**"
+author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
+lang: pt 
+date: "`r format(Sys.Date())`" 
+date-format: short 
+toc: true 
+format: 
+    html: 
+      embed-resources: true
+      #css: ["custom.css"] 
+      code-fold: false 
+      code-tools: true  
+      theme: 
+        light: cosmo
+        dark: superhero 
+#title-block-banner: "#874a9c" 
+code-annotations: hover 
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+```{r}
+options(timeout = 600) 
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# install.packages("PNADcIBGE")
+# install.packages("survey")
+library(PNADcIBGE)
+library(survey)
+library(foreign)
+library(srvyr)
+library(reactable)
+library(purrr)
+```
+
+# Dados
+
+```{r}
+load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/dadosPNADC_ANOS_RS.RData")
+```
+
+
+```{r}
+gc()
+```
+
+# Principal
+
+## Pessoas ocupadas
+
+```{r}
+dadosPNADC_ANOS_RSPR <- dadosPNADC_ANOS_RS %>% 
+  dplyr::filter(!(is.na(V4013))) %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+dadosPNADC_ANOS_RSPR  <- PNADcIBGE::pnadc_design(dadosPNADC_ANOS_RSPR)
+dadosPNADC_ANOS_RSSRPR <- srvyr::as_survey(dadosPNADC_ANOS_RSPR)
+```
+
+### Total de Pessoas
+
+```{r}
+table_1P <- dadosPNADC_ANOS_RSSRPR %>% 
+  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Habituais
+
+```{r}
+
+table_2P <- dadosPNADC_ANOS_RSSRPR %>%  
+  dplyr::group_by(cod_SCN_PR, Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+
+```
+
+
+### Total de horas Efetivas
+
+```{r}
+
+table_3P <- dadosPNADC_ANOS_RSSRPR %>%
+  dplyr::filter(V4039C != 0) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+# Secundário 
+
+## Pessoas Ocupadas
+
+```{r}
+
+dadosPNADC_ANOS_RSSEC <-  dadosPNADC_ANOS_RS %>% 
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas")  
+  
+dadosPNADC_ANOS_RSSEC  <- PNADcIBGE::pnadc_design(dadosPNADC_ANOS_RSSEC)
+dadosPNADC_ANOS_RSSRSEC <- srvyr::as_survey(dadosPNADC_ANOS_RSSEC)
+```
+
+### Total de Pessoas
+
+```{r}
+table_1S <- dadosPNADC_ANOS_RSSRSEC %>% 
+  dplyr::group_by(cod_SCN_SEC, Ano,Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+
+### Total de horas Habituais
+
+```{r}
+
+table_2S <- dadosPNADC_ANOS_RSSRSEC %>% 
+  dplyr::group_by(cod_SCN_SEC, Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Efetivas
+
+
+```{r}
+
+table_3S <- dadosPNADC_ANOS_RSSRSEC %>%  
+  dplyr::filter(V4056C != 0) %>% 
+  dplyr::group_by(cod_SCN_SEC, Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+# Total
+
+## Principal
+
+### Pessoas Ocupadas
+
+```{r}
+table_1TP <- dadosPNADC_ANOS_RSSRPR %>% 
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+### Horas Habituais
+
+```{r}
+
+table_2TP <- dadosPNADC_ANOS_RSSRPR %>%  
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE,
+                                                 vartype = c("se", "ci", "var", "cv")))
+```
+
+### Horas Efetivas
+
+```{r}
+table_3TP <- dadosPNADC_ANOS_RSSRPR %>%
+  dplyr::filter(V4039C != 0) %>% 
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+## Secundário
+
+### Total de Pessoas
+
+```{r}
+table_1TS <- dadosPNADC_ANOS_RSSRSEC %>% 
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+```
+
+
+### Total de horas Habituais
+
+```{r}
+
+table_2TS <- dadosPNADC_ANOS_RSSRSEC %>% 
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+### Total de horas Efetivas
+
+
+```{r}
+
+table_3TS <- dadosPNADC_ANOS_RSSRSEC %>%  
+  dplyr::filter(V4056C != 0) %>% 
+  dplyr::group_by(Ano,Trimestre) %>% 
+  dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+
+# Principal & Secundário
+
+## Contagem
+
+```{r}
+
+dadosPNADc_PS_1 <- dadosPNADC_ANOS_RS %>%
+  #dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(total = n())
+
+dadosPNADc_PS_2 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = total)
+# %>%
+#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
+#   dplyr::rename(total_secundario  = total)
+
+
+dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
+dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
+
+
+table_1PS <- dadosPNADc_PS_2SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Ano,Trimestre) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+```
+
+
+## Horas habituais
+
+```{r}
+
+dadosPNADc_PS_3 <- dadosPNADC_ANOS_RS %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
+
+dadosPNADc_PS_4 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaH) 
+
+dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
+dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
+
+
+table_2PS <- dadosPNADc_PS_4SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Ano,Trimestre) %>% 
+  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+```
+
+
+## Horas efetivas
+
+```{r}
+
+dadosPNADc_PS_5 <- dadosPNADC_ANOS_RS %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
+                      names_to = "tipo",
+                      values_to = "atividade") %>%
+  dplyr::group_by(atividade) %>%
+  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
+
+dadosPNADc_PS_6 <- dadosPNADC_ANOS_RS %>% 
+  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
+  dplyr::rename(total_principal = somaE)
+
+dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
+dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
+
+table_3PS <- dadosPNADc_PS_6SV %>% 
+  # dplyr::filter(!(is.na(V4044))) %>% 
+  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(cod_SCN_PR, Ano,Trimestre) %>% 
+  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
+                                                   na.rm = TRUE,
+                                                   vartype = c("se", "ci", "var", "cv")))
+
+```
+
+# Excel
+
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS,
+               
+               "N PRINCIPAL"                   = table_1P,
+               "HABITUAL PRINCIPAL"            = table_2P, 
+               "EFETIVA PRINCIPAL"             = table_3P,
+                       
+               "N SECUNDÁRIO"                  = table_1S,
+               "HABITUAL SECUNDÁRIO"           = table_2S, 
+               "EFETIVA SECUNDÁRIO"            = table_3S,
+                       
+              "N P&S"                          = table_1PS,
+              "HABITUAL P&S"                   = table_2PS,
+              "EFETIVA P&S"                    = table_3PS)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_4.xlsx"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

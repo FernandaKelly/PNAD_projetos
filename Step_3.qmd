@@ -1,0 +1,665 @@
+---
+title: "PNAD Contínua" # Título do relatório
+subtitle: "**Baixar dados**"
+author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
+lang: pt 
+date: "`r format(Sys.Date())`" 
+date-format: short 
+toc: true 
+format: 
+    html: 
+      embed-resources: true
+      #css: ["custom.css"] 
+      code-fold: false 
+      code-tools: true  
+      theme: 
+        light: cosmo
+        dark: superhero 
+#title-block-banner: "#874a9c" 
+code-annotations: hover 
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+
+```{r}
+#| echo: false
+#| 
+# install.packages("PNADcIBGE")
+# install.packages("survey")
+library(PNADcIBGE)
+library(survey)
+library(foreign)
+library(srvyr)
+library(reactable)
+library(purrr)
+library(furrr)
+library(future)
+```
+
+# Trimestre
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2012,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2012 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2012) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2012_completo <- dplyr::bind_rows(dadosPNADc2012, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2012_completo.RData")
+```
+
+
+<<<<<<< HEAD
+### 2025
+
+```{r}
+
+dadosPNADc1VISITA_25_1 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 1,
+      design = FALSE
+    ) 
+
+dadosPNADc1VISITA_25_2 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 2,
+      design = FALSE
+    )
+
+dadosPNADc1VISITA_25_3 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 3,
+      design = FALSE
+    )
+
+```
+
+```{r}
+dadosPNADc1VISITA_25 <-  dplyr::bind_rows (dadosPNADc1VISITA_25_1,
+                                           dadosPNADc1VISITA_25_2, dadosPNADc1VISITA_25_3)
+```
+
+```{r}
+save(dadosPNADc1VISITA_25, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc1VISITA_25.RData")
+```
+
+
+
+# Visitas
+
+### 2012
+
+
+```{r}
+
+dadosPNADc1VISITA_2012 <- PNADcIBGE::get_pnadc(year = 2012,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+=======
+# Visitas
+
+## 1
+
+```{r}
+future::plan(multisession, workers = 7)
+```
+
+### 2012 - 2015
+
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+```{r}
+
+# Parâmetros ----
+anos <- 2012:2015
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_12_15 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+
+```
+
+```{r}
+<<<<<<< HEAD
+save(dadosPNADc1VISITA_2012, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2012.RData")
+```
+
+### 2013
+
+```{r}
+
+dadosPNADc1VISITA_2013 <- PNADcIBGE::get_pnadc(year = 2013,
+                                               interview = 1,
+                                               design = FALSE)
+=======
+save(dadosPNADc1VISITA_12_15, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_12_15.RData")
+```
+
+### 2016 - 2019
+
+```{r}
+
+# Parâmetros ----
+anos <- 2016:2019
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_16_19 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+```
+
+```{r}
+<<<<<<< HEAD
+save(dadosPNADc1VISITA_2013, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2013.RData")
+```
+
+### 2014
+
+```{r}
+
+dadosPNADc1VISITA_2014 <- PNADcIBGE::get_pnadc(year = 2014,
+                                               interview = 1,
+                                               design = FALSE)
+=======
+save(dadosPNADc1VISITA_16_19, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_16_19.RData")
+```
+
+### 2023 - 2024
+
+```{r}
+
+# Parâmetros ----
+anos <- 2023:2024
+visita <- 1
+
+# Baixar PNAD Contínua em paralelo com barra de progresso ----
+dadosPNADc1VISITA_23_24 <- future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = visita,
+      design = FALSE
+    ) 
+  }
+)
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+```
+
+```{r}
+<<<<<<< HEAD
+save(dadosPNADc1VISITA_2014, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2014.RData")
+```
+
+### 2015
+
+```{r}
+
+dadosPNADc1VISITA_2015 <- PNADcIBGE::get_pnadc(year = 2015,
+                                               interview = 1,
+                                               design = FALSE)
+=======
+save(dadosPNADc1VISITA_23_24, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_23_24.RData")
+```
+
+### 2025
+
+```{r}
+
+dadosPNADc1VISITA_25_1 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 1,
+      design = FALSE
+    ) 
+
+dadosPNADc1VISITA_25_2 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 2,
+      design = FALSE
+    )
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+```
+
+```{r}
+<<<<<<< HEAD
+save(dadosPNADc1VISITA_2015, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2015.RData")
+```
+
+### 2016
+
+```{r}
+
+dadosPNADc1VISITA_2016 <- PNADcIBGE::get_pnadc(year = 2016,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2016, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2016.RData")
+```
+
+### 2017
+
+```{r}
+
+dadosPNADc1VISITA_2017 <- PNADcIBGE::get_pnadc(year = 2017,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2017, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2017.RData")
+```
+
+### 2018
+
+```{r}
+
+dadosPNADc1VISITA_2018 <- PNADcIBGE::get_pnadc(year = 2018,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2018, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2018.RData")
+```
+
+### 2019
+
+```{r}
+
+dadosPNADc1VISITA_2019 <- PNADcIBGE::get_pnadc(year = 2019,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2019, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+```
+
+
+### 2020
+
+```{r}
+
+dadosPNADc5VISITA_2020 <- PNADcIBGE::get_pnadc(year = 2020,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2020, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2020.RData")
+```
+
+
+### 2021
+
+```{r}
+
+dadosPNADc5VISITA_2021 <- PNADcIBGE::get_pnadc(year = 2021,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2021, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2021.RData")
+```
+
+### 2022
+
+```{r}
+
+dadosPNADc5VISITA_2022 <- PNADcIBGE::get_pnadc(year = 2022,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2022, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2022.RData")
+```
+
+
+### 2023
+
+```{r}
+
+dadosPNADc1VISITA_2023 <- PNADcIBGE::get_pnadc(year = 2023,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2023, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2023.RData")
+```
+
+
+### 2024
+
+```{r}
+
+dadosPNADc1VISITA_2024 <- PNADcIBGE::get_pnadc(year = 2024,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2024, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
+```
+
+
+
+
+### Vários anos
+=======
+dadosPNADc1VISITA_25 <-  dadosPNADc1VISITA_25_1 %>% 
+                         dplyr::bind_rows(dadosPNADc1VISITA_25_2)
+```
+
+```{r}
+save(dadosPNADc1VISITA_25, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc1VISITA_25.RData")
+```
+
+## 5
+
+### 2020 - 2022
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+```{r}
+future::plan(multisession, workers = 7)
+```
+
+```{r}
+anos <- 2020:2022
+
+visita5_pnad <- furrr::future_map_dfr(
+  anos,
+  \(ano) {
+    library(PNADcIBGE, quietly = TRUE)
+    PNADcIBGE::get_pnadc(
+      year = ano,
+      interview = 5,
+      design = FALSE
+    ) 
+  }
+)
+
+```
+
+```{r}
+save(visita5_pnad, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_completo.RData")
+```
+
+
+<<<<<<< HEAD
+# Empilhamento
+
+```{r}
+dadosPNADC_ANOS_RS <- list(
+
+  dadosPNADc1VISITA_12_15 %>%
+   
+    dplyr::mutate(
+      V4039C = dplyr::if_else(is.na(V4039C), VD4032, V4039C),
+      V4056C = dplyr::if_else(is.na(V4056C), VD4033, V4056C)
+    ),
+
+  dadosPNADc1VISITA_16_19 %>% mutate(ano = Ano),
+  visita5_pnad            %>% mutate(ano = Ano),
+  dadosPNADc1VISITA_23_24 %>% mutate(ano = Ano)
+
+) %>% 
+  list_rbind()
+```
+
+```{r}
+dadosPNADC_ANOS_RS <- dadosPNADC_ANOS_RS %>%
+  dplyr::mutate(
+    estrato_unico = interaction(ano, Estrato, drop = TRUE),
+    upa_unica     = interaction(ano, UPA, drop = TRUE)
+  )
+
+```
+
+```{r}
+design_pnad <- svydesign(
+  ids = ~upa_unica,
+  strata = ~estrato_unico,
+  weights = ~V1028,
+  nest = TRUE,
+  data = dadosPNADC_ANOS_RS
+)
+```
+
+```{r}
+# pacotes
+library(data.table)   # leitura/empilhamento eficiente
+library(dplyr)
+library(survey)       # pacote base para desenhos complexos
+# opcional: library(srvyr) se preferir interface tidy para summarise após criar svydesign
+
+# --------------------------------------------------------
+# 1) --- Preparar lista com bases e anos associados ----------
+# --------------------------------------------------------
+# Se você já tem os data.frames no ambiente (ex.: pnad2012, pnad2013, ...)
+# monte uma lista nomeada: nomes = ano, valores = data.frames
+# Exemplo (ajuste para os seus objetos reais):
+lista_bases <- list(
+  "2012" = dadosPNADc1VISITA_12_15,   # este objeto pode conter múltiplos anos: veja nota A abaixo
+  "2016" = dadosPNADc1VISITA_16_19,
+  "2020" = visita5_pnad,
+  "2023" = dadosPNADc1VISITA_23_24,
+  "2025" = dadosPNADc1VISITA_25
+)
+
+# Se suas bases forem arquivos persistidos, substitua por fread:
+# lista_bases <- list.files("Dados/pnad/", pattern = "pnadc_.*\\.rds$", full.names = TRUE) %>%
+#   set_names(.) %>% map(~ readRDS(.x))
+
+# --------------------------------------------------------
+# 2) --- Função que garante coluna 'ano' e harmoniza colunas que precisa
+# --------------------------------------------------------
+harmoniza_base <- function(df, ano_forcado = NULL) {
+  # usa data.table internamente para rapidez
+  dt <- as.data.table(df)
+
+  # se forçar ano (quando base é um bloco sem coluna ano)
+  if (!is.null(ano_forcado)) {
+    dt[, ano := as.integer(ano_forcado)]
+  } else {
+    # tenta detectar colunas comuns que contenham ano
+    possible_year_cols <- c("ano","Ano","ANO","year","Year","Trimestre")
+    found <- intersect(names(dt), possible_year_cols)
+    if (length(found) > 0) {
+      # prefer first matching
+      colname <- found[1]
+      if (colname == "Trimestre") {
+        # tenta extrair 4 primeiros caracteres como ano (ajuste se formato diferente)
+        dt[, ano := as.integer(substr(as.character(get("Trimestre")), 1, 4))]
+      } else {
+        dt[, ano := as.integer(get(colname))]
+      }
+    } else {
+      # sem coluna de ano: deixa NA para checar depois
+      dt[, ano := NA_integer_]
+    }
+  }
+
+  # harmonização pontual que você expressou (aplica somente se colunas existirem)
+  if (all(c("V4039C","VD4032") %in% names(dt))) {
+    dt[is.na(V4039C), V4039C := VD4032]
+  }
+  if (all(c("V4056C","VD4033") %in% names(dt))) {
+    dt[is.na(V4056C), V4056C := VD4033]
+  }
+
+  # Retorna data.table
+  dt
+}
+
+# --------------------------------------------------------
+# 3) --- Aplicar harmonização a cada base (forçando ano quando necessário)
+# --------------------------------------------------------
+# Exemplo: se 'dadosPNADc1VISITA_12_15' de fato contém 2012:2015 em uma coluna 'Ano' -> não força.
+# Se uma base representa um único ano mas não tem coluna ano, passe ano_forcado = 2012, por ex.
+
+lista_harmonizada <- list()
+for (nm in names(lista_bases)) {
+  df <- lista_bases[[nm]]
+  # Se você sabe que este objeto representa um bloco (ex: "dadosPNADc1VISITA_12_15")
+  # e não tem coluna ano, force: ano_forcado = NULL aqui tenta detectar automaticamente.
+  lista_harmonizada[[nm]] <- harmoniza_base(df, ano_forcado = NULL)
+}
+
+# --------------------------------------------------------
+# 4) --- Empilhar com data.table::rbindlist (mais eficiente para grandes bases)
+# --------------------------------------------------------
+# rbindlist(..., fill=TRUE) preserva colunas ausentes entre bases
+dados_empilhados_dt <- data.table::rbindlist(lista_harmonizada, use.names = TRUE, fill = TRUE)
+
+# --------------------------------------------------------
+# 4.1) Verifique se a coluna 'ano' foi preenchida corretamente
+# --------------------------------------------------------
+print(table(dados_empilhados_dt$ano, useNA = "ifany"))
+
+# Se houver NAs, você precisa preencher manualmente (forçar anos) antes de prosseguir.
+# Exemplo para forçar linhas de um objecto específico (caso necessário):
+# dados_empilhados_dt[<condição para identificar linhas do bloco 12_15>, ano := 2012]
+
+# --------------------------------------------------------
+# 5) --- Criar estrato e upa únicos por ano (evita conflitar IDs entre anos)
+# --------------------------------------------------------
+# ajuste nomes se suas colunas tiverem outros identificadores
+if (!("V1022" %in% names(dados_empilhados_dt))) stop("Coluna 'V1022' (estrato) não encontrada. Ajuste nomes.")
+if (!("V1023" %in% names(dados_empilhados_dt))) stop("Coluna 'V1023' (UPA/PSU) não encontrada. Ajuste nomes.")
+if (!("V1028" %in% names(dados_empilhados_dt))) stop("Coluna 'V1028' (peso) não encontrada. Ajuste nomes.")
+
+# criar identificadores "compactos" para memória (fator -> integer)
+dados_empilhados_dt[, estrato_unico := as.integer(factor(paste0(ano, "_", V1022)))]
+dados_empilhados_dt[, upa_unica     := as.integer(factor(paste0(ano, "_", V1023)))]
+
+# --------------------------------------------------------
+# 6) --- Criar objeto svydesign (linearization) a partir do data.frame (convertendo com as.data.frame para survey)
+# --------------------------------------------------------
+# convert para data.frame (survey funciona com data.frame ou data.frame-like)
+dados_empilhados_df <- as.data.frame(dados_empilhados_dt)
+
+# lidar com opções de lonely.psu
+options(survey.lonely.psu = "adjust")
+
+design_pool <- svydesign(
+  ids = ~upa_unica,
+  strata = ~estrato_unico,
+  weights = ~V1028,
+  data = dados_empilhados_df,
+  nest = TRUE
+)
+
+# --------------------------------------------------------
+# 7) --- Checagem: comparar estimativa por ano no pooled design vs design por ano separado
+# --------------------------------------------------------
+# Função que pega total de uma variável (ex.: VD4002) por ano no design pooled
+tot_pooled_by_year <- svyby(~VD4002, ~ano, design_pool, svytotal, na.rm = TRUE)
+
+# Exemplo: comparar para um ano (2020)
+ano_teste <- 2020
+p_pooled <- subset(design_pool, ano == ano_teste)
+tot_pooled_2020 <- svytotal(~VD4002, p_pooled, na.rm = TRUE)
+
+# Agora, se você tiver o design de 2020 original (design2020) calcule:
+# tot_isolado_2020 <- svytotal(~VD4002, design2020, na.rm = TRUE)
+# Compare:
+# print(tot_pooled_2020)
+# print(tot_isolado_2020)
+# valores devem coincidir (diferenças numéricas mínimas por representação numérica)
+
+# --------------------------------------------------------
+# 8) --- Uso: calcular totals / means por ano / subgrupos
+# --------------------------------------------------------
+# totais por ano:
+totais_por_ano <- svyby(~VD4002, ~ano, design_pool, svytotal, na.rm = TRUE)
+
+# média (exemplo)
+medias_por_ano <- svyby(~VD4039C, ~ano, design_pool, svymean, na.rm = TRUE)
+
+# --------------------------------------------------------
+# 9) --- Observações de desempenho
+# --------------------------------------------------------
+# - Para bases enormes: evite manter múltiplas cópias na memória; prefira processar/guardar por ano em disco e só empilhar se necessário.
+# - data.table::rbindlist é eficiente; usar factors compactos para estrato/upa reduz memória.
+# - se seu interesse for apenas estimativas por ano, calcular com objetos por ano e só juntar resultados é mais leve (e evita grandes objetos na RAM).
+
+```
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+
+
+
+
+
+
+
+
+
+

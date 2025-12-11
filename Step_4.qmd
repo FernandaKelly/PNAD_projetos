@@ -1,6 +1,6 @@
 ---
 title: "PNAD Contínua" # Título do relatório
-subtitle: "**Demandas**"
+subtitle: "**Demandas Rápidas**"
 author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
 lang: pt 
 date: "`r format(Sys.Date())`" 
@@ -41,20 +41,15 @@ library(purrr)
 ```
 
 ```{r}
-<<<<<<< HEAD
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2023_completo.RData")
-=======
-load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
 ```
 
 ```{r}
 dadosPNADc2023_RS <- dadosPNADc2023_completo %>% 
-<<<<<<< HEAD
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") 
-=======
-  dplyr::filter(UF == "Rio Grande do Sul" & Trimestre == 1) 
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+  #dplyr::filter(UF == "Rio Grande do Sul" & Trimestre == 1) 
+
 ```
 
 # Principal

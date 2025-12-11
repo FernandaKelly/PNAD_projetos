@@ -1,6 +1,6 @@
 ---
 title: "PNAD Contínua" # Título do relatório
-subtitle: "**Pacote: PNADcIBGE**"
+subtitle: "**Pacote: PNADcIBGE - 2023 (modelo)**"
 author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
 lang: pt 
 date: "`r format(Sys.Date())`" 

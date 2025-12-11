@@ -49,16 +49,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2012_completo <- dadosPNADc2012_completo %>% 
-    dplyr::filter(UF == "Rio Grande do Sul") %>% 
-     #ANOS 2012 - 2015 USAR:
-     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
-  
-    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+         dplyr::filter(UF == "Rio Grande do Sul") %>% 
     dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -523,13 +514,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2013_completo <- dadosPNADc2013_completo %>% 
-  #ANOS 2012 - 2015 USAR:
-     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -996,13 +980,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2014_completo <- dadosPNADc2014_completo %>% 
-  #ANOS 2012 - 2015 USAR:
-     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",

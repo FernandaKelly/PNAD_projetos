@@ -48,14 +48,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```
 
 ```{r}
-dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>% 
-  dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
-     
+dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>%
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -520,12 +513,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2013 <- dadosPNADc1VISITA_2013 %>% 
-     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -997,12 +984,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2014 <- dadosPNADc1VISITA_2014 %>% 
-     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
-                                       VD4032,
-                                       V4039C),
-                   V4056C = base::ifelse(is.na(V4056C),
-                                       VD4033,
-                                       V4056C)) %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",

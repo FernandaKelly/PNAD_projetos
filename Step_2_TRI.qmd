@@ -48,7 +48,14 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```
 
 ```{r}
-dadosPNADc2012_completo <- dadosPNADc2012_completo %>% 
+dadosPNADc2012_completo <- dadosPNADc2012_completo %>%
+  #ANOS 2012 - 2015 USAR:
+     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
+                                       VD4032,
+                                       V4039C),
+                   V4056C = base::ifelse(is.na(V4056C),
+                                       VD4033,
+                                       V4056C)) %>% 
      
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -513,6 +520,33 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc2012_completo, d
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2012,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2012, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2012,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2012,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2012, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2012,
+               
+               "N PRINCIPAL"                   = table_1P_2012,
+               "HABITUAL PRINCIPAL"            = table_2P_2012, 
+               "EFETIVA PRINCIPAL"             = table_3P_2012,
+       
+              "N P&S"                          = table_1PS_2012,
+              "HABITUAL P&S"                   = table_2PS_2012,
+              "EFETIVA P&S"                    = table_3PS_2012,
+                               
+               "N SECUNDÁRIO"                  = table_1S_2012,
+               "HABITUAL SECUNDÁRIO"           = table_2S_2012, 
+               "EFETIVA SECUNDÁRIO"            = table_3S_2012)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2012.xlsx"))
+```
+
+
+
 # 2013
 
 ```{r}
@@ -521,6 +555,13 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2013_completo <- dadosPNADc2013_completo %>% 
+  #ANOS 2012 - 2015 USAR:
+     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
+                                       VD4032,
+                                       V4039C),
+                   V4056C = base::ifelse(is.na(V4056C),
+                                       VD4033,
+                                       V4056C)) %>% 
      
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -984,6 +1025,32 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2013, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2013,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2013, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2013,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2013,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2013, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2013,
+               
+               "N PRINCIPAL"                   = table_1P_2013,
+               "HABITUAL PRINCIPAL"            = table_2P_2013, 
+               "EFETIVA PRINCIPAL"             = table_3P_2013,
+               
+                       
+              "N P&S"                          = table_1PS_2013,
+              "HABITUAL P&S"                   = table_2PS_2013,
+               "EFETIVA P&S"                   = table_3PS_2013,
+                               
+               "N SECUNDÁRIO"                  = table_1S_2013,
+               "HABITUAL SECUNDÁRIO"           = table_2S_2013,
+               "EFETIVA SECUNDÁRIO"            = table_3S_2013)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2013.xlsx"))
+```
+
 # 2014
 
 ```{r}
@@ -992,6 +1059,13 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2014_completo <- dadosPNADc2014_completo %>% 
+  #ANOS 2012 - 2015 USAR:
+     dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
+                                       VD4032,
+                                       V4039C),
+                   V4056C = base::ifelse(is.na(V4056C),
+                                       VD4033,
+                                       V4056C)) %>% 
      
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -1455,6 +1529,32 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2014, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2014,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2014, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2014,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2014,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2014, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2014,
+               
+               "N PRINCIPAL"                    = table_1P_2014,
+               "HABITUAL PRINCIPAL"             = table_2P_2014, 
+               "EFETIVA PRINCIPAL"              = table_3P_2014,
+               
+                       
+              "N P&S"                          = table_1PS_2014,
+              "HABITUAL P&S"                   = table_2PS_2014,
+               "EFETIVA P&S"                   = table_3PS_2014,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2014,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2014,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2014)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2014.xlsx"))
+```
+
 # 2015
 ```{r}
 load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2015_completo.RData")
@@ -1462,7 +1562,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc2015_completo <- dadosPNADc2015_completo %>% 
-     
      #ANO 2015 USAR:
      dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
                                         VD4032,
@@ -1932,6 +2031,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2015, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2015,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2015, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2015,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2015,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2015, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2015,
+               
+               "N PRINCIPAL"                    = table_1P_2015,
+               "HABITUAL PRINCIPAL"             = table_2P_2015, 
+               "EFETIVA PRINCIPAL"              = table_3P_2015,
+               
+                       
+              "N P&S"                          = table_1PS_2015,
+              "HABITUAL P&S"                   = table_2PS_2015,
+               "EFETIVA P&S"                   = table_3PS_2015,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2015,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2015,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2015)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2015.xlsx"))
+```
 
 # 2016
 
@@ -2404,6 +2528,32 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2016, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2016,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2016, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2016,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2016,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2016, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2016,
+               
+               "N PRINCIPAL"                    = table_1P_2016,
+               "HABITUAL PRINCIPAL"             = table_2P_2016, 
+               "EFETIVA PRINCIPAL"              = table_3P_2016,
+               
+                       
+              "N P&S"                          = table_1PS_2016,
+              "HABITUAL P&S"                   = table_2PS_2016,
+               "EFETIVA P&S"                   = table_3PS_2016,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2016,
+               "HABITUAL SECUND
+              ÁRIO"            = table_2S_2016,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2016)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2016.xlsx"))
+```
 
 # 2017
 
@@ -2876,6 +3026,33 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2017, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2017,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2017, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2017,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2017,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2017, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2017,
+               
+               "N PRINCIPAL"                    = table_1P_2017,
+               "HABITUAL PRINCIPAL"             = table_2P_2017, 
+               "EFETIVA PRINCIPAL"              = table_3P_2017,
+               
+                       
+              "N P&S"                          = table_1PS_2017,
+              "HABITUAL P&S"                   = table_2PS_2017,
+               "EFETIVA P&S"                   = table_3PS_2017,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2017,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2017,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2017)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2017.xlsx"))
+```
+
+
 # 2018
 ```{r}
 load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2018_completo.RData")
@@ -3346,7 +3523,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2018, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2018,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2018, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2018,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2018,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2018, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2018,
+               
+               "N PRINCIPAL"                    = table_1P_2018,
+               "HABITUAL PRINCIPAL"             = table_2P_2018, 
+               "EFETIVA PRINCIPAL"              = table_3P_2018,
+               
+                       
+              "N P&S"                          = table_1PS_2018,
+              "HABITUAL P&S"                   = table_2PS_2018,
+               "EFETIVA P&S"                   = table_3PS_2018,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2018,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2018,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2018)
 
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2018.xlsx"))
+```
 
 
 # 2019
@@ -3820,6 +4021,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2019, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2019,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2019, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2019,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2019,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2019, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2019,
+               
+               "N PRINCIPAL"                    = table_1P_2019,
+               "HABITUAL PRINCIPAL"             = table_2P_2019, 
+               "EFETIVA PRINCIPAL"              = table_3P_2019,
+               
+                       
+              "N P&S"                          = table_1PS_2019,
+              "HABITUAL P&S"                   = table_2PS_2019,
+               "EFETIVA P&S"                   = table_3PS_2019,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2019,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2019,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2019)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2019.xlsx"))
+```
 
 # 2020
 
@@ -4293,6 +4519,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2020, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2020,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2020, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2020,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2020,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2020, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2020,
+               
+               "N PRINCIPAL"                    = table_1P_2020,
+               "HABITUAL PRINCIPAL"             = table_2P_2020, 
+               "EFETIVA PRINCIPAL"              = table_3P_2020,
+               
+                       
+              "N P&S"                          = table_1PS_2020,
+              "HABITUAL P&S"                   = table_2PS_2020,
+               "EFETIVA P&S"                   = table_3PS_2020,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2020,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2020,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2020)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2020.xlsx"))
+```
 
 # 2021
 
@@ -4765,6 +5016,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2021, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2021,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2021, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2021,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2021,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2021, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2021,
+               
+               "N PRINCIPAL"                    = table_1P_2021,
+               "HABITUAL PRINCIPAL"             = table_2P_2021, 
+               "EFETIVA PRINCIPAL"              = table_3P_2021,
+               
+                       
+              "N P&S"                          = table_1PS_2021,
+              "HABITUAL P&S"                   = table_2PS_2021,
+               "EFETIVA P&S"                   = table_3PS_2021,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2021,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2021,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2021)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2021.xlsx"))
+```
 
 # 2022
 
@@ -5235,6 +5511,32 @@ table_3PS_2022 <- dadosPNADc_PS_6SV %>%
 rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2022, dadosPNADc_PS_2, dadosPNADc_PS_2SV, dadosPNADc_PS_4, dadosPNADc_PS_4SV, dadosPNADc_PS_6, dadosPNADc_PS_6SV, dadosPNADc1VISITA_2022PR, dadosPNADc1VISITA_2022SEC, dadosPNADc1VISITA_2022SRPR, dadosPNADc1VISITA_2022SRSEC)
 
 gc()
+```
+
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2022,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2022, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2022,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2022,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2022, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2022,
+               
+               "N PRINCIPAL"                    = table_1P_2022,
+               "HABITUAL PRINCIPAL"             = table_2P_2022, 
+               "EFETIVA PRINCIPAL"              = table_3P_2022,
+               
+                       
+              "N P&S"                          = table_1PS_2022,
+              "HABITUAL P&S"                   = table_2PS_2022,
+               "EFETIVA P&S"                   = table_3PS_2022,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2022,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2022,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2022)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2022.xlsx"))
 ```
 
 # 2023
@@ -5708,6 +6010,31 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2023, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2023,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2023, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2023,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2023,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2023, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2023,
+               
+               "N PRINCIPAL"                    = table_1P_2023,
+               "HABITUAL PRINCIPAL"             = table_2P_2023, 
+               "EFETIVA PRINCIPAL"              = table_3P_2023,
+               
+                       
+              "N P&S"                          = table_1PS_2023,
+              "HABITUAL P&S"                   = table_2PS_2023,
+               "EFETIVA P&S"                   = table_3PS_2023,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2023,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2023,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2023)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2023.xlsx"))
+```
 
 # 2024
 
@@ -6180,6 +6507,32 @@ rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2024, da
 gc()
 ```
 
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2024,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2024, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2024,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2024,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2024, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2024,
+               
+               "N PRINCIPAL"                    = table_1P_2024,
+               "HABITUAL PRINCIPAL"             = table_2P_2024, 
+               "EFETIVA PRINCIPAL"              = table_3P_2024,
+               
+                       
+              "N P&S"                          = table_1PS_2024,
+              "HABITUAL P&S"                   = table_2PS_2024,
+               "EFETIVA P&S"                   = table_3PS_2024,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2024,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2024,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2024)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2024.xlsx"))
+```
+
 # 2025
 
 
@@ -6650,6 +7003,32 @@ table_3PS_2025 <- dadosPNADc_PS_6SV %>%
 rm(dadosPNADc_PS_1, dadosPNADc_PS_3, dadosPNADc_PS_5, dadosPNADc1VISITA_2025, dadosPNADc_PS_2, dadosPNADc_PS_2SV, dadosPNADc_PS_4, dadosPNADc_PS_4SV, dadosPNADc_PS_6, dadosPNADc_PS_6SV, dadosPNADc1VISITA_2025PR, dadosPNADc1VISITA_2025SEC, dadosPNADc1VISITA_2025SRPR, dadosPNADc1VISITA_2025SRSEC)
 
 gc()
+```
+
+```{r}
+sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2025,
+               "HABITUAL TOTAL PRINCIPAL"      = table_2TP_2025, 
+               "EFETIVA TOTAL PRINCIPAL"       = table_3TP_2025,
+               
+               "N TOTAL SECUNDÁRIO"            = table_1TS_2025,
+               "HABITUAL TOTAL SECUNDÁRIO"     = table_2TS_2025, 
+               "EFETIVA TOTAL SECUNDÁRIO"      = table_3TS_2025,
+               
+               "N PRINCIPAL"                    = table_1P_2025,
+               "HABITUAL PRINCIPAL"             = table_2P_2025, 
+               "EFETIVA PRINCIPAL"              = table_3P_2025,
+               
+                       
+              "N P&S"                          = table_1PS_2025,
+              "HABITUAL P&S"                   = table_2PS_2025,
+               "EFETIVA P&S"                   = table_3PS_2025,
+                               
+               "N SECUNDÁRIO"                   = table_1S_2025,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2025,
+               "EFETIVA SECUNDÁRIO"             = table_3S_2025)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2025.xlsx"))
 ```
 
 # Empilhamento

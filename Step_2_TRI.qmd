@@ -39,6 +39,9 @@ library(foreign)
 library(srvyr)
 library(reactable)
 library(purrr)
+library(readxl)
+library(purrr)
+library(dplyr)
 ```
 
 # 2012
@@ -7008,6 +7011,151 @@ writexl::write_xlsx(sheets,
 ```
 
 # Empilhamento
+
+```{r}
+
+anos <- 2012:2025
+
+tabPSTRI_NTOTALPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "N TOTAL PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_HABITUALTOTALPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "HABITUAL TOTAL PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_EFETIVATOTALPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "EFETIVA TOTAL PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_NTOTALSECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "N TOTAL SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_HABITUALTOTALSECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "HABITUAL TOTAL SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_EFETIVATOTALSECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "EFETIVA TOTAL SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_NPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "N PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_HABITUALPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "HABITUAL PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_EFETIVAPRINCIPAL <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "EFETIVA PRINCIPAL"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_NSECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "N SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_HABITUALSECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "HABITUAL SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_EFETIVASECUNDARIO <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "EFETIVA SECUNDÁRIO"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_NPS <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "N P&S"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_HABITUALPS <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "HABITUAL P&S"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+tabPSTRI_EFETIVAPS <- map_dfr(
+  anos,
+  ~ read_excel(
+    path  = glue::glue("Dados/BR_TRI/tabPSTRI_{.x}.xlsx"),
+    sheet = "EFETIVA P&S"
+  ) %>%
+    mutate(Ano = .x)
+)
+
+
+```
+
+
+
 
 ```{r}
 table_1TP <- dplyr::bind_rows(table_1TP_2012,

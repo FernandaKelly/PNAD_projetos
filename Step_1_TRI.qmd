@@ -455,7 +455,6 @@ table_1PS_2012 <- dadosPNADc_PS_2SV %>%
 ### Horas habituais
 
 ```{r}
-
 dadosPNADc_PS_3 <- dadosPNADc2012_completo %>%
   dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
   tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 

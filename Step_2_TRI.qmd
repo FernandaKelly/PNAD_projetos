@@ -1552,6 +1552,7 @@ writexl::write_xlsx(sheets,
 ```
 
 # 2015
+
 ```{r}
 load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2015_completo.RData")
 ```
@@ -2555,8 +2556,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP_2016,
                "EFETIVA P&S"                   = table_3PS_2016,
                                
                "N SECUNDÁRIO"                   = table_1S_2016,
-               "HABITUAL SECUND
-              ÁRIO"            = table_2S_2016,
+               "HABITUAL SECUNDÁRIO"            = table_2S_2016,
                "EFETIVA SECUNDÁRIO"             = table_3S_2016)
 
 writexl::write_xlsx(sheets, 
@@ -2970,7 +2970,8 @@ table_1PS_2017 <- dadosPNADc_PS_2SV %>%
   # dplyr::filter(!(is.na(V4044))) %>% 
   # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+  dplyr::summarise(freq = srvyr::survey_total(total_principal,
+                                              vartype = c("se", "ci", "var", "cv")))
 
 ```
 
@@ -3569,6 +3570,9 @@ writexl::write_xlsx(sheets,
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/BR_TRI/tabPSTRI_2018.xlsx"))
 ```
 
+```{r}
+rm(list = ls())
+```
 
 # 2019
 
@@ -7244,7 +7248,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = tabPSTRI_NTOTALPRINCIPAL,
               "EFETIVA P&S"                    = tabPSTRI_EFETIVAPS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSTRI_BR_1.xlsx"))
+           paste0("C:/Users/tomas-torezani/OneDrive - Governo do Estado do Rio Grande do Sul/Arquivos de Fernanda Kelly Romeiro Silva - PNAD/PNAD_projetos/Dados/tabPSTRI_BR_2.xlsx"))
 ```
 
 

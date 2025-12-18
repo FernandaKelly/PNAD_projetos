@@ -6968,7 +6968,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
               "EFETIVA P&S"                    = table_3PS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_2.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_3.xlsx"))
 ```
 
 

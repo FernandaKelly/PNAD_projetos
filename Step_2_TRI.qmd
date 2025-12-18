@@ -7248,7 +7248,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = tabPSTRI_NTOTALPRINCIPAL,
               "EFETIVA P&S"                    = tabPSTRI_EFETIVAPS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/tomas-torezani/OneDrive - Governo do Estado do Rio Grande do Sul/Arquivos de Fernanda Kelly Romeiro Silva - PNAD/PNAD_projetos/Dados/tabPSTRI_BR_2.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSTRI_BR_3.xlsx"))
 ```
 
 

@@ -46,7 +46,7 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 
 ```{r}
 dadosPNADc2023_BR <- dadosPNADc2023_completo %>% 
-    #dplyr::filter(UF == "Rio Grande do Sul") %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
     # ANOS 2012 - 2015 USAR:
     # dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
     #                                   VD4032,
@@ -426,7 +426,7 @@ table_3TS <- dadosPNADc2023_BRSRSEC %>%
 
 ```{r}
 
-dadosPNADc_PS_1 <- dadosPNADC_ANOS_RS %>%
+dadosPNADc_PS_1 <- dadosPNADc2023_BR %>%
   #dplyr::filter(!(is.na(V4044))) %>% 
   dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
   tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
@@ -435,23 +435,19 @@ dadosPNADc_PS_1 <- dadosPNADC_ANOS_RS %>%
   dplyr::group_by(atividade) %>%
   dplyr::summarise(total = n())
 
-dadosPNADc_PS_2 <- dadosPNADC_ANOS_RS %>% 
+dadosPNADc_PS_2 <- dadosPNADc2023_BR %>% 
   dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
   dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
 
 
 dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
 dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
 
 
-table_1PS <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+table_1PS <- dadosPNADc_PS_2SV %>%  
   dplyr::group_by(cod_SCN_PR, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+  dplyr::summarise(freq = srvyr::survey_total(total_principal,
+                                              vartype = c("se", "ci", "var", "cv")))
 
 reactable::reactable(table_1PS, searchable = TRUE, minRows = 10, defaultPageSize = 10)
 
@@ -524,11 +520,6 @@ reactable::reactable(table_3PS, searchable = TRUE, minRows = 10, defaultPageSize
 
 
 ```
-
-# Mensagem
-
-
-
 
 
 

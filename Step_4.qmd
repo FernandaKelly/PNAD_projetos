@@ -47,7 +47,6 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 ```{r}
 dadosPNADc2023_RS <- dadosPNADc2023_completo %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") 
-
   #dplyr::filter(UF == "Rio Grande do Sul" & Trimestre == 1) 
 
 ```

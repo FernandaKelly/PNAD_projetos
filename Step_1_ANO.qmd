@@ -50,11 +50,8 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
+
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -416,101 +413,6 @@ table_3TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2012 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2012 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2012 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2012 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2012 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2012 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2012 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(VD4032, VD4033, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2012 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2012 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
 # 2013
 
 ```{r}
@@ -520,11 +422,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2013 <- dadosPNADc1VISITA_2013 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -886,100 +784,6 @@ table_3TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2013 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2013 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2013 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2013 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2013 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2013 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2013 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(VD4032, VD4033, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2013 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2013 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
 
 
 # 2014
@@ -991,11 +795,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2014 <- dadosPNADc1VISITA_2014 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -1357,102 +1157,6 @@ table_3TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2014 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2014 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2014 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2014 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2014 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2014 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2014 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(VD4032, VD4033, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2014 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2014 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
 # 2015
 
 ```{r}
@@ -1462,11 +1166,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2015 <- dadosPNADc1VISITA_2015 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
-  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
      #ANO 2015 USAR:
      dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
                                         VD4032,
@@ -1835,103 +1535,6 @@ table_3TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2015 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2015 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2015 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2015 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2015 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2015 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2015 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2015 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2015 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-
 # 2016
 
 ```{r}
@@ -1941,11 +1544,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2016 <- dadosPNADc1VISITA_2016 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>% 
-<<<<<<< HEAD
-  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -2307,102 +1906,6 @@ table_3TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2016 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2016 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2016 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2016 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2016 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2016 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2016 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2016 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2016 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
 # 2017
 
 ```{r}
@@ -2412,11 +1915,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2017 <- dadosPNADc1VISITA_2017 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -2778,101 +2277,6 @@ table_3TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2017 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2017 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2017 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2017 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2017 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2017 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2017 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2017 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2017 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
 
 # 2018
 
@@ -2882,11 +2286,9 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2018 <- dadosPNADc1VISITA_2018 %>% 
-<<<<<<< HEAD
-    dplyr::filter(UF == "Rio Grande do Sul") %>% dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
-=======
-    dplyr::filter(UF == "Rio Grande do Sul") %>% dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
+    dplyr::filter(UF == "Rio Grande do Sul") %>%
+  dplyr::mutate(Trimestre = base::factor(Trimestre,
+                                         levels = c("1", "2", "3", "4"))) %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -3248,105 +2650,6 @@ table_3TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2018 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2018 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2018 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2018 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2018 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2018 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2018 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2018 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2018 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-
-
-
 # 2019
 
 ```{r}
@@ -3356,11 +2659,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -3722,101 +3021,6 @@ table_3TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2019 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2019 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2019 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2019 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2019 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2019 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2019 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2019 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2019 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
 
 # 2020
 
@@ -3828,11 +3032,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc5VISITA_2020 <- dadosPNADc5VISITA_2020 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -4194,103 +3394,6 @@ table_3TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc5VISITA_2020 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc5VISITA_2020 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2020 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc5VISITA_2020 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc5VISITA_2020 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2020 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc5VISITA_2020 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc5VISITA_2020 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2020 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-
 # 2021
 
 ```{r}
@@ -4300,11 +3403,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc5VISITA_2021 <- dadosPNADc5VISITA_2021 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>%
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -4666,101 +3765,6 @@ table_3TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc5VISITA_2021 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc5VISITA_2021 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2021 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc5VISITA_2021 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc5VISITA_2021 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2021 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc5VISITA_2021 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc5VISITA_2021 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2021 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
 
 # 2022
 
@@ -4771,11 +3775,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc5VISITA_2022 <- dadosPNADc5VISITA_2022 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>% 
-<<<<<<< HEAD
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-=======
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,                                              Trimestre == "Trimestre_2" ~ 2,                                              Trimestre == "Trimestre_3" ~ 3,                                              Trimestre == "Trimestre_4" ~ 4),     Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -5137,100 +4137,6 @@ table_3TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc5VISITA_2022 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc5VISITA_2022 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2022 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc5VISITA_2022 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc5VISITA_2022 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2022 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc5VISITA_2022 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc5VISITA_2022 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2022 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
 
 
 # 2023
@@ -5604,102 +4510,6 @@ table_3TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2023 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2023 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2023 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2023 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2023 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2023 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2023 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2023 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2023 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
 
 # 2024
 
@@ -5710,15 +4520,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2024 <- dadosPNADc1VISITA_2024 %>% 
     dplyr::filter(UF == "Rio Grande do Sul") %>% 
-<<<<<<< HEAD
-    dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")))     %>%
-=======
-    dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,
-                                             Trimestre == "Trimestre_2" ~ 2,
-                                             Trimestre == "Trimestre_3" ~ 3,
-                                             Trimestre == "Trimestre_4" ~ 4),
-    Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%     %>%
->>>>>>> 31042bd6ae5f87a364a0c3ea7a448414b8711566
+    dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>% 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -6080,100 +4882,6 @@ table_3TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_2024 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_2024 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2024 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_2024 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_2024 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2024 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_2024 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_2024 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2024 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
 
 
 # 2025
@@ -6549,100 +5257,6 @@ table_3TS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 ```
 
 
-## Principal & Secundário
-
-### Contagem
-
-```{r}
-
-dadosPNADc_PS_1 <- dadosPNADc1VISITA_25 %>%
-  #dplyr::filter(!(is.na(V4044))) %>% 
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(total = n())
-
-dadosPNADc_PS_2 <- dadosPNADc1VISITA_25 %>% 
-  dplyr::left_join(dadosPNADc_PS_1, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = total)
-# %>%
-#   dplyr::left_join(teste1, by = c("cod_SCN_SEC" = "atividade")) %>%
-#   dplyr::rename(total_secundario  = total)
-
-
-dadosPNADc_PS_2  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_2)
-dadosPNADc_PS_2SV <- srvyr::as_survey(dadosPNADc_PS_2)
-
-
-table_1PS_2025 <- dadosPNADc_PS_2SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-```
-
-
-### Horas habituais
-
-```{r}
-
-dadosPNADc_PS_3 <- dadosPNADc1VISITA_25 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaH = base::sum(V4039, V4056, na.rm = TRUE))
-
-dadosPNADc_PS_4 <- dadosPNADc1VISITA_25 %>% 
-  dplyr::left_join(dadosPNADc_PS_3, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaH) 
-
-dadosPNADc_PS_4  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_4)
-dadosPNADc_PS_4SV <- srvyr::as_survey(dadosPNADc_PS_4)
-
-
-table_2PS_2025 <- dadosPNADc_PS_4SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaH = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-```
-
-
-### Horas efetivas
-
-```{r}
-
-dadosPNADc_PS_5 <- dadosPNADc1VISITA_25 %>%
-  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
-  tidyr::pivot_longer(cols = c(cod_SCN_PR, cod_SCN_SEC), 
-                      names_to = "tipo",
-                      values_to = "atividade") %>%
-  dplyr::group_by(atividade) %>%
-  dplyr::summarise(somaE = base::sum(V4039C, V4056C, na.rm = TRUE))
-
-dadosPNADc_PS_6 <- dadosPNADc1VISITA_25 %>% 
-  dplyr::left_join(dadosPNADc_PS_5, by = c("cod_SCN_PR" = "atividade")) %>% 
-  dplyr::rename(total_principal = somaE)
-
-dadosPNADc_PS_6  <- PNADcIBGE::pnadc_design(dadosPNADc_PS_6)
-dadosPNADc_PS_6SV <- srvyr::as_survey(dadosPNADc_PS_6)
-
-table_3PS_2025 <- dadosPNADc_PS_6SV %>% 
-  # dplyr::filter(!(is.na(V4044))) %>% 
-  # dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
-  dplyr::summarise(somaE = srvyr::survey_total(total_principal,
-                                                   na.rm = TRUE,
-                                                   vartype = c("se", "ci", "var", "cv")))
-
-```
 
 # Empilhamento
 
@@ -6840,55 +5454,9 @@ table_3S <- dplyr::bind_rows(table_3S_2012,
                              table_3S_2025
                               )
 
-table_1PS <- dplyr::bind_rows(table_1PS_2012,
-                              table_1PS_2013,
-                              table_1PS_2014,
-                              table_1PS_2015,
-                              table_1PS_2016,
-                              table_1PS_2017,
-                              table_1PS_2018,
-                              table_1PS_2019,
-                              table_1PS_2020,
-                              table_1PS_2021,
-                              table_1PS_2022,
-                              table_1PS_2023,
-                              table_1PS_2024,
-                              table_1PS_2025
-                              )
-
-table_2PS <- dplyr::bind_rows(table_2PS_2012,
-                              table_2PS_2013,
-                              table_2PS_2014,
-                              table_2PS_2015,
-                              table_2PS_2016,
-                              table_2PS_2017,
-                              table_2PS_2018,
-                              table_2PS_2019,
-                              table_2PS_2020,
-                              table_2PS_2021,
-                              table_2PS_2022,
-                              table_2PS_2023,
-                              table_2PS_2024,
-                              table_2PS_2025
-                              )
-
-table_3PS <- dplyr::bind_rows(table_3PS_2012,
-                              table_3PS_2013,
-                              table_3PS_2014,
-                              table_3PS_2015,
-                              table_3PS_2016,
-                              table_3PS_2017,
-                              table_3PS_2018,
-                              table_3PS_2019,
-                              table_3PS_2020,
-                              table_3PS_2021,
-                              table_3PS_2022,
-                              table_3PS_2023,
-                              table_3PS_2024,
-                              table_3PS_2025
-                              )
-
 ```
+
+
 
 
 # Excel
@@ -6908,14 +5476,10 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                        
                "N SECUNDÁRIO"                  = table_1S,
                "HABITUAL SECUNDÁRIO"           = table_2S, 
-               "EFETIVA SECUNDÁRIO"            = table_3S,
-                       
-              "N P&S"                          = table_1PS,
-              "HABITUAL P&S"                   = table_2PS,
-              "EFETIVA P&S"                    = table_3PS)
+               "EFETIVA SECUNDÁRIO"            = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_8.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_9.xlsx"))
 ```
 
 

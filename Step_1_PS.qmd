@@ -38,6 +38,7 @@ library(foreign)
 library(srvyr)
 library(reactable)
 library(purrr)
+library(readxl)
 ```
 
 # Dados
@@ -47,57 +48,260 @@ library(purrr)
 ### Rio Grande do Sul (RS)
 
 ```{r}
-anos <- 2012:2025
-tabPSTRI_NPRINCIPAL <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "N PRINCIPAL"
-  ) 
+################################################
+# LEITURA DA BASE DE DADOS
+################################################
+
+abas <- c(
+  "N PRINCIPAL",
+  "HABITUAL PRINCIPAL",
+  "EFETIVA PRINCIPAL",
+  "N SECUNDÁRIO",
+  "HABITUAL SECUNDÁRIO",
+  "EFETIVA SECUNDÁRIO"
 )
 
-tabPSTRI_HABITUALPRINCIPAL <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "HABITUAL PRINCIPAL"
-  ) 
+tabPSTRI_RS <- map_dfr(
+  abas,
+  ~ read_excel("Dados/tabPSTRI_RS_4.xlsx", sheet = .x),
+  .id = "tipo_principal"
 )
 
-tabPSTRI_EFETIVAPRINCIPAL <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "EFETIVA PRINCIPAL"
-  ) 
-)
 
-tabPSTRI_NSECUNDARIO <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "N SECUNDÁRIO"
-  )
-)
+################################################
+# SOMA DOS IGUAIS
+################################################
 
-tabPSTRI_HABITUALSECUNDARIO <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "HABITUAL SECUNDÁRIO"
-  ) 
-)
-
-tabPSTRI_EFETIVASECUNDARIO <- map_dfr(
-  anos,
-  ~ read_excel(
-    path  = glue::glue("Dados/tabPSTRI_RS_4.xlsx"),
-    sheet = "EFETIVA SECUNDÁRIO"
-  ) 
-)
+table_TRIRS_PS <- tabPSTRI_RS %>% 
+  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
+                                             Trimestre == "Trimestre_2" ~ "2",
+                                             Trimestre == "Trimestre_3" ~ "3",
+                                             Trimestre == "Trimestre_4" ~ "4",
+                                             TRUE ~ Trimestre),
+                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
+                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(soma_N             = base::sum(freq,
+                                               na.rm = TRUE),
+                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
+                                               na.rm = TRUE),
+                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
+                                               na.rm = TRUE) ) %>% 
+  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::distinct()
+  
 
 
 ```
+
+### Brasil (BR)
+
+```{r}
+################################################
+# LEITURA DA BASE DE DADOS
+################################################
+
+abas <- c(
+  "N PRINCIPAL",
+  "HABITUAL PRINCIPAL",
+  "EFETIVA PRINCIPAL",
+  "N SECUNDÁRIO",
+  "HABITUAL SECUNDÁRIO",
+  "EFETIVA SECUNDÁRIO"
+)
+
+tabPSTRI_BR <- map_dfr(
+  abas,
+  ~ read_excel("Dados/tabPSTRI_BR_3.xlsx", sheet = .x),
+  .id = "tipo_principal"
+)
+
+
+################################################
+# SOMA DOS IGUAIS
+################################################
+
+table_TRIBR_PS <- tabPSTRI_BR %>% 
+  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
+                                             Trimestre == "Trimestre_2" ~ "2",
+                                             Trimestre == "Trimestre_3" ~ "3",
+                                             Trimestre == "Trimestre_4" ~ "4",
+                                             TRUE ~ Trimestre),
+                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
+                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(soma_N             = base::sum(freq,
+                                               na.rm = TRUE),
+                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
+                                               na.rm = TRUE),
+                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
+                                               na.rm = TRUE) ) %>% 
+  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::distinct()
+  
+
+
+```
+
+## Ano
+
+### Rio Grande do Sul (RS)
+
+```{r}
+################################################
+# LEITURA DA BASE DE DADOS
+################################################
+
+abas <- c(
+  "N PRINCIPAL",
+  "HABITUAL PRINCIPAL",
+  "EFETIVA PRINCIPAL",
+  "N SECUNDÁRIO",
+  "HABITUAL SECUNDÁRIO",
+  "EFETIVA SECUNDÁRIO"
+)
+
+tabPSANO_RS <- map_dfr(
+  abas,
+  ~ read_excel("Dados/tabPSANOS_RS_9.xlsx", sheet = .x),
+  .id = "tipo_principal"
+)
+
+
+################################################
+# SOMA DOS IGUAIS
+################################################
+
+table_ANORS_PS <- tabPSANO_RS %>% 
+  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
+                                             Trimestre == "Trimestre_2" ~ "2",
+                                             Trimestre == "Trimestre_3" ~ "3",
+                                             Trimestre == "Trimestre_4" ~ "4",
+                                             TRUE ~ Trimestre),
+                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
+                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(soma_N             = base::sum(freq,
+                                               na.rm = TRUE),
+                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
+                                               na.rm = TRUE),
+                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
+                                               na.rm = TRUE) ) %>% 
+  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::distinct()
+  
+
+
+```
+
+### Brasil (BR)
+
+```{r}
+################################################
+# LEITURA DA BASE DE DADOS
+################################################
+
+abas <- c(
+  "N PRINCIPAL",
+  "HABITUAL PRINCIPAL",
+  "EFETIVA PRINCIPAL",
+  "N SECUNDÁRIO",
+  "HABITUAL SECUNDÁRIO",
+  "EFETIVA SECUNDÁRIO"
+)
+
+tabPSANO_BR <- map_dfr(
+  abas,
+  ~ read_excel("Dados/tabPSANOS_BR_4.xlsx", sheet = .x),
+  .id = "tipo_principal"
+)
+
+
+################################################
+# SOMA DOS IGUAIS
+################################################
+
+table_ANOBR_PS <- tabPSANO_BR %>% 
+  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
+                                             Trimestre == "Trimestre_2" ~ "2",
+                                             Trimestre == "Trimestre_3" ~ "3",
+                                             Trimestre == "Trimestre_4" ~ "4",
+                                             TRUE ~ Trimestre),
+                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
+                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(soma_N             = base::sum(freq,
+                                               na.rm = TRUE),
+                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
+                                               na.rm = TRUE),
+                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
+                                               na.rm = TRUE) ) %>% 
+  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::distinct()
+  
+
+
+```
+
+# Excel
+
+```{r}
+sheets <- list("N TOTAL PRINCIPAL" = table_1TP,
+               "HABITUAL TOTAL"    = table_2TP, 
+               "EFETIVA TOTAL"     = table_3TP,
+               
+               "N TOTAL SECUNDÁRIO" = table_1TS,
+               "HABITUAL TOTAL"     = table_2TS, 
+               "EFETIVA TOTAL"      = table_3TS,
+               
+               "N PRINCIPAL"          = table_1P,
+               "HABITUAL PRINCIPAL"   = table_2P, 
+               "EFETIVA PRINCIPAL"    = table_3P,
+               
+               "N SECUNDÁRIO"          = table_1S,
+               "HABITUAL SECUNDÁRIO"   = table_2S, 
+               "EFETIVA SECUNDÁRIO"    = table_3S,
+                       
+              "N P&S"                          = table_1PS,
+              "HABITUAL P&S"                   = table_2PS,
+              "EFETIVA P&S"                    = table_3PS)
+
+writexl::write_xlsx(table_RS_PS, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_TRIRS_PS.xlsx"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

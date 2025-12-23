@@ -454,10 +454,6 @@ reactable::reactable(table_1PS, searchable = TRUE, minRows = 10, defaultPageSize
 
 ```
 
-
-
-
-
 ## Horas habituais
 
 ```{r}
@@ -754,6 +750,15 @@ table_3PS <- dadosPNADc_PS_6SV %>%
     )
   )
 
+
+
+
+##########################################
+# DESCONECTAR O DBI
+##########################################
+
+dbDisconnect(con, shutdown = TRUE)
+
 ```
 
 
@@ -812,14 +817,11 @@ sheets <- list("N TOTAL PRINCIPAL" = table_1TP,
                        
               "N P&S"                          = table_1PS,
               "HABITUAL P&S"                   = table_2PS,
-              "EFETIVA P&S"                    = table_3PS))
+              "EFETIVA P&S"                    = table_3PS)
 
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_BR_3.xlsx"))
 ```
-
-
-
 
 
 

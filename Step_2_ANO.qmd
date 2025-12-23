@@ -5550,53 +5550,6 @@ table_3S <- dplyr::bind_rows(table_3S_2012,
                              table_3S_2025
                               )
 
-table_1PS <- dplyr::bind_rows(table_1PS_2012,
-                              table_1PS_2013,
-                              table_1PS_2014,
-                              table_1PS_2015,
-                              table_1PS_2016,
-                              table_1PS_2017,
-                              table_1PS_2018,
-                              table_1PS_2019,
-                              table_1PS_2020,
-                              table_1PS_2021,
-                              table_1PS_2022,
-                              table_1PS_2023,
-                              table_1PS_2024,
-                              table_1PS_2025
-                              )
-
-table_2PS <- dplyr::bind_rows(table_2PS_2012,
-                              table_2PS_2013,
-                              table_2PS_2014,
-                              table_2PS_2015,
-                              table_2PS_2016,
-                              table_2PS_2017,
-                              table_2PS_2018,
-                              table_2PS_2019,
-                              table_2PS_2020,
-                              table_2PS_2021,
-                              table_2PS_2022,
-                              table_2PS_2023,
-                              table_2PS_2024,
-                              table_2PS_2025
-                              )
-
-table_3PS <- dplyr::bind_rows(table_3PS_2012,
-                              table_3PS_2013,
-                              table_3PS_2014,
-                              table_3PS_2015,
-                              table_3PS_2016,
-                              table_3PS_2017,
-                              table_3PS_2018,
-                              table_3PS_2019,
-                              table_3PS_2020,
-                              table_3PS_2021,
-                              table_3PS_2022,
-                              table_3PS_2023,
-                              table_3PS_2024,
-                              table_3PS_2025
-                              )
 
 ```
 
@@ -5618,11 +5571,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                        
                "N SECUNDÁRIO"                  = table_1S,
                "HABITUAL SECUNDÁRIO"           = table_2S, 
-               "EFETIVA SECUNDÁRIO"            = table_3S,
-                       
-              "N P&S"                          = table_1PS,
-              "HABITUAL P&S"                   = table_2PS,
-              "EFETIVA P&S"                    = table_3PS)
+               "EFETIVA SECUNDÁRIO"            = table_3S)
 
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_4.xlsx"))

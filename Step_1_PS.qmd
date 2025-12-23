@@ -250,28 +250,13 @@ table_ANOBR_PS <- tabPSANO_BR %>%
 # Excel
 
 ```{r}
-sheets <- list("N TOTAL PRINCIPAL" = table_1TP,
-               "HABITUAL TOTAL"    = table_2TP, 
-               "EFETIVA TOTAL"     = table_3TP,
-               
-               "N TOTAL SECUNDÁRIO" = table_1TS,
-               "HABITUAL TOTAL"     = table_2TS, 
-               "EFETIVA TOTAL"      = table_3TS,
-               
-               "N PRINCIPAL"          = table_1P,
-               "HABITUAL PRINCIPAL"   = table_2P, 
-               "EFETIVA PRINCIPAL"    = table_3P,
-               
-               "N SECUNDÁRIO"          = table_1S,
-               "HABITUAL SECUNDÁRIO"   = table_2S, 
-               "EFETIVA SECUNDÁRIO"    = table_3S,
-                       
-              "N P&S"                          = table_1PS,
-              "HABITUAL P&S"                   = table_2PS,
-              "EFETIVA P&S"                    = table_3PS)
+sheets <- list("P&S TRI RS" = table_TRIRS_PS,
+               "P&S TRI BR" = table_TRIBR_PS, 
+               "P&S ANO RS" = table_ANORS_PS,
+               "P&S ANO BR" = table_ANOBR_PS)
 
-writexl::write_xlsx(table_RS_PS, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_TRIRS_PS.xlsx"))
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_1.xlsx"))
 ```
 
 

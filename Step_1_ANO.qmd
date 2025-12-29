@@ -268,7 +268,7 @@ dadosPNADc1VISITA_2012SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2012PR)
 
 ```{r}
 table_1P_2012 <- dadosPNADc1VISITA_2012SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -277,7 +277,7 @@ table_1P_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 ```{r}
 
 table_2P_2012 <- dadosPNADc1VISITA_2012SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -291,7 +291,7 @@ table_2P_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 
 table_3P_2012 <- dadosPNADc1VISITA_2012SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -314,7 +314,7 @@ dadosPNADc1VISITA_2012SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2012SEC)
 
 ```{r}
 table_1S_2012 <- dadosPNADc1VISITA_2012SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -324,7 +324,7 @@ table_1S_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 ```{r}
 
 table_2S_2012 <- dadosPNADc1VISITA_2012SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -337,7 +337,7 @@ table_2S_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 
 table_3S_2012 <- dadosPNADc1VISITA_2012SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -351,7 +351,7 @@ table_3S_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 
 ```{r}
 table_1TP_2012 <- dadosPNADc1VISITA_2012SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -360,7 +360,7 @@ table_1TP_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 ```{r}
 
 table_2TP_2012 <- dadosPNADc1VISITA_2012SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -371,7 +371,7 @@ table_2TP_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 ```{r}
 table_3TP_2012 <- dadosPNADc1VISITA_2012SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -383,7 +383,7 @@ table_3TP_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 
 ```{r}
 table_1TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -393,7 +393,7 @@ table_1TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 ```{r}
 
 table_2TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -406,7 +406,7 @@ table_2TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 
 table_3TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -639,7 +639,7 @@ dadosPNADc1VISITA_2013SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2013PR)
 
 ```{r}
 table_1P_2013 <- dadosPNADc1VISITA_2013SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -648,7 +648,7 @@ table_1P_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 ```{r}
 
 table_2P_2013 <- dadosPNADc1VISITA_2013SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -662,7 +662,7 @@ table_2P_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 
 table_3P_2013 <- dadosPNADc1VISITA_2013SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -685,7 +685,7 @@ dadosPNADc1VISITA_2013SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2013SEC)
 
 ```{r}
 table_1S_2013 <- dadosPNADc1VISITA_2013SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -695,7 +695,7 @@ table_1S_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 ```{r}
 
 table_2S_2013 <- dadosPNADc1VISITA_2013SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -708,7 +708,7 @@ table_2S_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 
 table_3S_2013 <- dadosPNADc1VISITA_2013SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -722,7 +722,7 @@ table_3S_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 
 ```{r}
 table_1TP_2013 <- dadosPNADc1VISITA_2013SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -731,7 +731,7 @@ table_1TP_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 ```{r}
 
 table_2TP_2013 <- dadosPNADc1VISITA_2013SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -742,7 +742,7 @@ table_2TP_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 ```{r}
 table_3TP_2013 <- dadosPNADc1VISITA_2013SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -754,7 +754,7 @@ table_3TP_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 
 ```{r}
 table_1TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -764,7 +764,7 @@ table_1TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 ```{r}
 
 table_2TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -777,7 +777,7 @@ table_2TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 
 table_3TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1012,7 +1012,7 @@ dadosPNADc1VISITA_2014SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2014PR)
 
 ```{r}
 table_1P_2014 <- dadosPNADc1VISITA_2014SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1021,7 +1021,7 @@ table_1P_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 ```{r}
 
 table_2P_2014 <- dadosPNADc1VISITA_2014SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1035,7 +1035,7 @@ table_2P_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 
 table_3P_2014 <- dadosPNADc1VISITA_2014SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1058,7 +1058,7 @@ dadosPNADc1VISITA_2014SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2014SEC)
 
 ```{r}
 table_1S_2014 <- dadosPNADc1VISITA_2014SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1068,7 +1068,7 @@ table_1S_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 ```{r}
 
 table_2S_2014 <- dadosPNADc1VISITA_2014SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1081,7 +1081,7 @@ table_2S_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 
 table_3S_2014 <- dadosPNADc1VISITA_2014SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1095,7 +1095,7 @@ table_3S_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 
 ```{r}
 table_1TP_2014 <- dadosPNADc1VISITA_2014SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1104,7 +1104,7 @@ table_1TP_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 ```{r}
 
 table_2TP_2014 <- dadosPNADc1VISITA_2014SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -1115,7 +1115,7 @@ table_2TP_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 ```{r}
 table_3TP_2014 <- dadosPNADc1VISITA_2014SRPR %>%
   dplyr::filter(VD4032 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4032,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1127,7 +1127,7 @@ table_3TP_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 
 ```{r}
 table_1TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1137,7 +1137,7 @@ table_1TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 ```{r}
 
 table_2TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1150,7 +1150,7 @@ table_2TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 
 table_3TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%  
   dplyr::filter(VD4033 != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(VD4033,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1390,7 +1390,7 @@ dadosPNADc1VISITA_2015SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2015PR)
 
 ```{r}
 table_1P_2015 <- dadosPNADc1VISITA_2015SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1399,7 +1399,7 @@ table_1P_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 ```{r}
 
 table_2P_2015 <- dadosPNADc1VISITA_2015SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1413,7 +1413,7 @@ table_2P_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 
 table_3P_2015 <- dadosPNADc1VISITA_2015SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1436,7 +1436,7 @@ dadosPNADc1VISITA_2015SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2015SEC)
 
 ```{r}
 table_1S_2015 <- dadosPNADc1VISITA_2015SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1446,7 +1446,7 @@ table_1S_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 ```{r}
 
 table_2S_2015 <- dadosPNADc1VISITA_2015SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1459,7 +1459,7 @@ table_2S_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 
 table_3S_2015 <- dadosPNADc1VISITA_2015SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1473,7 +1473,7 @@ table_3S_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 
 ```{r}
 table_1TP_2015 <- dadosPNADc1VISITA_2015SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1482,7 +1482,7 @@ table_1TP_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 ```{r}
 
 table_2TP_2015 <- dadosPNADc1VISITA_2015SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -1493,7 +1493,7 @@ table_2TP_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 ```{r}
 table_3TP_2015 <- dadosPNADc1VISITA_2015SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1505,7 +1505,7 @@ table_3TP_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 
 ```{r}
 table_1TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1515,7 +1515,7 @@ table_1TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 ```{r}
 
 table_2TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1528,7 +1528,7 @@ table_2TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 
 table_3TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1761,7 +1761,7 @@ dadosPNADc1VISITA_2016SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2016PR)
 
 ```{r}
 table_1P_2016 <- dadosPNADc1VISITA_2016SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1770,7 +1770,7 @@ table_1P_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 ```{r}
 
 table_2P_2016 <- dadosPNADc1VISITA_2016SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1784,7 +1784,7 @@ table_2P_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 
 table_3P_2016 <- dadosPNADc1VISITA_2016SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1807,7 +1807,7 @@ dadosPNADc1VISITA_2016SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2016SEC)
 
 ```{r}
 table_1S_2016 <- dadosPNADc1VISITA_2016SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1817,7 +1817,7 @@ table_1S_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 ```{r}
 
 table_2S_2016 <- dadosPNADc1VISITA_2016SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1830,7 +1830,7 @@ table_2S_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 
 table_3S_2016 <- dadosPNADc1VISITA_2016SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1844,7 +1844,7 @@ table_3S_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 
 ```{r}
 table_1TP_2016 <- dadosPNADc1VISITA_2016SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1853,7 +1853,7 @@ table_1TP_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 ```{r}
 
 table_2TP_2016 <- dadosPNADc1VISITA_2016SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -1864,7 +1864,7 @@ table_2TP_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 ```{r}
 table_3TP_2016 <- dadosPNADc1VISITA_2016SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1876,7 +1876,7 @@ table_3TP_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 
 ```{r}
 table_1TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -1886,7 +1886,7 @@ table_1TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 ```{r}
 
 table_2TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -1899,7 +1899,7 @@ table_2TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 
 table_3TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2132,7 +2132,7 @@ dadosPNADc1VISITA_2017SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2017PR)
 
 ```{r}
 table_1P_2017 <- dadosPNADc1VISITA_2017SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2141,7 +2141,7 @@ table_1P_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 ```{r}
 
 table_2P_2017 <- dadosPNADc1VISITA_2017SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2155,7 +2155,7 @@ table_2P_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 
 table_3P_2017 <- dadosPNADc1VISITA_2017SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2178,7 +2178,7 @@ dadosPNADc1VISITA_2017SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2017SEC)
 
 ```{r}
 table_1S_2017 <- dadosPNADc1VISITA_2017SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2188,7 +2188,7 @@ table_1S_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 ```{r}
 
 table_2S_2017 <- dadosPNADc1VISITA_2017SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2201,7 +2201,7 @@ table_2S_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 
 table_3S_2017 <- dadosPNADc1VISITA_2017SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2215,7 +2215,7 @@ table_3S_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 
 ```{r}
 table_1TP_2017 <- dadosPNADc1VISITA_2017SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2224,7 +2224,7 @@ table_1TP_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 ```{r}
 
 table_2TP_2017 <- dadosPNADc1VISITA_2017SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -2235,7 +2235,7 @@ table_2TP_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 ```{r}
 table_3TP_2017 <- dadosPNADc1VISITA_2017SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2247,7 +2247,7 @@ table_3TP_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 
 ```{r}
 table_1TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2257,7 +2257,7 @@ table_1TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 ```{r}
 
 table_2TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2270,7 +2270,7 @@ table_2TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 
 table_3TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2505,7 +2505,7 @@ dadosPNADc1VISITA_2018SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2018PR)
 
 ```{r}
 table_1P_2018 <- dadosPNADc1VISITA_2018SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2514,7 +2514,7 @@ table_1P_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 ```{r}
 
 table_2P_2018 <- dadosPNADc1VISITA_2018SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2528,7 +2528,7 @@ table_2P_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 
 table_3P_2018 <- dadosPNADc1VISITA_2018SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2551,7 +2551,7 @@ dadosPNADc1VISITA_2018SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2018SEC)
 
 ```{r}
 table_1S_2018 <- dadosPNADc1VISITA_2018SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2561,7 +2561,7 @@ table_1S_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 ```{r}
 
 table_2S_2018 <- dadosPNADc1VISITA_2018SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2574,7 +2574,7 @@ table_2S_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 
 table_3S_2018 <- dadosPNADc1VISITA_2018SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2588,7 +2588,7 @@ table_3S_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 
 ```{r}
 table_1TP_2018 <- dadosPNADc1VISITA_2018SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2597,7 +2597,7 @@ table_1TP_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 ```{r}
 
 table_2TP_2018 <- dadosPNADc1VISITA_2018SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -2608,7 +2608,7 @@ table_2TP_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 ```{r}
 table_3TP_2018 <- dadosPNADc1VISITA_2018SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2620,7 +2620,7 @@ table_3TP_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 
 ```{r}
 table_1TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2630,7 +2630,7 @@ table_1TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 ```{r}
 
 table_2TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2643,7 +2643,7 @@ table_2TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 
 table_3TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2876,7 +2876,7 @@ dadosPNADc1VISITA_2019SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2019PR)
 
 ```{r}
 table_1P_2019 <- dadosPNADc1VISITA_2019SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2885,7 +2885,7 @@ table_1P_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 ```{r}
 
 table_2P_2019 <- dadosPNADc1VISITA_2019SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2899,7 +2899,7 @@ table_2P_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 
 table_3P_2019 <- dadosPNADc1VISITA_2019SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2922,7 +2922,7 @@ dadosPNADc1VISITA_2019SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2019SEC)
 
 ```{r}
 table_1S_2019 <- dadosPNADc1VISITA_2019SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2932,7 +2932,7 @@ table_1S_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 ```{r}
 
 table_2S_2019 <- dadosPNADc1VISITA_2019SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2945,7 +2945,7 @@ table_2S_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 
 table_3S_2019 <- dadosPNADc1VISITA_2019SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2959,7 +2959,7 @@ table_3S_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 
 ```{r}
 table_1TP_2019 <- dadosPNADc1VISITA_2019SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -2968,7 +2968,7 @@ table_1TP_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 ```{r}
 
 table_2TP_2019 <- dadosPNADc1VISITA_2019SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -2979,7 +2979,7 @@ table_2TP_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 ```{r}
 table_3TP_2019 <- dadosPNADc1VISITA_2019SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -2991,7 +2991,7 @@ table_3TP_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 
 ```{r}
 table_1TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3001,7 +3001,7 @@ table_1TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 ```{r}
 
 table_2TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3014,7 +3014,7 @@ table_2TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 
 table_3TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3249,7 +3249,7 @@ dadosPNADc5VISITA_2020SRPR <- srvyr::as_survey(dadosPNADc5VISITA_2020PR)
 
 ```{r}
 table_1P_2020 <- dadosPNADc5VISITA_2020SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3258,7 +3258,7 @@ table_1P_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 ```{r}
 
 table_2P_2020 <- dadosPNADc5VISITA_2020SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3272,7 +3272,7 @@ table_2P_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 
 table_3P_2020 <- dadosPNADc5VISITA_2020SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3295,7 +3295,7 @@ dadosPNADc5VISITA_2020SRSEC <- srvyr::as_survey(dadosPNADc5VISITA_2020SEC)
 
 ```{r}
 table_1S_2020 <- dadosPNADc5VISITA_2020SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3305,7 +3305,7 @@ table_1S_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 ```{r}
 
 table_2S_2020 <- dadosPNADc5VISITA_2020SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3318,7 +3318,7 @@ table_2S_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 
 table_3S_2020 <- dadosPNADc5VISITA_2020SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3332,7 +3332,7 @@ table_3S_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 
 ```{r}
 table_1TP_2020 <- dadosPNADc5VISITA_2020SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3341,7 +3341,7 @@ table_1TP_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 ```{r}
 
 table_2TP_2020 <- dadosPNADc5VISITA_2020SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -3352,7 +3352,7 @@ table_2TP_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 ```{r}
 table_3TP_2020 <- dadosPNADc5VISITA_2020SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3364,7 +3364,7 @@ table_3TP_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 
 ```{r}
 table_1TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3374,7 +3374,7 @@ table_1TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 ```{r}
 
 table_2TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3387,7 +3387,7 @@ table_2TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 
 table_3TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3620,7 +3620,7 @@ dadosPNADc5VISITA_2021SRPR <- srvyr::as_survey(dadosPNADc5VISITA_2021PR)
 
 ```{r}
 table_1P_2021 <- dadosPNADc5VISITA_2021SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3629,7 +3629,7 @@ table_1P_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 ```{r}
 
 table_2P_2021 <- dadosPNADc5VISITA_2021SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3643,7 +3643,7 @@ table_2P_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 
 table_3P_2021 <- dadosPNADc5VISITA_2021SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3666,7 +3666,7 @@ dadosPNADc5VISITA_2021SRSEC <- srvyr::as_survey(dadosPNADc5VISITA_2021SEC)
 
 ```{r}
 table_1S_2021 <- dadosPNADc5VISITA_2021SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3676,7 +3676,7 @@ table_1S_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 ```{r}
 
 table_2S_2021 <- dadosPNADc5VISITA_2021SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3689,7 +3689,7 @@ table_2S_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 
 table_3S_2021 <- dadosPNADc5VISITA_2021SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3703,7 +3703,7 @@ table_3S_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 
 ```{r}
 table_1TP_2021 <- dadosPNADc5VISITA_2021SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3712,7 +3712,7 @@ table_1TP_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 ```{r}
 
 table_2TP_2021 <- dadosPNADc5VISITA_2021SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -3723,7 +3723,7 @@ table_2TP_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 ```{r}
 table_3TP_2021 <- dadosPNADc5VISITA_2021SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3735,7 +3735,7 @@ table_3TP_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 
 ```{r}
 table_1TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -3745,7 +3745,7 @@ table_1TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 ```{r}
 
 table_2TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3758,7 +3758,7 @@ table_2TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 
 table_3TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -3992,7 +3992,7 @@ dadosPNADc5VISITA_2022SRPR <- srvyr::as_survey(dadosPNADc5VISITA_2022PR)
 
 ```{r}
 table_1P_2022 <- dadosPNADc5VISITA_2022SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4001,7 +4001,7 @@ table_1P_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 ```{r}
 
 table_2P_2022 <- dadosPNADc5VISITA_2022SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4015,7 +4015,7 @@ table_2P_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 
 table_3P_2022 <- dadosPNADc5VISITA_2022SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4038,7 +4038,7 @@ dadosPNADc5VISITA_2022SRSEC <- srvyr::as_survey(dadosPNADc5VISITA_2022SEC)
 
 ```{r}
 table_1S_2022 <- dadosPNADc5VISITA_2022SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4048,7 +4048,7 @@ table_1S_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 ```{r}
 
 table_2S_2022 <- dadosPNADc5VISITA_2022SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4061,7 +4061,7 @@ table_2S_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 
 table_3S_2022 <- dadosPNADc5VISITA_2022SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4075,7 +4075,7 @@ table_3S_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 
 ```{r}
 table_1TP_2022 <- dadosPNADc5VISITA_2022SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4084,7 +4084,7 @@ table_1TP_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 ```{r}
 
 table_2TP_2022 <- dadosPNADc5VISITA_2022SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -4095,7 +4095,7 @@ table_2TP_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 ```{r}
 table_3TP_2022 <- dadosPNADc5VISITA_2022SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4107,7 +4107,7 @@ table_3TP_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 
 ```{r}
 table_1TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4117,7 +4117,7 @@ table_1TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 ```{r}
 
 table_2TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4130,7 +4130,7 @@ table_2TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 
 table_3TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4365,7 +4365,7 @@ dadosPNADc1VISITA_2023SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2023PR)
 
 ```{r}
 table_1P_2023 <- dadosPNADc1VISITA_2023SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4374,7 +4374,7 @@ table_1P_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 ```{r}
 
 table_2P_2023 <- dadosPNADc1VISITA_2023SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4388,7 +4388,7 @@ table_2P_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 
 table_3P_2023 <- dadosPNADc1VISITA_2023SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4411,7 +4411,7 @@ dadosPNADc1VISITA_2023SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2023SEC)
 
 ```{r}
 table_1S_2023 <- dadosPNADc1VISITA_2023SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4421,7 +4421,7 @@ table_1S_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 ```{r}
 
 table_2S_2023 <- dadosPNADc1VISITA_2023SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4434,7 +4434,7 @@ table_2S_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 
 table_3S_2023 <- dadosPNADc1VISITA_2023SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4448,7 +4448,7 @@ table_3S_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 
 ```{r}
 table_1TP_2023 <- dadosPNADc1VISITA_2023SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4457,7 +4457,7 @@ table_1TP_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 ```{r}
 
 table_2TP_2023 <- dadosPNADc1VISITA_2023SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -4468,7 +4468,7 @@ table_2TP_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 ```{r}
 table_3TP_2023 <- dadosPNADc1VISITA_2023SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4480,7 +4480,7 @@ table_3TP_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 
 ```{r}
 table_1TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4490,7 +4490,7 @@ table_1TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 ```{r}
 
 table_2TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4503,7 +4503,7 @@ table_2TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 
 table_3TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4737,7 +4737,7 @@ dadosPNADc1VISITA_2024SRPR <- srvyr::as_survey(dadosPNADc1VISITA_2024PR)
 
 ```{r}
 table_1P_2024 <- dadosPNADc1VISITA_2024SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4746,7 +4746,7 @@ table_1P_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 ```{r}
 
 table_2P_2024 <- dadosPNADc1VISITA_2024SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4760,7 +4760,7 @@ table_2P_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 
 table_3P_2024 <- dadosPNADc1VISITA_2024SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4783,7 +4783,7 @@ dadosPNADc1VISITA_2024SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_2024SEC)
 
 ```{r}
 table_1S_2024 <- dadosPNADc1VISITA_2024SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4793,7 +4793,7 @@ table_1S_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 ```{r}
 
 table_2S_2024 <- dadosPNADc1VISITA_2024SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4806,7 +4806,7 @@ table_2S_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 
 table_3S_2024 <- dadosPNADc1VISITA_2024SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4820,7 +4820,7 @@ table_3S_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 
 ```{r}
 table_1TP_2024 <- dadosPNADc1VISITA_2024SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4829,7 +4829,7 @@ table_1TP_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 ```{r}
 
 table_2TP_2024 <- dadosPNADc1VISITA_2024SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -4840,7 +4840,7 @@ table_2TP_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 ```{r}
 table_3TP_2024 <- dadosPNADc1VISITA_2024SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4852,7 +4852,7 @@ table_3TP_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 
 ```{r}
 table_1TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -4862,7 +4862,7 @@ table_1TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 ```{r}
 
 table_2TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -4875,7 +4875,7 @@ table_2TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 
 table_3TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5112,7 +5112,7 @@ dadosPNADc1VISITA_25SRPR <- srvyr::as_survey(dadosPNADc1VISITA_25PR)
 
 ```{r}
 table_1P_2025 <- dadosPNADc1VISITA_25SRPR %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -5121,7 +5121,7 @@ table_1P_2025 <- dadosPNADc1VISITA_25SRPR %>%
 ```{r}
 
 table_2P_2025 <- dadosPNADc1VISITA_25SRPR %>%  
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5135,7 +5135,7 @@ table_2P_2025 <- dadosPNADc1VISITA_25SRPR %>%
 
 table_3P_2025 <- dadosPNADc1VISITA_25SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5158,7 +5158,7 @@ dadosPNADc1VISITA_25SRSEC <- srvyr::as_survey(dadosPNADc1VISITA_25SEC)
 
 ```{r}
 table_1S_2025 <- dadosPNADc1VISITA_25SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -5168,7 +5168,7 @@ table_1S_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 ```{r}
 
 table_2S_2025 <- dadosPNADc1VISITA_25SRSEC %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5181,7 +5181,7 @@ table_2S_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 
 table_3S_2025 <- dadosPNADc1VISITA_25SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(cod_SCN_PR, Ano, Trimestre) %>% 
+  dplyr::group_by(cod_SCN_PR, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5195,7 +5195,7 @@ table_3S_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 
 ```{r}
 table_1TP_2025 <- dadosPNADc1VISITA_25SRPR %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -5204,7 +5204,7 @@ table_1TP_2025 <- dadosPNADc1VISITA_25SRPR %>%
 ```{r}
 
 table_2TP_2025 <- dadosPNADc1VISITA_25SRPR %>%  
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4039,
                                                    na.rm = TRUE,
                                                  vartype = c("se", "ci", "var", "cv")))
@@ -5215,7 +5215,7 @@ table_2TP_2025 <- dadosPNADc1VISITA_25SRPR %>%
 ```{r}
 table_3TP_2025 <- dadosPNADc1VISITA_25SRPR %>%
   dplyr::filter(V4039C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4039C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5227,7 +5227,7 @@ table_3TP_2025 <- dadosPNADc1VISITA_25SRPR %>%
 
 ```{r}
 table_1TS_2025 <- dadosPNADc1VISITA_25SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 ```
 
@@ -5237,7 +5237,7 @@ table_1TS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 ```{r}
 
 table_2TS_2025 <- dadosPNADc1VISITA_25SRSEC %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasHabituais = srvyr::survey_total(V4056,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))
@@ -5250,7 +5250,7 @@ table_2TS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 
 table_3TS_2025 <- dadosPNADc1VISITA_25SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
-  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::group_by(Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
                                                    vartype = c("se", "ci", "var", "cv")))

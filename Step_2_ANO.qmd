@@ -12,6 +12,11 @@ format:
       #css: ["custom.css"] 
       code-fold: false 
       code-tools: true  
+      
+      
+      
+      
+      
       theme: 
         light: cosmo
         dark: superhero 
@@ -5174,6 +5179,9 @@ table_2P_2025 <- dadosPNADc1VISITA_25SRPR %>%
 
 ```
 
+```{r}
+gc()
+```
 
 ### Total de horas Efetivas
 
@@ -5222,14 +5230,19 @@ table_2S_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 
 ### Total de horas Efetivas
 
+```{r}
+gc()
+```
 
 ```{r}
+
 
 table_3S_2025 <- dadosPNADc1VISITA_25SRSEC %>%  
   dplyr::filter(V4056C != 0) %>% 
   dplyr::group_by(cod_SCN_SEC, Ano) %>% 
   dplyr::summarise(Qtd_horasEfetivas = srvyr::survey_total(V4056C,
                                                    na.rm = TRUE,
+                                                   
                                                    vartype = c("se", "ci", "var", "cv")))
 ```
 

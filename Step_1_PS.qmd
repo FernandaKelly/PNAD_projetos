@@ -165,7 +165,7 @@ abas <- c(
 
 tabPSANO_RS <- map_dfr(
   abas,
-  ~ read_excel("Dados/tabPSANOS_RS_9.xlsx", sheet = .x),
+  ~ read_excel("Dados/tabPSANOS_RS_10.xlsx", sheet = .x),
   .id = "tipo_principal"
 )
 
@@ -175,22 +175,16 @@ tabPSANO_RS <- map_dfr(
 ################################################
 
 table_ANORS_PS <- tabPSANO_RS %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
-                                             Trimestre == "Trimestre_2" ~ "2",
-                                             Trimestre == "Trimestre_3" ~ "3",
-                                             Trimestre == "Trimestre_4" ~ "4",
-                                             TRUE ~ Trimestre),
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
-                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  dplyr::mutate(atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
   #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
-  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(soma_N             = base::sum(freq,
                                                na.rm = TRUE),
                 qtd_horasHabituais = base::sum(Qtd_horasHabituais,
                                                na.rm = TRUE),
                 qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
                                                na.rm = TRUE) ) %>% 
-  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::select(atividade, Ano, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
   dplyr::distinct()
   
 
@@ -225,13 +219,7 @@ tabPSANO_BR <- map_dfr(
 ################################################
 
 table_ANOBR_PS <- tabPSANO_BR %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
-                                             Trimestre == "Trimestre_2" ~ "2",
-                                             Trimestre == "Trimestre_3" ~ "3",
-                                             Trimestre == "Trimestre_4" ~ "4",
-                                             TRUE ~ Trimestre),
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
-                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
+  dplyr::mutate(atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
   #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
   dplyr::mutate(soma_N             = base::sum(freq,
@@ -240,7 +228,7 @@ table_ANOBR_PS <- tabPSANO_BR %>%
                                                na.rm = TRUE),
                 qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
                                                na.rm = TRUE) ) %>% 
-  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::select(atividade, Ano, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
   dplyr::distinct()
   
 
@@ -256,7 +244,7 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
                "P&S ANO BR" = table_ANOBR_PS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_1.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_2.xlsx"))
 ```
 
 

@@ -420,7 +420,6 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 ```{r}
 dadosPNADc1VISITA_2013 <- dadosPNADc1VISITA_2013 %>%
   dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
-
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -795,12 +794,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2014 <- dadosPNADc1VISITA_2014 %>%
-  
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,
-                                             Trimestre == "Trimestre_2" ~ 2, 
-                                             Trimestre == "Trimestre_3" ~ 3,  
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -1175,11 +1169,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2015 <- dadosPNADc1VISITA_2015 %>%
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,
-                                             Trimestre == "Trimestre_2" ~ 2, 
-                                             Trimestre == "Trimestre_3" ~ 3, 
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%
      #ANO 2015 USAR:
      dplyr::mutate(V4039C = base::ifelse(is.na(V4039C),
                                         VD4032,
@@ -1561,11 +1551,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2016 <- dadosPNADc1VISITA_2016 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1, 
-                                             Trimestre == "Trimestre_2" ~ 2, 
-                                             Trimestre == "Trimestre_3" ~ 3,  
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%   
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%   
 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -1941,12 +1927,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2017 <- dadosPNADc1VISITA_2017 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1, 
-                                             Trimestre == "Trimestre_2" ~ 2, 
-                                             Trimestre == "Trimestre_3" ~ 3, 
-                                             Trimestre == "Trimestre_4" ~ 4),
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
-
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -2321,12 +2302,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2018 <- dadosPNADc1VISITA_2018 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,
-                                             Trimestre == "Trimestre_2" ~ 2, 
-                                             Trimestre == "Trimestre_3" ~ 3, 
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%   
-
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%   
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -2704,12 +2680,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,  
-                                             Trimestre == "Trimestre_2" ~ 2,  
-                                             Trimestre == "Trimestre_3" ~ 3,   
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
-
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -3086,11 +3057,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc5VISITA_2020 <- dadosPNADc5VISITA_2020 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,  
-                                             Trimestre == "Trimestre_2" ~ 2,  
-                                             Trimestre == "Trimestre_3" ~ 3,   
-                                             Trimestre == "Trimestre_4" ~ 4), 
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -3467,11 +3434,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc5VISITA_2021 <- dadosPNADc5VISITA_2021 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,  
-                                             Trimestre == "Trimestre_2" ~ 2,  
-                                             Trimestre == "Trimestre_3" ~ 3,   
-                                             Trimestre == "Trimestre_4" ~ 4),   
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -3847,11 +3810,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc5VISITA_2022 <- dadosPNADc5VISITA_2022 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,    
-                                             Trimestre == "Trimestre_2" ~ 2,   
-                                             Trimestre == "Trimestre_3" ~ 3,    
-                                             Trimestre == "Trimestre_4" ~ 4),  
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
 
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
@@ -4604,11 +4563,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2024 <- dadosPNADc1VISITA_2024 %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ 1,
-                                             Trimestre == "Trimestre_2" ~ 2,
-                                             Trimestre == "Trimestre_3" ~ 3,
-                                             Trimestre == "Trimestre_4" ~ 4),
-    Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -5574,7 +5529,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                "EFETIVA SECUNDÁRIO"            = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_4.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_5.xlsx"))
 ```
 
 

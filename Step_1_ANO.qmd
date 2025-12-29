@@ -5479,7 +5479,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                "EFETIVA SECUNDÁRIO"            = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_9.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_10.xlsx"))
 ```
 
 

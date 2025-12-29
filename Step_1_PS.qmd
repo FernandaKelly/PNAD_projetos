@@ -43,6 +43,14 @@ library(readxl)
 
 # Dados
 
+```{r}
+PIB_RSVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
+    sheet = "VA_RS")
+
+PIB_BRVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
+    sheet = "VA_BR")
+```
+
 ## Trimestre
 
 ### Rio Grande do Sul (RS)
@@ -95,6 +103,27 @@ table_TRIRS_PS <- tabPSTRI_RS %>%
 
 ```
 
+#### Indicador
+
+```{r}
+
+table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
+  dplyr::filter(atividade != 0) %>%
+  dplyr::left_join(PIB_RSVA %>% 
+                     dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4"))), by = c("atividade" = "atividade",
+                                    "Ano" = "ano",
+                                    "Trimestre" = "tri")) %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(VA_RS =  gsub(",", ".", VA_RS),
+                VA_RS = base::as.numeric(VA_RS),
+                indicadorVA_N = VA_RS/soma_N,
+                indicadorVA_qtd_HHabituais = VA_RS/qtd_horasHabituais,
+                indicadorVA_qtd_HEfetivas = VA_RS/qtd_horasEfetivas)
+
+```
+
+
+
 ### Brasil (BR)
 
 ```{r}
@@ -145,6 +174,28 @@ table_TRIBR_PS <- tabPSTRI_BR %>%
 
 ```
 
+#### Indicador
+
+```{r}
+
+table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
+  dplyr::filter(atividade != 0) %>%
+  dplyr::left_join(PIB_BRVA %>% 
+                     dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
+                                   ano = as.double(ano)),
+                                   by = c("atividade" = "atividade",
+                                          "Ano" = "ano",
+                                          "Trimestre" = "tri")) %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(VA_BR =  gsub(",", ".", VA_BR),
+                VA_BR = base::as.numeric(VA_BR),
+                indicadorVA_N = VA_BR/soma_N,
+                indicadorVA_qtd_HHabituais = VA_BR/qtd_horasHabituais,
+                indicadorVA_qtd_HEfetivas = VA_BR/qtd_horasEfetivas)
+
+```
+
+
 ## Ano
 
 ### Rio Grande do Sul (RS)
@@ -191,6 +242,27 @@ table_ANORS_PS <- tabPSANO_RS %>%
 
 ```
 
+#### Indicador
+
+```{r}
+
+table_ANORS_PS_indicador <- table_ANORS_PS %>%
+  dplyr::filter(atividade != 0) %>%
+  dplyr::left_join(PIB_RSVA %>% 
+                     dplyr::group_by(atividade, ano) %>% 
+                     dplyr::mutate(VA_RS =  gsub(",", ".", VA_RS),
+                                   VA_RS = base::as.numeric(VA_RS),
+                                   VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)),
+                   by = c("atividade" = "atividade",
+                           "Ano" = "ano")) %>% 
+  dplyr::group_by(atividade, Ano) %>% 
+  dplyr::mutate(indicadorVA_N = VA_RS_soma/soma_N,
+                indicadorVA_qtd_HHabituais = VA_RS_soma/qtd_horasHabituais,
+                indicadorVA_qtd_HEfetivas = VA_RS_soma/qtd_horasEfetivas)
+
+```
+
+
 ### Brasil (BR)
 
 ```{r}
@@ -221,7 +293,7 @@ tabPSANO_BR <- map_dfr(
 table_ANOBR_PS <- tabPSANO_BR %>% 
   dplyr::mutate(atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
   #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
-  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(soma_N             = base::sum(freq,
                                                na.rm = TRUE),
                 qtd_horasHabituais = base::sum(Qtd_horasHabituais,
@@ -235,16 +307,46 @@ table_ANOBR_PS <- tabPSANO_BR %>%
 
 ```
 
+#### Indicador
+
+```{r}
+
+table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
+  dplyr::mutate(Ano = base::as.double(Ano)) %>% 
+  dplyr::filter(atividade != 0) %>%
+  dplyr::left_join(PIB_BRVA %>% 
+                     dplyr::group_by(atividade, ano) %>% 
+                     dplyr::mutate(VA_BR =  gsub(",", ".", VA_BR),
+                                   VA_BR = base::as.numeric(VA_BR),
+                                   VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)),
+                   by = c("atividade" = "atividade",
+                           "Ano" = "ano")) %>% 
+  dplyr::select(-c(tri, VA_BR)) %>% 
+  dplyr::group_by(atividade, Ano) %>% 
+  dplyr::mutate(indicadorVA_N = VA_BR_soma/soma_N,
+                indicadorVA_qtd_HHabituais = VA_BR_soma/qtd_horasHabituais,
+                indicadorVA_qtd_HEfetivas = VA_BR_soma/qtd_horasEfetivas) %>% 
+  dplyr::distinct()
+
+```
+
 # Excel
 
 ```{r}
+
 sheets <- list("P&S TRI RS" = table_TRIRS_PS,
                "P&S TRI BR" = table_TRIBR_PS, 
                "P&S ANO RS" = table_ANORS_PS,
-               "P&S ANO BR" = table_ANOBR_PS)
+               "P&S ANO BR" = table_ANOBR_PS,
+               
+               "Indicador TRI RS" = table_TRIRS_PS_indicador,
+               "Indicador TRI BR" = table_TRIBR_PS_indicador, 
+               "Indicador ANO RS" = table_ANORS_PS_indicador,
+               "Indicador ANO BR" = table_ANOBR_PS_indicador
+              )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_2.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_3.xlsx"))
 ```
 
 
@@ -306,17 +408,12 @@ dbWriteTable(con, "dadosPNADc2023_completo",
 dadosPNADC_2023 <- tbl(con, "dadosPNADc2023_completo") 
 
 
-
-
-
-
-
-
 ##########################################
 # DESCONECTAR O DBI
 ##########################################
 
 dbDisconnect(con, shutdown = TRUE)
+
 
 ```
 

@@ -25,6 +25,7 @@ execute:
 
 ```{r}
 options(timeout = 600) 
+options(scipen = 999)
 ```
 
 ```{r}
@@ -110,18 +111,106 @@ table_TRIRS_PS <- tabPSTRI_RS %>%
 table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
   dplyr::filter(atividade != 0) %>%
   dplyr::left_join(PIB_RSVA %>% 
-                     dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4"))), by = c("atividade" = "atividade",
-                                    "Ano" = "ano",
-                                    "Trimestre" = "tri")) %>% 
+                     dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4"))),
+                   by = c("atividade" = "atividade",
+                          "Ano" = "ano",
+                          "Trimestre" = "tri")) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
   dplyr::mutate(
                 #VA_RS =  gsub(",", ".", VA_RS),
                 VA_RS = base::as.numeric(VA_RS),
+                
                 indicadorVA_N = VA_RS/soma_N,
                 indicadorVA_qtd_HHabituais = VA_RS/(qtd_horasHabituais*12.9),
                 indicadorVA_qtd_HEfetivas = VA_RS/(qtd_horasEfetivas*12.9))
 
 ```
+
+```{r}
+
+table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
+  dplyr::filter(atividade != 0) %>%
+  dplyr::left_join(PIB_RSVA %>% 
+                     dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
+                                   VA_ind = ifelse(atividade %in% c(2, 3, 4, 5), VA_RS, 0),
+                                   VA_ser = ifelse(atividade %in% c(6, 7, 8, 9, 10, 11, 12), VA_RS, 0)),
+                   by = c("atividade" = "atividade",
+                          "Ano" = "ano",
+                          "Trimestre" = "tri")) %>% 
+  dplyr::group_by(Ano, Trimestre) %>% 
+  dplyr::mutate(VA_industria = sum(VA_ind, na.rm = TRUE),
+                VA_servicos = sum(VA_ser, na.rm = TRUE)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::group_by(atividade, Ano, Trimestre) %>% 
+  dplyr::mutate(
+                #VA_RS =  gsub(",", ".", VA_RS),
+                VA_RS = base::as.numeric(VA_RS),
+                
+                indicadorVA_N = VA_RS/soma_N,
+                indicadorVA_qtd_HHabituais = VA_RS/(qtd_horasHabituais*12.9),
+                indicadorVA_qtd_HEfetivas = VA_RS/(qtd_horasEfetivas*12.9),
+                
+                indicadorVA_Industria_N = VA_industria/soma_N,
+                indicadorVA_Industria_HHabituais = VA_industria/(qtd_horasHabituais*12.9),
+                indicadorVA_Industria_HEfetivas = VA_industria/(qtd_horasEfetivas*12.9),
+                
+                indicadorVA_Servicos_N = VA_servicos/soma_N,
+                indicadorVA_Servicos_HHabituais = VA_servicos/(qtd_horasHabituais*12.9),
+                indicadorVA_Servicos_HEfetivas = VA_servicos/(qtd_horasEfetivas*12.9)
+                )
+
+```
+
+```{r}
+PIB_RSVA %>% 
+      dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
+                         VA_ind = ifelse(atividade %in% c(2, 3, 4, 5), VA_RS, 0)) %>% 
+  dplyr::group_by(ano, tri) %>% 
+  dplyr::mutate(VA_industria = sum(VA_ind, na.rm = TRUE))
+```
+
+```{r}
+PIB_RSVA %>% 
+  dplyr::mutate(
+    tri = factor(tri, levels = c("1", "2", "3", "4")),
+    VA_ind = ifelse(atividade %in% c(2, 3, 4, 5), VA_RS, 0)
+  ) %>% 
+  dplyr::group_by(ano, tri) %>% 
+  dplyr::summarise(
+    VA_industria = sum(VA_ind, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+```{r}
+grupos <- list(
+  "Indústria" = c(2, 3, 4, 5),
+  "Agro"      = c(1),
+  "Serviços"  = c(6, 7, 8, 9, 10, 11, 12)
+)
+
+map_grupos <- tibble::enframe(grupos, name = "atividade", value = "atividade_original") %>%
+  tidyr::unnest(atividade_original)
+
+
+
+totais_grupos <- PIB_RSVA %>%
+                 dplyr::inner_join(map_grupos, by = c("atividade" = "atividade_original")) %>%
+                 dplyr::group_by(ano, tri, atividade) %>%   # 'atividade' aqui vira o nome do grupo
+                 dplyr::mutate(VA_RS = sum(VA_RS, na.rm = TRUE))
+
+PIB_RSVA_append <- PIB_RSVA %>%
+  dplyr::mutate(tri = factor(tri, levels = c("1", "2", "3", "4")))   %>%
+  dplyr::select(ano, tri, atividade, VA_RS) %>%
+  dplyr::bind_rows(totais_grupos) %>%
+  dplyr::arrange(ano, tri, atividade)
+
+```
+
+
+
+
+
 
 
 
@@ -261,8 +350,9 @@ table_ANORS_PS_indicador <- table_ANORS_PS %>%
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_RS_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_RS_soma/(qtd_horasHabituais*51.6),
-                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6))
-
+                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6)) %>% 
+  dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
+  dplyr::distinct()
 ```
 
 
@@ -330,6 +420,7 @@ table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::mutate(indicadorVA_N = VA_BR_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_BR_soma/(qtd_horasHabituais*51.6),
                 indicadorVA_qtd_HEfetivas = VA_BR_soma/(qtd_horasEfetivas*51.6)) %>% 
+  dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::distinct()
 
 ```
@@ -352,7 +443,6 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_5.xlsx"))
 ```
-
 
 
 

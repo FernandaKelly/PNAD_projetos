@@ -114,7 +114,8 @@ table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
                                     "Ano" = "ano",
                                     "Trimestre" = "tri")) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
-  dplyr::mutate(VA_RS =  gsub(",", ".", VA_RS),
+  dplyr::mutate(
+                #VA_RS =  gsub(",", ".", VA_RS),
                 VA_RS = base::as.numeric(VA_RS),
                 indicadorVA_N = VA_RS/soma_N,
                 indicadorVA_qtd_HHabituais = VA_RS/qtd_horasHabituais,
@@ -187,7 +188,8 @@ table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
                                           "Ano" = "ano",
                                           "Trimestre" = "tri")) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
-  dplyr::mutate(VA_BR =  gsub(",", ".", VA_BR),
+  dplyr::mutate(
+                #VA_BR =  gsub(",", ".", VA_BR),
                 VA_BR = base::as.numeric(VA_BR),
                 indicadorVA_N = VA_BR/soma_N,
                 indicadorVA_qtd_HHabituais = VA_BR/qtd_horasHabituais,
@@ -250,7 +252,8 @@ table_ANORS_PS_indicador <- table_ANORS_PS %>%
   dplyr::filter(atividade != 0) %>%
   dplyr::left_join(PIB_RSVA %>% 
                      dplyr::group_by(atividade, ano) %>% 
-                     dplyr::mutate(VA_RS =  gsub(",", ".", VA_RS),
+                     dplyr::mutate(
+                                   #VA_RS =  gsub(",", ".", VA_RS),
                                    VA_RS = base::as.numeric(VA_RS),
                                    VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)),
                    by = c("atividade" = "atividade",
@@ -316,7 +319,8 @@ table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::filter(atividade != 0) %>%
   dplyr::left_join(PIB_BRVA %>% 
                      dplyr::group_by(atividade, ano) %>% 
-                     dplyr::mutate(VA_BR =  gsub(",", ".", VA_BR),
+                     dplyr::mutate(
+                                   #VA_BR =  gsub(",", ".", VA_BR),
                                    VA_BR = base::as.numeric(VA_BR),
                                    VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)),
                    by = c("atividade" = "atividade",
@@ -346,7 +350,7 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
               )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_3.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_4.xlsx"))
 ```
 
 

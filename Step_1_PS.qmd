@@ -118,8 +118,8 @@ table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
                 #VA_RS =  gsub(",", ".", VA_RS),
                 VA_RS = base::as.numeric(VA_RS),
                 indicadorVA_N = VA_RS/soma_N,
-                indicadorVA_qtd_HHabituais = VA_RS/qtd_horasHabituais,
-                indicadorVA_qtd_HEfetivas = VA_RS/qtd_horasEfetivas)
+                indicadorVA_qtd_HHabituais = VA_RS/(qtd_horasHabituais*12.9),
+                indicadorVA_qtd_HEfetivas = VA_RS/(qtd_horasEfetivas*12.9))
 
 ```
 
@@ -192,8 +192,8 @@ table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
                 #VA_BR =  gsub(",", ".", VA_BR),
                 VA_BR = base::as.numeric(VA_BR),
                 indicadorVA_N = VA_BR/soma_N,
-                indicadorVA_qtd_HHabituais = VA_BR/qtd_horasHabituais,
-                indicadorVA_qtd_HEfetivas = VA_BR/qtd_horasEfetivas)
+                indicadorVA_qtd_HHabituais = VA_BR/(qtd_horasHabituais*12.9),
+                indicadorVA_qtd_HEfetivas = VA_BR/(qtd_horasEfetivas*12.9))
 
 ```
 
@@ -260,8 +260,8 @@ table_ANORS_PS_indicador <- table_ANORS_PS %>%
                            "Ano" = "ano")) %>% 
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_RS_soma/soma_N,
-                indicadorVA_qtd_HHabituais = VA_RS_soma/qtd_horasHabituais,
-                indicadorVA_qtd_HEfetivas = VA_RS_soma/qtd_horasEfetivas)
+                indicadorVA_qtd_HHabituais = VA_RS_soma/(qtd_horasHabituais*51.6),
+                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6))
 
 ```
 
@@ -328,8 +328,8 @@ table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::select(-c(tri, VA_BR)) %>% 
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_BR_soma/soma_N,
-                indicadorVA_qtd_HHabituais = VA_BR_soma/qtd_horasHabituais,
-                indicadorVA_qtd_HEfetivas = VA_BR_soma/qtd_horasEfetivas) %>% 
+                indicadorVA_qtd_HHabituais = VA_BR_soma/(qtd_horasHabituais*51.6),
+                indicadorVA_qtd_HEfetivas = VA_BR_soma/(qtd_horasEfetivas*51.6)) %>% 
   dplyr::distinct()
 
 ```
@@ -350,7 +350,7 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
               )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_4.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_5.xlsx"))
 ```
 
 

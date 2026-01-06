@@ -27,7 +27,7 @@ execute:
 options(timeout = 600) 
 options(scipen = 999)
 ```
-
+ 
 ```{r}
 #| echo: false
 #| 
@@ -205,8 +205,6 @@ table_final <- dplyr::bind_rows(
 )
 
 ```
-
-
 
 
 

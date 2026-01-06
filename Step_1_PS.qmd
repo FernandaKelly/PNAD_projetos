@@ -511,38 +511,12 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
               )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_5.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_6.xlsx"))
 ```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Leitura: duckdb
 
 ```{r}
 

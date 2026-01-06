@@ -195,12 +195,6 @@ table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
 #   )
 ```
 
-
-
-
-
-
-
 ### Brasil (BR)
 
 ```{r}
@@ -228,24 +222,56 @@ tabPSTRI_BR <- map_dfr(
 # SOMA DOS IGUAIS
 ################################################
 
-table_TRIBR_PS <- tabPSTRI_BR %>% 
-  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == "Trimestre_1" ~ "1",
-                                             Trimestre == "Trimestre_2" ~ "2",
-                                             Trimestre == "Trimestre_3" ~ "3",
-                                             Trimestre == "Trimestre_4" ~ "4",
-                                             TRUE ~ Trimestre),
-                Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4")),
-                atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
-  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+table_atividades <- tabPSTRI_BR %>% 
+  dplyr::mutate(
+    Trimestre = dplyr::recode(
+      Trimestre,
+      "Trimestre_1" = "1",
+      "Trimestre_2" = "2",
+      "Trimestre_3" = "3",
+      "Trimestre_4" = "4"
+    ),
+    Trimestre = factor(Trimestre, levels = c("1", "2", "3", "4")),
+    atividade = dplyr::coalesce(cod_SCN_SEC, cod_SCN_PR)
+  ) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
-  dplyr::mutate(soma_N             = base::sum(freq,
-                                               na.rm = TRUE),
-                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
-                                               na.rm = TRUE),
-                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
-                                               na.rm = TRUE) ) %>% 
-  dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
-  dplyr::distinct()
+  dplyr::summarise(
+    soma_N             = sum(freq, na.rm = TRUE),
+    qtd_horasHabituais = sum(Qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+grupos <- list(
+  "industria" = c(2, 3, 4, 5),
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
+  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
+      atividade %in% grupos$industria ~ "industria",
+      atividade %in% grupos$servicos  ~ "servicos",
+      atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+
+table_TRIBR_PS <- dplyr::bind_rows(
+  table_atividades %>%
+    dplyr::mutate(
+      atividade  = as.character(atividade)
+    ), table_grupos)
   
 
 
@@ -259,7 +285,8 @@ table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
   dplyr::filter(atividade != 0) %>%
   dplyr::left_join(PIB_BRVA %>% 
                      dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
-                                   ano = as.double(ano)),
+                                   ano = as.double(ano),
+                                   atividade = base::as.character(atividade)),
                                    by = c("atividade" = "atividade",
                                           "Ano" = "ano",
                                           "Trimestre" = "tri")) %>% 
@@ -303,18 +330,47 @@ tabPSANO_RS <- map_dfr(
 # SOMA DOS IGUAIS
 ################################################
 
-table_ANORS_PS <- tabPSANO_RS %>% 
-  dplyr::mutate(atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
-  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+table_atividades <- tabPSANO_RS %>% 
+  dplyr::mutate(atividade = dplyr::coalesce(cod_SCN_SEC, cod_SCN_PR)
+  ) %>% 
   dplyr::group_by(atividade, Ano) %>% 
-  dplyr::mutate(soma_N             = base::sum(freq,
-                                               na.rm = TRUE),
-                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
-                                               na.rm = TRUE),
-                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
-                                               na.rm = TRUE) ) %>% 
-  dplyr::select(atividade, Ano, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
-  dplyr::distinct()
+  dplyr::summarise(
+    soma_N             = sum(freq, na.rm = TRUE),
+    qtd_horasHabituais = sum(Qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+grupos <- list(
+  "industria" = c(2, 3, 4, 5),
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
+  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
+      atividade %in% grupos$industria ~ "industria",
+      atividade %in% grupos$servicos  ~ "servicos",
+      atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+
+table_ANORS_PS <- dplyr::bind_rows(
+  table_atividades %>%
+    dplyr::mutate(
+      atividade  = as.character(atividade)
+    ), table_grupos)
   
 
 
@@ -370,20 +426,47 @@ tabPSANO_BR <- map_dfr(
 # SOMA DOS IGUAIS
 ################################################
 
-table_ANOBR_PS <- tabPSANO_BR %>% 
-  dplyr::mutate(atividade = base::ifelse(is.na(cod_SCN_SEC), cod_SCN_PR, cod_SCN_SEC)) %>% 
-  #dplyr::filter(Ano == 2012 & Trimestre == "1") %>% 
+table_atividades <- tabPSANO_BR %>% 
+  dplyr::mutate(atividade = dplyr::coalesce(cod_SCN_SEC, cod_SCN_PR)
+  ) %>% 
   dplyr::group_by(atividade, Ano) %>% 
-  dplyr::mutate(soma_N             = base::sum(freq,
-                                               na.rm = TRUE),
-                qtd_horasHabituais = base::sum(Qtd_horasHabituais,
-                                               na.rm = TRUE),
-                qtd_horasEfetivas  = base::sum(Qtd_horasEfetivas,
-                                               na.rm = TRUE) ) %>% 
-  dplyr::select(atividade, Ano, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
-  dplyr::distinct()
-  
+  dplyr::summarise(
+    soma_N             = sum(freq, na.rm = TRUE),
+    qtd_horasHabituais = sum(Qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  )
 
+grupos <- list(
+  "industria" = c(2, 3, 4, 5),
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
+  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
+      atividade %in% grupos$industria ~ "industria",
+      atividade %in% grupos$servicos  ~ "servicos",
+      atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+
+table_ANOBR_PS <- dplyr::bind_rows(
+  table_atividades %>%
+    dplyr::mutate(
+      atividade  = as.character(atividade)
+    ), table_grupos)
 
 ```
 
@@ -397,7 +480,7 @@ table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::left_join(PIB_BRVA %>% 
                      dplyr::group_by(atividade, ano) %>% 
                      dplyr::mutate(
-                                   #VA_BR =  gsub(",", ".", VA_BR),
+                                   atividade = base::as.character(atividade),
                                    VA_BR = base::as.numeric(VA_BR),
                                    VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)),
                    by = c("atividade" = "atividade",

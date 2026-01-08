@@ -120,10 +120,12 @@ table_atividades <- tabPSTRI_RS %>%
     .groups = "drop"
   )
 
+###################################################################
+# GRUPOS: INDÚSTRIA E SERVIÇOS
+###################################################################
 grupos <- list(
   "industria" = c(2, 3, 4, 5),
-  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
-  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12)
 )
 
 table_grupos <- table_atividades %>% 
@@ -131,6 +133,29 @@ table_grupos <- table_atividades %>%
     categoria = dplyr::case_when(
       atividade %in% grupos$industria ~ "industria",
       atividade %in% grupos$servicos  ~ "servicos",
+      #tividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
+# GRUPOS: TOTAL
+###################################################################
+grupos <- list(
+  "total" = c(1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos_Total <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total     ~ "total",
       TRUE                            ~ NA_character_
     )
@@ -144,12 +169,14 @@ table_grupos <- table_atividades %>%
     .groups = "drop"
   ) %>% 
   dplyr::rename("atividade" = categoria)
-
+###################################################################
+# EMPILHAMENTO
+###################################################################
 table_TRIRS_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos)
+    ), table_grupos, table_grupos_Total)
 
 ```
 
@@ -213,7 +240,7 @@ abas <- c(
 
 tabPSTRI_BR <- map_dfr(
   abas,
-  ~ read_excel("Dados/tabPSTRI_BR_3.xlsx", sheet = .x),
+  ~ read_excel("Dados/tabPSTRI_BR_4.xlsx", sheet = .x),
   .id = "tipo_principal"
 )
 
@@ -221,7 +248,6 @@ tabPSTRI_BR <- map_dfr(
 ################################################
 # SOMA DOS IGUAIS
 ################################################
-
 table_atividades <- tabPSTRI_BR %>% 
   dplyr::mutate(
     Trimestre = dplyr::recode(
@@ -241,18 +267,42 @@ table_atividades <- tabPSTRI_BR %>%
     qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
     .groups = "drop"
   )
-
+###################################################################
+# GRUPOS: INDÚSTRIA E SERVIÇOS
+###################################################################
 grupos <- list(
   "industria" = c(2, 3, 4, 5),
-  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
-  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-)
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12)
+  )
 
 table_grupos <- table_atividades %>% 
   dplyr::mutate(
     categoria = dplyr::case_when(
       atividade %in% grupos$industria ~ "industria",
       atividade %in% grupos$servicos  ~ "servicos",
+      #atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
+# GRUPOS: TOTAL
+###################################################################
+grupos <- list(
+  "total" = c(1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos_Total <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total     ~ "total",
       TRUE                            ~ NA_character_
     )
@@ -266,15 +316,14 @@ table_grupos <- table_atividades %>%
     .groups = "drop"
   ) %>% 
   dplyr::rename("atividade" = categoria)
-
+###################################################################
+# EMPILHAMENTO
+###################################################################
 table_TRIBR_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos)
-  
-
-
+    ), table_grupos, table_grupos_Total)
 ```
 
 #### Indicador
@@ -329,7 +378,6 @@ tabPSANO_RS <- map_dfr(
 ################################################
 # SOMA DOS IGUAIS
 ################################################
-
 table_atividades <- tabPSANO_RS %>% 
   dplyr::mutate(atividade = dplyr::coalesce(cod_SCN_SEC, cod_SCN_PR)
   ) %>% 
@@ -340,11 +388,12 @@ table_atividades <- tabPSANO_RS %>%
     qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
     .groups = "drop"
   )
-
+###################################################################
+# GRUPOS: INDÚSTRIA E SERVIÇOS
+###################################################################
 grupos <- list(
   "industria" = c(2, 3, 4, 5),
-  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
-  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12)
 )
 
 table_grupos <- table_atividades %>% 
@@ -352,6 +401,29 @@ table_grupos <- table_atividades %>%
     categoria = dplyr::case_when(
       atividade %in% grupos$industria ~ "industria",
       atividade %in% grupos$servicos  ~ "servicos",
+      #atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
+# GRUPOS: TOTAL
+###################################################################
+grupos <- list(
+  "total" = c(1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos_Total <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total     ~ "total",
       TRUE                            ~ NA_character_
     )
@@ -365,15 +437,14 @@ table_grupos <- table_atividades %>%
     .groups = "drop"
   ) %>% 
   dplyr::rename("atividade" = categoria)
-
+###################################################################
+# EMPILHAMENTO
+###################################################################
 table_ANORS_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos)
-  
-
-
+    ), table_grupos, table_grupos_Total)
 ```
 
 #### Indicador
@@ -425,7 +496,6 @@ tabPSANO_BR <- map_dfr(
 ################################################
 # SOMA DOS IGUAIS
 ################################################
-
 table_atividades <- tabPSANO_BR %>% 
   dplyr::mutate(atividade = dplyr::coalesce(cod_SCN_SEC, cod_SCN_PR)
   ) %>% 
@@ -436,11 +506,12 @@ table_atividades <- tabPSANO_BR %>%
     qtd_horasEfetivas  = sum(Qtd_horasEfetivas, na.rm = TRUE),
     .groups = "drop"
   )
-
+###################################################################
+# GRUPOS: INDÚSTRIA E SERVIÇOS
+###################################################################
 grupos <- list(
   "industria" = c(2, 3, 4, 5),
-  "servicos"  = c(6, 7, 8, 9, 10, 11, 12),
-  "total"     = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+  "servicos"  = c(6, 7, 8, 9, 10, 11, 12)
 )
 
 table_grupos <- table_atividades %>% 
@@ -448,6 +519,29 @@ table_grupos <- table_atividades %>%
     categoria = dplyr::case_when(
       atividade %in% grupos$industria ~ "industria",
       atividade %in% grupos$servicos  ~ "servicos",
+      #atividade %in% grupos$total     ~ "total",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
+# GRUPOS: TOTAL
+###################################################################
+grupos <- list(
+  "total" = c(1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+)
+
+table_grupos_Total <- table_atividades %>% 
+  dplyr::mutate(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total     ~ "total",
       TRUE                            ~ NA_character_
     )
@@ -461,12 +555,14 @@ table_grupos <- table_atividades %>%
     .groups = "drop"
   ) %>% 
   dplyr::rename("atividade" = categoria)
-
+###################################################################
+# EMPILHAMENTO
+###################################################################
 table_ANOBR_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos)
+    ), table_grupos, table_grupos_Total)
 
 ```
 
@@ -511,7 +607,7 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
               )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_6.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx"))
 ```
 
 

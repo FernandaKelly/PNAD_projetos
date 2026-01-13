@@ -7,7 +7,6 @@ library(readxl)
 ######################################################################
 # EXEMPLO IBGE
 ######################################################################
-
 pib<-readxl::read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_Sem_Ajuste.xlsx",
                         sheet =1)
 
@@ -101,7 +100,6 @@ table_PS_RS_ind <- pib_SA %>%
 ######################################################################
 # BRASIL
 ######################################################################
-
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 

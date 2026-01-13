@@ -48,12 +48,13 @@ write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_RS, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
 table_PS_RS_ind <- table_PS_RS %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("indicadorVA_N",
                                                              "indicadorVA_qtd_HHabituais",
-                                                             "indicadorVA_qtd_HEfetivas")) %>% 
+                                                             "indicadorVA_qtd_HEfetivas",
+                                                             "VA_RS")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -88,7 +89,7 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_RS_ind <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = matches("^indicadorVA_"),
+    cols = starts_with(c("indicadorVA_","VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
@@ -103,13 +104,14 @@ table_PS_RS_ind <- pib_SA %>%
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_BR, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
 
 table_PS_BR_ind <- table_PS_BR %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("indicadorVA_N",
                                                              "indicadorVA_qtd_HHabituais",
-                                                             "indicadorVA_qtd_HEfetivas")) %>% 
+                                                             "indicadorVA_qtd_HEfetivas",
+                                                             "VA_BR")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -144,7 +146,7 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_BR_ind <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = matches("^indicadorVA_"),
+    cols = starts_with(c("indicadorVA_","VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
@@ -157,12 +159,13 @@ table_PS_BR_ind <- pib_SA %>%
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI RS") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_RS, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
 
 table_PS_RS_var <- table_PS_RS %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("soma_N",
                                                              "qtd_horasHabituais",
-                                                             "qtd_horasEfetivas")) %>% 
+                                                             "qtd_horasEfetivas",
+                                                             "VA_RS")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -197,7 +200,7 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_RS_var <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_")),
+    cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_", "VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
@@ -212,12 +215,13 @@ table_PS_RS_var <- pib_SA %>%
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_BR, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
 
 table_PS_BR_var <- table_PS_BR %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("soma_N",
                                                              "qtd_horasHabituais",
-                                                             "qtd_horasEfetivas")) %>% 
+                                                             "qtd_horasEfetivas",
+                                                             "VA_BR")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -252,7 +256,7 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_BR_var <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_")),
+    cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_", "VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
@@ -266,5 +270,5 @@ sheets <- list("P&S SAZ_VAR BR" = table_PS_BR_var,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_1.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_2.xlsx"))
 ######################################################################

@@ -270,5 +270,5 @@ sheets <- list("P&S SAZ_VAR BR" = table_PS_BR_var,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_2.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_3.xlsx"))
 ######################################################################

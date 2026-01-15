@@ -47,6 +47,7 @@ write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 ######################################################################
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
+  dplyr::filter(Ano != 2025) %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, VA_RS, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
@@ -71,7 +72,7 @@ for(i in 1:ncol(table_PS_RS_ind)){
 }
 
 
-agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(table_PS_RS_ind),freq=4),
+agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start = start(table_PS_RS_ind), freq = 4),
                                                          transform.function = "auto",
                                                          regression.aictest = c("td", "easter"),
                                                          pickmdl.method="best",
@@ -87,12 +88,16 @@ pib_SA <- lapply(agreg_SA,final)
 pib_SA <- do.call(cbind,pib_SA)
 pib_SA <- base::as.data.frame(pib_SA)
 
+
+
 table_PS_RS_ind <- pib_SA %>%
   tidyr::pivot_longer(
     cols = starts_with(c("indicadorVA_","VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
+
+utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 # %>%
 #   dplyr::left_join(table_PS_RS %>% 
 #                      dplyr::select(atividade, Ano, Trimestre),

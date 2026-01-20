@@ -291,7 +291,7 @@ writexl::write_xlsx(sheets,
 options(timeout = 600) 
 options(scipen = 999)
 library(esquisse)
-esquisse::esquisser(viewer = "browser")
+#esquisse::esquisser(viewer = "browser")
 
 table_PS_SAZ_5_DIR_SEP_RS <- read_excel("Dados/table_PS_SAZ_5.xlsx", 
                                              sheet = "DIR_SEP_RS")

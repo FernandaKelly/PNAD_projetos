@@ -305,22 +305,22 @@ ggplot(table_PS_SAZ_4_DIR_IND) +
   
   geom_line(
     aes(y = indicador_qtd_horasHabituais,
-        colour = "Direto RS"),
+        colour = "Separado RS"),
     linewidth = 1
   ) +
   
   geom_line(
     aes(y = indicadorVA_qtd_HHabituais,
-        colour = "Separado RS"),
+        colour = "Direto RS"),
     linewidth = 1
   ) +
   
   scale_colour_manual(
     name = "",
-    breaks = c("Direto RS", "Separado RS"),
+    breaks = c("Separado RS", "Direto RS"),
     values = c(
-      "Direto RS" = "#112446",
-      "Separado RS"  = "#E4003A"
+      "Separado RS" = "#112446",
+      "Direto RS"  = "#E4003A"
     )
   )  +
   
@@ -342,22 +342,22 @@ ggplot(table_PS_SAZ_4_DIR_IND_BR) +
   
   geom_line(
     aes(y = indicador_qtd_horasHabituais,
-        colour = "Direto BR"),
+        colour = "Separado BR"),
     linewidth = 1
   ) +
   
   geom_line(
     aes(y = indicadorVA_qtd_HHabituais,
-        colour = "Separado BR"),
+        colour = "Direto BR"),
     linewidth = 1
   ) +
   
   scale_colour_manual(
     name = "",
-    breaks = c("Direto BR", "Separado BR"),
+    breaks = c("Separado BR", "Direto BR"),
     values = c(
-      "Direto BR" = "#112446",
-      "Separado BR"  = "#E4003A"
+      "Separado BR" = "#112446",
+      "Direto BR"  = "#E4003A"
     )
   )  +
   
@@ -377,22 +377,22 @@ ggplot(table_PS_SAZ_4_DIR_IND) +
   
   geom_line(
     aes(y = indicador_qtd_horasEfetivas,
-        colour = "Direto RS"),
+        colour = "Separado RS"),
     linewidth = 1
   ) +
   
   geom_line(
     aes(y = indicadorVA_qtd_HEfetivas,
-        colour = "Separado RS"),
+        colour = "Direto RS"),
     linewidth = 1
   ) +
   
   scale_colour_manual(
     name = "",
-    breaks = c("Direto RS", "Separado RS"),
+    breaks = c("Separado RS", "Direto RS"),
     values = c(
-      "Direto RS" = "#112446",
-      "Separado RS"  = "#E4003A"
+      "Seprado RS" = "#112446",
+      "Direto RS"  = "#E4003A"
     )
   )  +
   
@@ -412,22 +412,22 @@ ggplot(table_PS_SAZ_4_DIR_IND_BR) +
   
   geom_line(
     aes(y = indicador_qtd_horasEfetivas,
-        colour = "Direto BR"),
+        colour = "Separado BR"),
     linewidth = 1
   ) +
   
   geom_line(
     aes(y = indicadorVA_qtd_HEfetivas,
-        colour = "Separado BR"),
+        colour = "Direto BR"),
     linewidth = 1
   ) +
   
   scale_colour_manual(
     name = "",
-    breaks = c("Direto BR", "Separado BR"),
+    breaks = c("Separado BR", "Direto BR"),
     values = c(
-      "Direto BR" = "#112446",
-      "Separado BR"  = "#E4003A"
+      "Separado BR" = "#112446",
+      "Direto BR"  = "#E4003A"
     )
   )  +
   

@@ -47,7 +47,7 @@ write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 ######################################################################
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
-  dplyr::filter(Ano != 2025) %>% 
+  #dplyr::filter(Ano != 2025) %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
@@ -290,9 +290,14 @@ writexl::write_xlsx(sheets,
 
 options(timeout = 600) 
 options(scipen = 999)
-
 library(esquisse)
 esquisse::esquisser(viewer = "browser")
+
+table_PS_SAZ_5_DIR_SEP_RS <- read_excel("Dados/table_PS_SAZ_5.xlsx", 
+                                             sheet = "DIR_SEP_RS")
+
+table_PS_SAZ_5_DIR_SEP_BR <- read_excel("Dados/table_PS_SAZ_5.xlsx", 
+                                             sheet = "DIR_SEP_BR")
 
 ############################
 # HORAS HABITUAIS
@@ -300,7 +305,7 @@ esquisse::esquisser(viewer = "browser")
 # RS
 ############################
 
-ggplot(table_PS_SAZ_4_DIR_IND) +
+ggplot(table_PS_SAZ_5_DIR_SEP_RS) +
   aes(x = Ano) +
   
   geom_line(
@@ -337,7 +342,7 @@ ggplot(table_PS_SAZ_4_DIR_IND) +
 # BR
 ############################
 
-ggplot(table_PS_SAZ_4_DIR_IND_BR) +
+ggplot(table_PS_SAZ_5_DIR_SEP_BR) +
   aes(x = Ano) +
   
   geom_line(
@@ -372,7 +377,7 @@ ggplot(table_PS_SAZ_4_DIR_IND_BR) +
 ############################
 # RS
 ############################
-ggplot(table_PS_SAZ_4_DIR_IND) +
+ggplot(table_PS_SAZ_5_DIR_SEP_RS) +
   aes(x = Ano) +
   
   geom_line(
@@ -391,7 +396,7 @@ ggplot(table_PS_SAZ_4_DIR_IND) +
     name = "",
     breaks = c("Separado RS", "Direto RS"),
     values = c(
-      "Seprado RS" = "#112446",
+      "Separado RS" = "#112446",
       "Direto RS"  = "#E4003A"
     )
   )  +
@@ -407,7 +412,7 @@ ggplot(table_PS_SAZ_4_DIR_IND) +
 ############################
 # BR
 ############################
-ggplot(table_PS_SAZ_4_DIR_IND_BR) +
+ggplot(table_PS_SAZ_5_DIR_SEP_BR) +
   aes(x = Ano) +
   
   geom_line(

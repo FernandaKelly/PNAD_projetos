@@ -610,7 +610,19 @@ writexl::write_xlsx(sheets,
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx"))
 ```
 
+# Plots
 
+```{r}
+
+
+
+
+
+
+
+
+
+```
 
 # Leitura: duckdb
 

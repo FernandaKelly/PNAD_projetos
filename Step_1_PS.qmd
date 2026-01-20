@@ -680,6 +680,33 @@ ggplot(table_TRIBR_PS) +
 
 ```
 
+```{r}
+PIB_RSVA %>% 
+  dplyr::mutate(ano = base::as.numeric(ano),
+                VA_RS = base::as.numeric(VA_RS)) %>% 
+ggplot() +
+  aes(x = ano, y = VA_RS) +
+  geom_line(colour = "#112446") +
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  theme_minimal()
+
+```
+```{r}
+PIB_BRVA %>% 
+  dplyr::mutate(ano = base::as.numeric(ano),
+                VA_BR = base::as.numeric(VA_BR)) %>% 
+ggplot() +
+  aes(x = ano, y = VA_BR) +
+  geom_line(colour = "#112446") +
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  theme_minimal()
+```
 
 # Leitura: duckdb
 

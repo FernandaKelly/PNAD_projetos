@@ -49,13 +49,12 @@ table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estad
                          sheet = "Indicador TRI RS") %>% 
   dplyr::filter(Ano != 2025) %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, VA_RS, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
 table_PS_RS_ind <- table_PS_RS %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("indicadorVA_N",
                                                              "indicadorVA_qtd_HHabituais",
-                                                             "indicadorVA_qtd_HEfetivas",
-                                                             "VA_RS")) %>% 
+                                                             "indicadorVA_qtd_HEfetivas")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -92,12 +91,12 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_RS_ind <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = starts_with(c("indicadorVA_","VA_")),
+    cols = starts_with(c("indicadorVA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
 
-utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
+#utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 # %>%
 #   dplyr::left_join(table_PS_RS %>% 
 #                      dplyr::select(atividade, Ano, Trimestre),
@@ -109,14 +108,13 @@ utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, VA_BR, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
 
 table_PS_BR_ind <- table_PS_BR %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("indicadorVA_N",
                                                              "indicadorVA_qtd_HHabituais",
-                                                             "indicadorVA_qtd_HEfetivas",
-                                                             "VA_BR")) %>% 
+                                                             "indicadorVA_qtd_HEfetivas")) %>% 
   dplyr::mutate(ano =  base::paste0(Ano, ".", Trimestre)) %>% 
   dplyr::select(-c("Ano", "Trimestre")) %>% 
   dplyr::relocate(ano)
@@ -151,7 +149,7 @@ pib_SA <- base::as.data.frame(pib_SA)
 
 table_PS_BR_ind <- pib_SA %>%
   tidyr::pivot_longer(
-    cols = starts_with(c("indicadorVA_","VA_")),
+    cols = starts_with(c("indicadorVA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   )
@@ -164,7 +162,9 @@ table_PS_BR_ind <- pib_SA %>%
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI RS") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, VA_RS, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_RS, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
+                qtd_horasEfetivas  = qtd_horasEfetivas*12.9)
 
 table_PS_RS_var <- table_PS_RS %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("soma_N",
@@ -187,7 +187,7 @@ for(i in 1:ncol(table_PS_RS_var)){
 }
 
 
-agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(table_PS_RS_var),freq=4),
+agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(table_PS_RS_var), freq = 4),
                                                          transform.function = "auto",
                                                          regression.aictest = c("td", "easter"),
                                                          pickmdl.method="best",
@@ -208,7 +208,10 @@ table_PS_RS_var <- pib_SA %>%
     cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_", "VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
-  )
+  ) %>% 
+  dplyr::mutate(indicador_N = VA_RS/soma_N,
+                indicador_qtd_horasHabituais = VA_RS/qtd_horasHabituais,
+                indicador_qtd_horasEfetivas = VA_RS/qtd_horasEfetivas)
 # %>%
 #   dplyr::left_join(table_PS_RS %>% 
 #                      dplyr::select(atividade, Ano, Trimestre),
@@ -220,7 +223,9 @@ table_PS_RS_var <- pib_SA %>%
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
-  dplyr::select(atividade, Ano, Trimestre, VA_BR, soma_N,  qtd_horasHabituais, qtd_horasEfetivas)
+  dplyr::select(atividade, Ano, Trimestre, VA_BR, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 
+  dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
+                qtd_horasEfetivas  = qtd_horasEfetivas*12.9)
 
 table_PS_BR_var <- table_PS_BR %>% 
   tidyr::pivot_wider(names_from = atividade, values_from = c("soma_N",
@@ -264,7 +269,10 @@ table_PS_BR_var <- pib_SA %>%
     cols = starts_with(c("soma_N_","qtd_horasHabituais","qtd_horasEfetivas_", "VA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
-  )
+  ) %>% 
+  dplyr::mutate(indicador_N = VA_BR/soma_N,
+                indicador_qtd_horasHabituais = VA_BR/qtd_horasHabituais,
+                indicador_qtd_horasEfetivas = VA_BR/qtd_horasEfetivas)
 ######################################################################
 # Excel
 ######################################################################
@@ -275,5 +283,157 @@ sheets <- list("P&S SAZ_VAR BR" = table_PS_BR_var,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_3.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_5.xlsx"))
 ######################################################################
+# PLOT
+######################################################################
+
+options(timeout = 600) 
+options(scipen = 999)
+
+library(esquisse)
+esquisse::esquisser(viewer = "browser")
+
+############################
+# HORAS HABITUAIS
+############################
+# RS
+############################
+
+ggplot(table_PS_SAZ_4_DIR_IND) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = indicador_qtd_horasHabituais,
+        colour = "Direto RS"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = indicadorVA_qtd_HHabituais,
+        colour = "Separado RS"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Direto RS", "Separado RS"),
+    values = c(
+      "Direto RS" = "#112446",
+      "Separado RS"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()
+
+############################
+# HORAS HABITUAIS
+############################
+# BR
+############################
+
+ggplot(table_PS_SAZ_4_DIR_IND_BR) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = indicador_qtd_horasHabituais,
+        colour = "Direto BR"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = indicadorVA_qtd_HHabituais,
+        colour = "Separado BR"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Direto BR", "Separado BR"),
+    values = c(
+      "Direto BR" = "#112446",
+      "Separado BR"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()
+############################
+# HORAS EFETIVAS
+############################
+# RS
+############################
+ggplot(table_PS_SAZ_4_DIR_IND) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = indicador_qtd_horasEfetivas,
+        colour = "Direto RS"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = indicadorVA_qtd_HEfetivas,
+        colour = "Separado RS"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Direto RS", "Separado RS"),
+    values = c(
+      "Direto RS" = "#112446",
+      "Separado RS"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()
+############################
+# HORAS EFETIVAS
+############################
+# BR
+############################
+ggplot(table_PS_SAZ_4_DIR_IND_BR) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = indicador_qtd_horasEfetivas,
+        colour = "Direto BR"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = indicadorVA_qtd_HEfetivas,
+        colour = "Separado BR"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Direto BR", "Separado BR"),
+    values = c(
+      "Direto BR" = "#112446",
+      "Separado BR"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()

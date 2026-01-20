@@ -613,16 +613,73 @@ writexl::write_xlsx(sheets,
 # Plots
 
 ```{r}
-
-
-
-
-
-
-
-
+ggplot(table_TRIRS_PS) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = qtd_horasHabituais,
+        colour = "Habituais RS"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = qtd_horasEfetivas,
+        colour = "Efetivas RS"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Habituais RS", "Efetivas RS"),
+    values = c(
+      "Habituais RS" = "#112446",
+      "Efetivas RS"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()
 
 ```
+
+```{r}
+ggplot(table_TRIBR_PS) +
+  aes(x = Ano) +
+  
+  geom_line(
+    aes(y = qtd_horasHabituais,
+        colour = "Habituais BR"),
+    linewidth = 1
+  ) +
+  
+  geom_line(
+    aes(y = qtd_horasEfetivas,
+        colour = "Efetivas BR"),
+    linewidth = 1
+  ) +
+  
+  scale_colour_manual(
+    name = "",
+    breaks = c("Habituais BR", "Efetivas BR"),
+    values = c(
+      "Habituais BR" = "#112446",
+      "Efetivas BR"  = "#E4003A"
+    )
+  )  +
+  
+  facet_wrap(
+    vars(atividade),
+    scales = "free"
+  ) +
+  
+  theme_minimal()
+
+```
+
 
 # Leitura: duckdb
 

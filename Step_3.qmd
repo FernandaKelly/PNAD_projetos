@@ -67,7 +67,7 @@ save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Gover
 ```
 
 
-<<<<<<< HEAD
+
 ### 2025
 
 ```{r}
@@ -116,7 +116,7 @@ dadosPNADc1VISITA_2012 <- PNADcIBGE::get_pnadc(year = 2012,
 
 ```
 
-=======
+
 # Visitas
 
 ## 1
@@ -127,7 +127,7 @@ future::plan(multisession, workers = 7)
 
 ### 2012 - 2015
 
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
 ```{r}
 
 # Parâmetros ----
@@ -150,7 +150,7 @@ dadosPNADc1VISITA_12_15 <- future_map_dfr(
 ```
 
 ```{r}
-<<<<<<< HEAD
+
 save(dadosPNADc1VISITA_2012, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2012.RData")
 ```
 
@@ -161,7 +161,7 @@ save(dadosPNADc1VISITA_2012, file = "C:/Users/fernanda-romeiro/OneDrive - Govern
 dadosPNADc1VISITA_2013 <- PNADcIBGE::get_pnadc(year = 2013,
                                                interview = 1,
                                                design = FALSE)
-=======
+
 save(dadosPNADc1VISITA_12_15, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_12_15.RData")
 ```
 
@@ -185,12 +185,12 @@ dadosPNADc1VISITA_16_19 <- future_map_dfr(
     ) 
   }
 )
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
 
 ```
 
 ```{r}
-<<<<<<< HEAD
+
 save(dadosPNADc1VISITA_2013, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2013.RData")
 ```
 
@@ -201,7 +201,7 @@ save(dadosPNADc1VISITA_2013, file = "C:/Users/fernanda-romeiro/OneDrive - Govern
 dadosPNADc1VISITA_2014 <- PNADcIBGE::get_pnadc(year = 2014,
                                                interview = 1,
                                                design = FALSE)
-=======
+
 save(dadosPNADc1VISITA_16_19, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_16_19.RData")
 ```
 
@@ -225,12 +225,12 @@ dadosPNADc1VISITA_23_24 <- future_map_dfr(
     ) 
   }
 )
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
 
 ```
 
 ```{r}
-<<<<<<< HEAD
+
 save(dadosPNADc1VISITA_2014, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2014.RData")
 ```
 
@@ -241,7 +241,7 @@ save(dadosPNADc1VISITA_2014, file = "C:/Users/fernanda-romeiro/OneDrive - Govern
 dadosPNADc1VISITA_2015 <- PNADcIBGE::get_pnadc(year = 2015,
                                                interview = 1,
                                                design = FALSE)
-=======
+
 save(dadosPNADc1VISITA_23_24, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_23_24.RData")
 ```
 
@@ -260,12 +260,12 @@ dadosPNADc1VISITA_25_2 <- PNADcIBGE::get_pnadc(
       quarter = 2,
       design = FALSE
     )
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
 
 ```
 
 ```{r}
-<<<<<<< HEAD
+
 save(dadosPNADc1VISITA_2015, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2015.RData")
 ```
 
@@ -403,7 +403,7 @@ save(dadosPNADc1VISITA_2024, file = "C:/Users/fernanda-romeiro/OneDrive - Govern
 
 
 ### Vários anos
-=======
+
 dadosPNADc1VISITA_25 <-  dadosPNADc1VISITA_25_1 %>% 
                          dplyr::bind_rows(dadosPNADc1VISITA_25_2)
 ```
@@ -415,7 +415,7 @@ save(dadosPNADc1VISITA_25, file = "C:/Users/fernanda-romeiro/OneDrive - Governo 
 ## 5
 
 ### 2020 - 2022
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
 
 ```{r}
 future::plan(multisession, workers = 7)
@@ -443,7 +443,7 @@ save(visita5_pnad, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estad
 ```
 
 
-<<<<<<< HEAD
+
 # Empilhamento
 
 ```{r}
@@ -642,7 +642,6 @@ medias_por_ano <- svyby(~VD4039C, ~ano, design_pool, svymean, na.rm = TRUE)
 # - se seu interesse for apenas estimativas por ano, calcular com objetos por ano e só juntar resultados é mais leve (e evita grandes objetos na RAM).
 
 ```
-=======
 
 
 
@@ -651,7 +650,8 @@ medias_por_ano <- svyby(~VD4039C, ~ano, design_pool, svymean, na.rm = TRUE)
 
 
 
->>>>>>> 5194feb9a051446550815e56709bc6b8e8c20dc3
+
+
 
 
 

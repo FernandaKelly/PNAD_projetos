@@ -25,6 +25,7 @@ execute:
 
 ```{r}
 options(timeout = 600) 
+options(scipen = 999)
 ```
 
 ```{r}
@@ -112,11 +113,6 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
 
-```
-
-```{r}
-#V4013 PRIMÁRIO
-#V4044 SECUNDÁRIO
 ```
 
 ## Anos
@@ -221,6 +217,23 @@ table_1S_2024 <- dadosPNADc1VISITA_2024 %>%
 ```
 
 
+```{r}
+table_1P <- table_1P_2019 %>% 
+  dplyr::bind_rows(table_1P_2020, table_1P_2021, table_1P_2022, table_1P_2023, table_1P_2024) %>% 
+  dplyr::filter(!(is.na(V4013))) %>% 
+  dplyr::select(V4013, freq, Ano)
+
+table_1S <- table_1S_2019 %>% 
+  dplyr::bind_rows(table_1S_2020, table_1S_2021, table_1S_2022, table_1S_2023, table_1S_2024) %>% 
+  dplyr::filter(!(is.na(V4044))) %>% 
+  dplyr::select(V4044, freq, Ano)
+
+table_PS_19_24 <- table_1P %>% 
+  dplyr::left_join(table_1S, by = c("V4013" = "V4044", "Ano" = "Ano")) %>% 
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(somaN = base::sum(freq.x, freq.y, na.rm = TRUE))
+
+```
 
 
 
@@ -233,6 +246,9 @@ sheets <- list("PRINCIPAL"    = table_P,
 
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_1.xlsx"))
+
+writexl::write_xlsx(table_PS_19_24, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_19_24_2.xlsx"))
 ```
 
 

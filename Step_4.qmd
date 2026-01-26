@@ -74,6 +74,160 @@ table_P <- survey::svyby(~VD4002 == "Pessoas ocupadas", ~V4013,
                vartype=c("se","cv","cvpct","var"))
 ```
 
+## Demanda: Principal & Renda (2019-2024)
+
+```{r}
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2020.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2021.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2022.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2023.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
+
+```
+
+```{r}
+
+dadosPNADc1VISITA_2019  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2019)
+dadosPNADc1VISITA_2019 <- srvyr::as_survey(dadosPNADc1VISITA_2019)
+
+dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+table_1P_2019 <- dadosPNADc1VISITA_2019 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+
+
+
+```
+
+```{r}
+dadosPNADc5VISITA_2020  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2020)
+dadosPNADc5VISITA_2020 <- srvyr::as_survey(dadosPNADc5VISITA_2020)
+
+dadosPNADc5VISITA_2020 <- dadosPNADc5VISITA_2020 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+table_1P_2020 <- dadosPNADc5VISITA_2020 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+
+
+```
+
+```{r}
+dadosPNADc5VISITA_2021  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2021)
+dadosPNADc5VISITA_2021 <- srvyr::as_survey(dadosPNADc5VISITA_2021)
+
+dadosPNADc5VISITA_2021 <- dadosPNADc5VISITA_2021 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") 
+
+table_1P_2021 <- dadosPNADc5VISITA_2021 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+
+```
+
+
+```{r}
+dadosPNADc5VISITA_2022  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2022)
+dadosPNADc5VISITA_2022 <- srvyr::as_survey(dadosPNADc5VISITA_2022)
+
+dadosPNADc5VISITA_2022 <- dadosPNADc5VISITA_2022 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas")
+
+table_1P_2022 <- dadosPNADc5VISITA_2022 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+```
+
+```{r}
+dadosPNADc1VISITA_2023  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2023)
+dadosPNADc1VISITA_2023 <- srvyr::as_survey(dadosPNADc1VISITA_2023)
+
+dadosPNADc1VISITA_2023 <- dadosPNADc1VISITA_2023 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas")
+
+table_1P_2023 <- dadosPNADc1VISITA_2023 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+```
+
+
+```{r}
+dadosPNADc1VISITA_2024  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2024)
+dadosPNADc1VISITA_2024 <- srvyr::as_survey(dadosPNADc1VISITA_2024)
+
+dadosPNADc1VISITA_2024 <- dadosPNADc1VISITA_2024 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul") %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas")
+
+table_1P_2024 <- dadosPNADc1VISITA_2024 %>%  
+  dplyr::group_by(V4013, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)
+  )
+```
+
+
+```{r}
+
+table_1P <- table_1P_2019 %>% 
+  dplyr::bind_rows(table_1P_2020, table_1P_2021, table_1P_2022, table_1P_2023, table_1P_2024) %>% 
+  dplyr::filter(!(is.na(V4013))) %>% 
+  dplyr::select(V4013, Ano, freq, Qtd_horasHabituais, Qtd_renda)
+
+```
+
+
+
+
 # Secundário 
 
 ```{r}
@@ -115,7 +269,7 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 
 ```
 
-## Anos
+## Demanda: Anos (2019-2024)
 
 ```{r}
 
@@ -250,6 +404,11 @@ writexl::write_xlsx(sheets,
 #######################################
 writexl::write_xlsx(table_PS_19_24, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_19_24_2.xlsx"))
+
+
+#######################################
+writexl::write_xlsx(table_1P, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tableRenda_P_19_24_1.xlsx"))
 ```
 
 

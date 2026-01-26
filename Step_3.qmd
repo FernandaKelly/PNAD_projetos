@@ -404,6 +404,7 @@ save(dadosPNADc1VISITA_2024, file = "C:/Users/fernanda-romeiro/OneDrive - Govern
 
 ### Vários anos
 
+```{r}
 dadosPNADc1VISITA_25 <-  dadosPNADc1VISITA_25_1 %>% 
                          dplyr::bind_rows(dadosPNADc1VISITA_25_2)
 ```

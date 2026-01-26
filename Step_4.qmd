@@ -247,6 +247,7 @@ sheets <- list("PRINCIPAL"    = table_P,
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPS2023_1.xlsx"))
 
+#######################################
 writexl::write_xlsx(table_PS_19_24, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_19_24_2.xlsx"))
 ```

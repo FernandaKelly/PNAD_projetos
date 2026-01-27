@@ -23,7 +23,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 # 2012
 #####################################################
 
-load(file = here("Visitas","dadosPNADc1VISITA_2012.RData")))
+load(file = here("Visitas","dadosPNADc1VISITA_2012.RData"))
 
 dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>%

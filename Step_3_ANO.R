@@ -412,7 +412,7 @@ table_3TS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
 ########################################################
 
 table_RP_2012 <- dadosPNADc1VISITA_2012SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
    # dplyr::filter(V40331 == "Em dinheiro") %>% 
    # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -422,7 +422,7 @@ table_RP_2012 <- dadosPNADc1VISITA_2012SRPR %>%
 
 table_RS_2012 <- dadosPNADc1VISITA_2012SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -815,7 +815,7 @@ table_3TS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
 ########################################################
 
 table_RP_2013 <- dadosPNADc1VISITA_2013SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -825,7 +825,7 @@ table_RP_2013 <- dadosPNADc1VISITA_2013SRPR %>%
 
 table_RS_2013 <- dadosPNADc1VISITA_2013SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -1222,7 +1222,7 @@ table_3TS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
 ########################################################
 
 table_RP_2014 <- dadosPNADc1VISITA_2014SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -1232,7 +1232,7 @@ table_RP_2014 <- dadosPNADc1VISITA_2014SRPR %>%
 
 table_RS_2014 <- dadosPNADc1VISITA_2014SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -1632,7 +1632,7 @@ table_3TS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
 ########################################################
 
 table_RP_2015 <- dadosPNADc1VISITA_2015SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -1642,7 +1642,7 @@ table_RP_2015 <- dadosPNADc1VISITA_2015SRPR %>%
 
 table_RS_2015 <- dadosPNADc1VISITA_2015SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -2035,7 +2035,7 @@ table_3TS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
 ########################################################
 
 table_RP_2016 <- dadosPNADc1VISITA_2016SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -2045,7 +2045,7 @@ table_RP_2016 <- dadosPNADc1VISITA_2016SRPR %>%
 
 table_RS_2016 <- dadosPNADc1VISITA_2016SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -2440,7 +2440,7 @@ table_3TS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
 ########################################################
 
 table_RP_2017 <- dadosPNADc1VISITA_2017SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -2450,7 +2450,7 @@ table_RP_2017 <- dadosPNADc1VISITA_2017SRPR %>%
 
 table_RS_2017 <- dadosPNADc1VISITA_2017SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -2847,7 +2847,7 @@ table_3TS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
 ########################################################
 
 table_RP_2018 <- dadosPNADc1VISITA_2018SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -2857,7 +2857,7 @@ table_RP_2018 <- dadosPNADc1VISITA_2018SRPR %>%
 
 table_RS_2018 <- dadosPNADc1VISITA_2018SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -3255,7 +3255,7 @@ table_3TS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
 ########################################################
 
 table_RP_2019 <- dadosPNADc1VISITA_2019SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -3265,7 +3265,7 @@ table_RP_2019 <- dadosPNADc1VISITA_2019SRPR %>%
 
 table_RS_2019 <- dadosPNADc1VISITA_2019SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -3662,7 +3662,7 @@ table_3TS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
 ########################################################
 
 table_RP_2020 <- dadosPNADc5VISITA_2020SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -3672,7 +3672,7 @@ table_RP_2020 <- dadosPNADc5VISITA_2020SRPR %>%
 
 table_RS_2020 <- dadosPNADc5VISITA_2020SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -4068,7 +4068,7 @@ table_3TS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
 ########################################################
 
 table_RP_2021 <- dadosPNADc5VISITA_2021SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -4078,7 +4078,7 @@ table_RP_2021 <- dadosPNADc5VISITA_2021SRPR %>%
 
 table_RS_2021 <- dadosPNADc5VISITA_2021SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -4480,7 +4480,7 @@ table_3TS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
 ########################################################
 
 table_RP_2022 <- dadosPNADc5VISITA_2022SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -4490,7 +4490,7 @@ table_RP_2022 <- dadosPNADc5VISITA_2022SRPR %>%
 
 table_RS_2022 <- dadosPNADc5VISITA_2022SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -4889,7 +4889,7 @@ table_3TS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
 ########################################################
 
 table_RP_2023 <- dadosPNADc1VISITA_2023SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -4899,7 +4899,7 @@ table_RP_2023 <- dadosPNADc1VISITA_2023SRPR %>%
 
 table_RS_2023 <- dadosPNADc1VISITA_2023SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -5298,7 +5298,7 @@ table_3TS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
 ########################################################
 
 table_RP_2024 <- dadosPNADc1VISITA_2024SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -5308,7 +5308,7 @@ table_RP_2024 <- dadosPNADc1VISITA_2024SRPR %>%
 
 table_RS_2024 <- dadosPNADc1VISITA_2024SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -5707,7 +5707,7 @@ table_3TS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
 ########################################################
 
 table_RP_2025 <- dadosPNADc1VISITA_25SRPR %>%  
-  dplyr::filter(VD4017 != 0) %>% 
+   
   # dplyr::filter(V40331 == "Em dinheiro") %>% 
   # dplyr::filter(V40332 == "Em produtos ou mercadorias") %>% 
   dplyr::group_by(V4013, SIT_PR, Ano) %>% 
@@ -5717,7 +5717,7 @@ table_RP_2025 <- dadosPNADc1VISITA_25SRPR %>%
 
 table_RS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-  dplyr::filter(Qtd_renda_S != 0) %>% 
+   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,
@@ -5976,7 +5976,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                "RENDA SECUNDÁRIO"              = table_RS)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_FI_3.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_RS_FI_4.xlsx"))
 
 
 

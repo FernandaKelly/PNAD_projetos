@@ -5717,7 +5717,6 @@ table_RP_2025 <- dadosPNADc1VISITA_25SRPR %>%
 
 table_RS_2025 <- dadosPNADc1VISITA_25SRSEC %>%
   dplyr::mutate(Qtd_renda_S = base::sum(V405112, V405122, na.rm = TRUE)) %>% 
-   
   dplyr::group_by(V4044, SIT_SEC, Ano) %>% 
   dplyr::summarise(freq = srvyr::survey_total(),
                    Qtd_renda_S = srvyr::survey_total(Qtd_renda_S,

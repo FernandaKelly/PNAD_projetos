@@ -700,12 +700,6 @@ writexl::write_xlsx(table_RENDA_PS,
 
 ```
 
-```{r}
-table_RENDA_PS %>% 
-  dplyr::filter(Ano == 2019) %>% 
-  dplyr::group_by(Ano) %>% 
-  dplyr::summarise(soma = sum(freq_N))
-```
 
 ## Demanda: Formal e Informal (2019)
 

@@ -556,7 +556,7 @@ dadosPNADc1VISITA_2019  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2019)
 dadosPNADc1VISITA_2019 <- srvyr::as_survey(dadosPNADc1VISITA_2019)
 
 dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
-    dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas" & VD4002 == "Pessoas ocupadas") 
+    dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") 
 
 table_1P_2019 <- dadosPNADc1VISITA_2019 %>%  
   dplyr::group_by(V4013, Ano) %>% 

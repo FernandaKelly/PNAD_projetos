@@ -948,6 +948,37 @@ V4044 %in% c("99000","00000") ~ 0,
                 )
 ```
 
+## Demanda: Dia da Mulher
+
+
+```{r}
+load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Secundário 
 
 ```{r}

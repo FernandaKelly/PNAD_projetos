@@ -90,6 +90,12 @@ dadosPNADc1VISITA_25_3 <- PNADcIBGE::get_pnadc(
       design = FALSE
     )
 
+dadosPNADc1VISITA_25_4 <- PNADcIBGE::get_pnadc(
+      year = 2025,
+      quarter = 4,
+      design = FALSE
+    )
+
 ```
 
 ```{r}
@@ -98,7 +104,16 @@ dadosPNADc1VISITA_25 <-  dplyr::bind_rows (dadosPNADc1VISITA_25_1,
 ```
 
 ```{r}
+dadosPNADc2025_completo <-  dplyr::bind_rows(dadosPNADc1VISITA_25_1,
+                                             dadosPNADc1VISITA_25_2,
+                                             dadosPNADc1VISITA_25_3,
+                                             dadosPNADc1VISITA_25_4)
+```
+
+```{r}
 save(dadosPNADc1VISITA_25, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc1VISITA_25.RData")
+
+save(dadosPNADc2025_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2025_completo.RData")
 ```
 
 

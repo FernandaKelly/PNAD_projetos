@@ -952,14 +952,80 @@ V4044 %in% c("99000","00000") ~ 0,
 
 
 ```{r}
-load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2025_completo.RData")
+```
+
+```{r}
+dadosPNADc2025_DM <- dadosPNADc2025_completo %>% 
+    dplyr::filter(UF == "Rio Grande do Sul")
+
+dadosPNADc2025_DM_srv  <- PNADcIBGE::pnadc_design(dadosPNADc2025_DM)
+dadosPNADc2025_DM_srv <- srvyr::as_survey(dadosPNADc2025_DM_srv)
+```
+
+
+```{r}
+dadosPNADc2025_DM %>% 
+  janitor::tabyl(V2005)
+
+#Sexo
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+#Cor ou raça
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2010) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+#Situação do domicílio
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V1022) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V1022, V2007) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+#Condição no domicílio
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2005) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2005) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2005, V2007) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2005, V2007, V2010) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+
+#Número de pessoas no domicílio
+dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2005, V1022,V2001) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+
+
+  
 ```
 
 
 
 
-
-
+```{r}
+dadosPNADc2025_DM_srv %>% 
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(V2007, V4012) %>% 
+   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                    Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE))
+  
+```
 
 
 

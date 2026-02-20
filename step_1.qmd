@@ -366,16 +366,32 @@ writexl::write_xlsx(sheets,
 
 
 
-
-
 ```{r}
  dadosPNADc2025_4 <- PNADcIBGE::get_pnadc(year = 2025,
                                           quarter = 4,
                                           design = FALSE)
+
+# dadosPNADc2023_1 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 1,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+# 
+# dadosPNADc2023_2 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 2,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+# 
+# 
+# dadosPNADc2023_3 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 3,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
+# 
+# dadosPNADc2023_4 <- PNADcIBGE::get_pnadc(year = 2023,
+#                                          quarter = 4,
+#                                          vars = c("UF", "V4039C", "VD4002", "V4013"),
+#                                          design = FALSE)
 ```
-
-
-
 
 
 

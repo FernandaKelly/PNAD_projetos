@@ -370,7 +370,7 @@ writexl::write_xlsx(sheets,
 
 ```{r}
  dadosPNADc2025_4 <- PNADcIBGE::get_pnadc(year = 2025,
-                                          quarter = 3,
+                                          quarter = 4,
                                           design = FALSE)
 ```
 

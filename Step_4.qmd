@@ -991,81 +991,257 @@ dadosPNADc2025_DM_srv  <- srvyr::as_survey(dadosPNADc2025_DM_srv)
 ```
 
 ```{r}
- table_perfil <-
+ table_perfil_1 <-
    dadosPNADc2025_DM_srv %>% 
-   dplyr::select(V2005, V2010, V1022, V2007) %>% 
-  dplyr::group_by(V2005, V2010) %>% 
-  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("se", "ci", "var", "cv"))  )
+   #dplyr::select(V2005, V2010, V1022, V2007) %>% 
+  dplyr::group_by(V2007) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() 
+
+table_perfil_1
+```
+
+```{r}
+ table_perfil_4 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V1022) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V1022 = "Situação do domicílio"
+  )
+
+table_perfil_4
+  #gt::gt( row_group_as_column = TRUE)
+```
+
+```{r}
+ table_perfil_2 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V2005) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V2005 = "Condição no domicílio"
+  )
+
+table_perfil_2
+  #gt::gt( row_group_as_column = TRUE)
 ```
 
 
+
+```{r}
+ table_perfil_3 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V2005, V2010) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V2005 = "Condição no domicílio",
+    V2010 = "Cor ou Raça"
+  )
+
+table_perfil_3
+  #gt::gt( row_group_as_column = TRUE)
+```
+
+
+```{r}
+ table_perfil_5 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V2001, V2005) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V2001 = "Número de pessoas no domicílio",
+    V2005 = "Condição no domicílio"
+  )
+
+table_perfil_5
+  #gt::gt( row_group_as_column = TRUE)
+```
 
 
 ### Educação
 
 
-### Trabalho
 
 ```{r}
-table_perfil <-
-  tbl_summary(
-    dadosPNADc2025_DM,
-    include = c(age, grade, response),
-    by = trt, # split table by group
-    missing = "no" # don't list missing data separately
-  ) |> 
-  add_n() |> # add column with total number of non-missing observations
-  add_p() |> # test for a difference between groups
-  modify_header(label = "**Variable**") |> # update the column header
-  bold_labels()
+ table_perfil_6 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3001) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3001 = "Sabe ler e escrever"
+  )
+
+table_perfil_6
+  #gt::gt( row_group_as_column = TRUE)
 ```
 
 
 ```{r}
-dadosPNADc2025_DM %>% 
-  janitor::tabyl(V2005)
+ table_perfil_7 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3001, V2010) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3001 = "Sabe ler e escrever",
+    V2010 = "Cor ou raça"
+  )
 
-#Sexo
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2007) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-#Cor ou raça
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2010) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-#Situação do domicílio
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V1022) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V1022, V2007) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-#Condição no domicílio
-
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2005) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2005, V2007) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
-
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2005, V2007, V2010) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
+table_perfil_7
+  #gt::gt( row_group_as_column = TRUE)
+```
 
 
-#Número de pessoas no domicílio
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2005, V1022,V2001) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
 
-  
+
+
+
+```{r}
+ table_perfil_8 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3009A) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?"
+  )
+
+table_perfil_8
+  #gt::gt( row_group_as_column = TRUE)
+```
+
+
+
+```{r}
+ table_perfil_9 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3009A) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?"
+  )
+
+table_perfil_9
+  #gt::gt( row_group_as_column = TRUE)
+```
+
+```{r}
+ table_perfil_9 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3009A) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?"
+  )
+
+table_perfil_9
+  #gt::gt( row_group_as_column = TRUE)
+```
+
+
+### Trabalho
+
+```{r}
+ table_perfil_11 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V3009A) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?"
+  )
+
+table_perfil_11
+  #gt::gt( row_group_as_column = TRUE)
 ```
 
 

@@ -39,6 +39,8 @@ library(foreign)
 library(srvyr)
 library(reactable)
 library(purrr)
+library(janitor)
+library(gtsummary)
 ```
 
 ```{r}
@@ -952,6 +954,8 @@ V4044 %in% c("99000","00000") ~ 0,
 
 
 ```{r}
+load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2024_completo.RData")
+
 load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2025_completo.RData")
 ```
 
@@ -961,6 +965,38 @@ dadosPNADc2025_DM <- dadosPNADc2025_completo %>%
 
 dadosPNADc2025_DM_srv  <- PNADcIBGE::pnadc_design(dadosPNADc2025_DM)
 dadosPNADc2025_DM_srv <- srvyr::as_survey(dadosPNADc2025_DM_srv)
+```
+
+### Perfil
+
+```{r}
+table_perfil <-
+  tbl_summary(
+    trial,
+    include = c(age, grade, response),
+    by = trt, # split table by group
+    missing = "no" # don't list missing data separately
+  ) |> 
+  add_n() |> # add column with total number of non-missing observations
+  add_p() |> # test for a difference between groups
+  modify_header(label = "**Variable**") |> # update the column header
+  bold_labels()
+```
+
+### Trabalho
+
+```{r}
+table_perfil <-
+  tbl_summary(
+    trial,
+    include = c(age, grade, response),
+    by = trt, # split table by group
+    missing = "no" # don't list missing data separately
+  ) |> 
+  add_n() |> # add column with total number of non-missing observations
+  add_p() |> # test for a difference between groups
+  modify_header(label = "**Variable**") |> # update the column header
+  bold_labels()
 ```
 
 
@@ -988,9 +1024,6 @@ dadosPNADc2025_DM_srv %>%
   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
 #Condição no domicílio
-dadosPNADc2025_DM_srv %>% 
-  dplyr::group_by(V2005) %>% 
-  dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")))
 
 dadosPNADc2025_DM_srv %>% 
   dplyr::group_by(V2005) %>% 
@@ -1024,6 +1057,16 @@ dadosPNADc2025_DM_srv %>%
    dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
                     Qtd_renda = srvyr::survey_total(VD4017,
                                                    na.rm = TRUE))
+
+
+dadosPNADc2025_DM_srv %>% 
+  #dplyr::filter(VD4002 == "Pessoas ocupadas") %>% 
+  dplyr::group_by(V2007, VD4030) %>% 
+   dplyr::summarise(freq = srvyr::survey_total(vartype = c("se", "ci", "var", "cv")),
+                    Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE))
+
+
   
 ```
 

@@ -1102,6 +1102,7 @@ table_perfil_5
 ```{r}
  table_perfil_6 <-
    dadosPNADc2025_DM_srv %>% 
+  dplyr::filter(V2009 >= 14) %>% 
   dplyr::group_by(V2007, V3001) %>% 
   dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
   gt::gt() %>%
@@ -1125,6 +1126,7 @@ table_perfil_6
 ```{r}
  table_perfil_7 <-
    dadosPNADc2025_DM_srv %>% 
+  dplyr::filter(V2009 >= 14) %>%
   dplyr::group_by(V2007, V3001, V2010) %>% 
   dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
   gt::gt() %>%
@@ -1154,6 +1156,7 @@ table_perfil_7
 ```{r}
  table_perfil_8 <-
    dadosPNADc2025_DM_srv %>% 
+  dplyr::filter(V2009 >= 14) %>%
   dplyr::group_by(V2007, V3009A) %>% 
   dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
   gt::gt() %>%
@@ -1270,10 +1273,56 @@ dadosPNADc2025_DM_srv %>%
 
 
 
+```{r}
+
+
+table_perfil_12 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V4009) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V4009 = "Quantos trabalhos ... tinha na semana de ... a ... (semana de referência ?"
+  )
+
+table_perfil_12
+
+```
 
 
 
+```{r}
 
+
+table_perfil_13 <-
+   dadosPNADc2025_DM_srv %>% 
+  dplyr::group_by(V2007, V4009, V2010) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V4009 = "Quantos trabalhos ... tinha na semana de ... a ... (semana de referência ?",
+    V2010 = "Cor ou raça"
+  )
+
+table_perfil_13
+
+```
 
 
 

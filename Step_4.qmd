@@ -1157,7 +1157,7 @@ table_perfil_7
  table_perfil_8 <-
    dadosPNADc2025_DM_srv %>% 
   dplyr::filter(V2009 >= 14) %>%
-  dplyr::group_by(V2007, V3009A) %>% 
+  dplyr::group_by(V2007, V3009A, V2010) %>% 
   dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv"))  ) %>% 
   gt::gt() %>%
   gt::tab_spanner(
@@ -1169,7 +1169,8 @@ table_perfil_7
     columns = starts_with("Mulher")
   ) %>% 
   gt::cols_label(
-    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?"
+    V3009A = "Qual foi o curso mais elevado que ... frequentou anteriormente?",
+    V2010 = "Cor ou raça"
   )
 
 table_perfil_8

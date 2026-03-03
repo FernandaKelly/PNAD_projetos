@@ -1333,6 +1333,35 @@ table_perfil_13
 ### Renda
 
 
+```{r}
+table_perfil_14 <-
+   dadosPNADc2025_DM_srv %>%
+  dplyr::filter(VD4002 == "Pessoas ocupadas") %>%
+  dplyr::filter(V2009 >= 14) %>% 
+  dplyr::group_by(V2007, V2010, V4009) %>% 
+  dplyr::summarise(freq =  srvyr::survey_total(vartype = c("cv")),
+                   Qtd_horasHabituais = srvyr::survey_total(V4039,
+                                                   na.rm = TRUE),
+                   
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE)) %>% 
+  gt::gt() %>%
+  gt::tab_spanner(
+    label = "Homem",
+    columns = starts_with("Homem")
+  ) %>%
+  gt::tab_spanner(
+    label = "Mulher",
+    columns = starts_with("Mulher")
+  ) %>% 
+  gt::cols_label(
+    V4009 = "Quantos trabalhos ... tinha na semana de ... a ... (semana de referência ?",
+    V2010 = "Cor ou raça"
+  )
+
+table_perfil_14
+
+```
 
 
 # Secundário 

@@ -28,7 +28,8 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 # RIO GRANDE DO SUL
 #####################################################
 
-table_PS_8 <- readxl::read_excel("table_PS_8.xlsx", sheet = "Indicador TRI RS")
+table_PS_8 <- readxl::read_excel("table_PS_8.xlsx", 
+                                 sheet = "Indicador TRI RS")
 
 dadosRS_MM <- table_PS_8 %>% 
   dplyr::group_by(atividade) %>% 

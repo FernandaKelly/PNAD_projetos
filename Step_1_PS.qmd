@@ -170,13 +170,36 @@ table_grupos_Total <- table_atividades %>%
   ) %>% 
   dplyr::rename("atividade" = categoria)
 ###################################################################
+# GRUPOS: EXCLUÍDOS
+###################################################################
+grupos <- list(
+  "total_exc" = c(2, 3, 4, 5, 6, 7, 8, 9, 11)
+)
+
+table_grupos_Total_exc <- table_atividades %>% 
+  dplyr::mutate(
+     categoria = dplyr::case_when(
+      atividade %in% grupos$total_exc     ~ "total_exc",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
 # EMPILHAMENTO
 ###################################################################
 table_TRIRS_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos, table_grupos_Total)
+    ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 
 ```
 
@@ -317,13 +340,36 @@ table_grupos_Total <- table_atividades %>%
   ) %>% 
   dplyr::rename("atividade" = categoria)
 ###################################################################
+# GRUPOS: EXCLUÍDOS
+###################################################################
+grupos <- list(
+  "total_exc" = c(2, 3, 4, 5, 6, 7, 8, 9, 11)
+)
+
+table_grupos_Total_exc <- table_atividades %>% 
+  dplyr::mutate(
+     categoria = dplyr::case_when(
+      atividade %in% grupos$total_exc     ~ "total_exc",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
 # EMPILHAMENTO
 ###################################################################
 table_TRIBR_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos, table_grupos_Total)
+    ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 ```
 
 #### Indicador
@@ -438,13 +484,36 @@ table_grupos_Total <- table_atividades %>%
   ) %>% 
   dplyr::rename("atividade" = categoria)
 ###################################################################
+# GRUPOS: EXCLUÍDOS
+###################################################################
+grupos <- list(
+  "total_exc" = c(2, 3, 4, 5, 6, 7, 8, 9, 11)
+)
+
+table_grupos_Total_exc <- table_atividades %>% 
+  dplyr::mutate(
+     categoria = dplyr::case_when(
+      atividade %in% grupos$total_exc     ~ "total_exc",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
 # EMPILHAMENTO
 ###################################################################
 table_ANORS_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos, table_grupos_Total)
+    ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 ```
 
 #### Indicador
@@ -556,13 +625,36 @@ table_grupos_Total <- table_atividades %>%
   ) %>% 
   dplyr::rename("atividade" = categoria)
 ###################################################################
+# GRUPOS: EXCLUÍDOS
+###################################################################
+grupos <- list(
+  "total_exc" = c(2, 3, 4, 5, 6, 7, 8, 9, 11)
+)
+
+table_grupos_Total_exc <- table_atividades %>% 
+  dplyr::mutate(
+     categoria = dplyr::case_when(
+      atividade %in% grupos$total_exc     ~ "total_exc",
+      TRUE                            ~ NA_character_
+    )
+  ) %>% 
+  dplyr::filter(!is.na(categoria)) %>% 
+  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::summarise(
+    soma_N             = sum(soma_N, na.rm = TRUE),
+    qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
+    qtd_horasEfetivas  = sum(qtd_horasEfetivas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  dplyr::rename("atividade" = categoria)
+###################################################################
 # EMPILHAMENTO
 ###################################################################
 table_ANOBR_PS <- dplyr::bind_rows(
   table_atividades %>%
     dplyr::mutate(
       atividade  = as.character(atividade)
-    ), table_grupos, table_grupos_Total)
+    ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 
 ```
 

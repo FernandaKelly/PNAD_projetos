@@ -786,6 +786,7 @@ ggplot() +
   theme_minimal()
 
 ```
+
 ```{r}
 PIB_BRVA %>% 
   dplyr::mutate(ano = base::as.numeric(ano),

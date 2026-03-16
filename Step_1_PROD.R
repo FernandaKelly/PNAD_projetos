@@ -55,7 +55,7 @@ table_PS_9_RS <- read_excel("Dados/table_PS_9.xlsx",
                                              atividade == "12" ~ "Adm., defesa, saúde e educação públicas e seguridade social",
                                              atividade == "servicos" ~ "SERVIÇOS",
                                              atividade == "total" ~ "TOTAL",
-                                             atividade == "totalExc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+                                             atividade == "total_exc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
                 "PERÍODO" = paste(Ano, Trimestre, sep = ".")
                 
                 ) %>% 
@@ -160,7 +160,7 @@ table_PS_MM_2_RS <- read_excel("Dados/table_PS_MM_2.xlsx",
                                              atividade == "industria" ~ "INDÚSTRIA",
                                              atividade == "servicos" ~ "SERVIÇOS",
                                              atividade == "total" ~ "TOTAL",
-                                             atividade == "totalExc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+                                             atividade == "total_exc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
                 "PERÍODO" = paste(Ano, Trimestre, sep = "."))  %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N_MM4, indicadorVA_qtd_HHabituais_MM4,
                 indicadorVA_qtd_HEfetivas_MM4)
@@ -213,7 +213,7 @@ table_TAXA_1_INTERANUAL <- read_excel("Dados/table_TAXA_1.xlsx",
                                              atividade == "industria" ~ "INDÚSTRIA",
                                              atividade == "servicos" ~ "SERVIÇOS",
                                              atividade == "total" ~ "TOTAL",
-                                             atividade == "totalExc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+                                             atividade == "total_exc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
                 "PERÍODO" = paste(Ano, Trimestre, sep = "."))  %>% 
   dplyr::select(atividade, "PERÍODO", taxa_interanual_N, taxa_interanual_qtd_HHabituais,
                 taxa_interanual_qtd_HEfetivas)
@@ -317,7 +317,7 @@ table_TAXA_1_ACUMULADA <- read_excel("Dados/table_TAXA_1.xlsx",
                                              atividade == "industria" ~ "INDÚSTRIA",
                                              atividade == "servicos" ~ "SERVIÇOS",
                                              atividade == "total" ~ "TOTAL",
-                                             atividade == "totalExc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+                                             atividade == "total_exc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
                 "PERÍODO" = paste(Ano, Trimestre, sep = "."))  %>% 
   dplyr::select(atividade, "PERÍODO", taxa_ACUMULADA_N, taxa_ACUMULADA_qtd_HHabituais,
                 taxa_ACUMULADA_qtd_HEfetivas)

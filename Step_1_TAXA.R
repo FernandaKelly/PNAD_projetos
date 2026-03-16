@@ -48,16 +48,16 @@ dadosRS_TAXA_INTERANUAL_RS <- table_PS_9 %>%
 #              IMEDIATAMENTE ANTERIOR
 #####################################################
 table_PS_SAZ_6 <- readxl::read_excel("Dados/table_PS_SAZ_6.xlsx", 
-                                 sheet = "P&S SAZ_IND RS")
+                                 sheet = "P&S SAZ_VAR RS")
 #####################################################
 
 dadosRS_IMED_ANTERIOR_RS <- table_PS_SAZ_6 %>% 
   dplyr::arrange(atividade, Ano, Trimestre) %>%
   dplyr::group_by(atividade) %>%
   dplyr::mutate(
-    taxa_IMED_ANTERIOR_N = 100 * (indicadorVA_N - lag(indicadorVA_N)) / lag(indicadorVA_N),
-    taxa_IMED_ANTERIOR_qtd_HHabituais = 100 * (indicadorVA_qtd_HHabituais - lag(indicadorVA_qtd_HHabituais)) / lag(indicadorVA_qtd_HHabituais),
-    taxa_IMED_ANTERIOR_qtd_HEfetivas = 100 * (indicadorVA_qtd_HEfetivas - lag(indicadorVA_qtd_HEfetivas)) / lag(indicadorVA_qtd_HEfetivas),
+    taxa_IMED_ANTERIOR_N = 100 * (indicador_N - lag(indicador_N)) / lag(indicador_N),
+    taxa_IMED_ANTERIOR_qtd_HHabituais = 100 * (indicador_qtd_horasHabituais - lag(indicador_qtd_horasHabituais)) / lag(indicador_qtd_horasHabituais),
+    taxa_IMED_ANTERIOR_qtd_HEfetivas = 100 * (indicador_qtd_horasEfetivas - lag(indicador_qtd_horasEfetivas)) / lag(indicador_qtd_horasEfetivas),
   ) %>%
   ungroup()
 #####################################################
@@ -101,16 +101,16 @@ dadosRS_TAXA_INTERANUAL_BR <- table_PS_9 %>%
 #              IMEDIATAMENTE ANTERIOR
 #####################################################
 table_PS_SAZ_6 <- readxl::read_excel("Dados/table_PS_SAZ_6.xlsx", 
-                                     sheet = "P&S SAZ_IND BR")
+                                     sheet = "P&S SAZ_VAR BR")
 #####################################################
 
 dadosRS_IMED_ANTERIOR_BR <- table_PS_SAZ_6 %>% 
   dplyr::arrange(atividade, Ano, Trimestre) %>%
   dplyr::group_by(atividade) %>%
   dplyr::mutate(
-    taxa_IMED_ANTERIOR_N = 100 * (indicadorVA_N - lag(indicadorVA_N)) / lag(indicadorVA_N),
-    taxa_IMED_ANTERIOR_qtd_HHabituais = 100 * (indicadorVA_qtd_HHabituais - lag(indicadorVA_qtd_HHabituais)) / lag(indicadorVA_qtd_HHabituais),
-    taxa_IMED_ANTERIOR_qtd_HEfetivas = 100 * (indicadorVA_qtd_HEfetivas - lag(indicadorVA_qtd_HEfetivas)) / lag(indicadorVA_qtd_HEfetivas),
+    taxa_IMED_ANTERIOR_N = 100 * (indicador_N - lag(indicador_N)) / lag(indicador_N),
+    taxa_IMED_ANTERIOR_qtd_HHabituais = 100 * (indicador_qtd_horasHabituais - lag(indicador_qtd_horasHabituais)) / lag(indicador_qtd_horasHabituais),
+    taxa_IMED_ANTERIOR_qtd_HEfetivas = 100 * (indicador_qtd_horasEfetivas - lag(indicador_qtd_horasEfetivas)) / lag(indicador_qtd_horasEfetivas),
   ) %>%
   ungroup()
 #####################################################

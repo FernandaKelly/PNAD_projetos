@@ -96,6 +96,8 @@ table_PS_RS_ind <- pib_SA %>%
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
   ) 
+
+
 #utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 # %>%
 #   dplyr::left_join(table_PS_RS %>% 
@@ -276,6 +278,7 @@ table_PS_BR_var <- pib_SA %>%
   dplyr::mutate(indicador_N = VA_BR/soma_N,
                 indicador_qtd_horasHabituais = VA_BR/qtd_horasHabituais,
                 indicador_qtd_horasEfetivas = VA_BR/qtd_horasEfetivas)
+
 ######################################################################
 # Excel
 ######################################################################

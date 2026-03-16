@@ -34,9 +34,9 @@ agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(pib),f
 
 names(agreg_SA)<-colnames(pib)
 
-pib_SA<-lapply(agreg_SA,final)
+pib_SA<-lapply(agreg_SA, final)
 
-pib_SA<-do.call(cbind,pib_SA)
+pib_SA<-do.call(cbind, pib_SA)
 
 write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 ######################################################################
@@ -45,7 +45,7 @@ write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 ######################################################################
 # RIO GRANDE DO SUL
 ######################################################################
-table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
+table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
   #dplyr::filter(Ano != 2025) %>% 
   dplyr::filter(complete.cases(.)) %>% 
@@ -83,8 +83,8 @@ agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start = start(tabl
                                                          estimate.maxiter = 30000)))
 
 names(agreg_SA) <- colnames(table_PS_RS_ind)
-pib_SA <- lapply(agreg_SA,final)
-pib_SA <- do.call(cbind,pib_SA)
+pib_SA <- lapply(agreg_SA, final)
+pib_SA <- do.call(cbind, pib_SA)
 pib_SA <- base::as.data.frame(pib_SA)
 
 
@@ -105,7 +105,7 @@ table_PS_RS_ind <- pib_SA %>%
 ######################################################################
 # BRASIL
 ######################################################################
-table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
+table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
@@ -159,7 +159,7 @@ table_PS_BR_ind <- pib_SA %>%
 ######################################################################
 # RIO GRANDE DO SUL
 ######################################################################
-table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
+table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI RS") %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, VA_RS, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 
@@ -220,7 +220,7 @@ table_PS_RS_var <- pib_SA %>%
 ######################################################################
 # BRASIL
 ######################################################################
-table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx", 
+table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, VA_BR, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 

@@ -46,10 +46,33 @@ library(readxl)
 
 ```{r}
 PIB_RSVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
-    sheet = "VA_RS")
+    sheet = "VA_RS") 
 
+total_exc <- PIB_RSVA %>%
+  dplyr::filter(atividade %in% c("2","3","4","5","6","7","8","9","11")) %>%
+  dplyr::group_by(ano, tri) %>%
+  dplyr::summarise(
+    atividade = "total_exc",
+    VA_RS = sum(VA_RS, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+PIB_RSVA <- dplyr::bind_rows(PIB_RSVA, total_exc) 
+  
 PIB_BRVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
     sheet = "VA_BR")
+
+total_exc <- PIB_BRVA %>%
+  dplyr::filter(atividade %in% c("2","3","4","5","6","7","8","9","11")) %>%
+  dplyr::group_by(ano, tri) %>%
+  dplyr::summarise(
+    atividade = "total_exc",
+    VA_RS = sum(VA_BR, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+PIB_BRVA <- dplyr::bind_rows(PIB_BRVA, total_exc) 
+
 ```
 
 ## Trimestre
@@ -498,7 +521,7 @@ table_grupos_Total_exc <- table_atividades %>%
     )
   ) %>% 
   dplyr::filter(!is.na(categoria)) %>% 
-  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
   dplyr::summarise(
     soma_N             = sum(soma_N, na.rm = TRUE),
     qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
@@ -557,7 +580,7 @@ abas <- c(
 
 tabPSANO_BR <- map_dfr(
   abas,
-  ~ read_excel("Dados/tabPSANOS_BR_4.xlsx", sheet = .x),
+  ~ read_excel("Dados/tabPSANOS_BR_5.xlsx", sheet = .x),
   .id = "tipo_principal"
 )
 
@@ -639,7 +662,7 @@ table_grupos_Total_exc <- table_atividades %>%
     )
   ) %>% 
   dplyr::filter(!is.na(categoria)) %>% 
-  dplyr::group_by(categoria, Ano, Trimestre) %>% 
+  dplyr::group_by(categoria, Ano) %>% 
   dplyr::summarise(
     soma_N             = sum(soma_N, na.rm = TRUE),
     qtd_horasHabituais = sum(qtd_horasHabituais, na.rm = TRUE),
@@ -699,7 +722,7 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
               )
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_8.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx"))
 ```
 
 # Plots

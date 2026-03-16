@@ -67,7 +67,7 @@ total_exc <- PIB_BRVA %>%
   dplyr::group_by(ano, tri) %>%
   dplyr::summarise(
     atividade = "total_exc",
-    VA_RS = sum(VA_BR, na.rm = TRUE),
+    VA_BR = sum(VA_BR, na.rm = TRUE),
     .groups = "drop"
   )
 

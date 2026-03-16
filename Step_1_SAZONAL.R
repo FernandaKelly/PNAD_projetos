@@ -47,6 +47,7 @@ write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 ######################################################################
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
+  dplyr::mutate(atividade = base::ifelse(atividade == "total_exc", "totalExc", atividade )) %>% 
   #dplyr::filter(Ano != 2025) %>% 
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
@@ -94,8 +95,7 @@ table_PS_RS_ind <- pib_SA %>%
     cols = starts_with(c("indicadorVA_")),
     names_to = c(".value", "atividade"),
     names_sep = "_(?=[^_]+$)"
-  )
-
+  ) 
 #utils::write.table(table_PS_RS_ind,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
 # %>%
 #   dplyr::left_join(table_PS_RS %>% 
@@ -107,6 +107,7 @@ table_PS_RS_ind <- pib_SA %>%
 ######################################################################
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
+  dplyr::mutate(atividade = base::ifelse(atividade == "total_exc", "totalExc", atividade )) %>%  
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N,  indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas)
 
@@ -161,6 +162,7 @@ table_PS_BR_ind <- pib_SA %>%
 ######################################################################
 table_PS_RS <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI RS") %>% 
+  dplyr::mutate(atividade = base::ifelse(atividade == "total_exc", "totalExc", atividade )) %>%  
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, VA_RS, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 
   dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
@@ -222,6 +224,7 @@ table_PS_RS_var <- pib_SA %>%
 ######################################################################
 table_PS_BR <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx", 
                           sheet = "Indicador TRI BR") %>% 
+  dplyr::mutate(atividade = base::ifelse(atividade == "total_exc", "totalExc", atividade )) %>%  
   dplyr::filter(complete.cases(.)) %>% 
   dplyr::select(atividade, Ano, Trimestre, VA_BR, soma_N,  qtd_horasHabituais, qtd_horasEfetivas) %>% 
   dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
@@ -283,7 +286,7 @@ sheets <- list("P&S SAZ_VAR BR" = table_PS_BR_var,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_5.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_SAZ_6.xlsx"))
 ######################################################################
 # PLOT
 ######################################################################

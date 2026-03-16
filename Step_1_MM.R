@@ -28,10 +28,10 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 # RIO GRANDE DO SUL
 #####################################################
 
-table_PS_8 <- readxl::read_excel("table_PS_8.xlsx", 
+table_PS_9 <- readxl::read_excel("Dados/table_PS_9.xlsx", 
                                  sheet = "Indicador TRI RS")
 
-dadosRS_MM <- table_PS_8 %>% 
+dadosRS_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
   dplyr::mutate(
                 soma_N_MM4 = slider::slide_sum(soma_N, before = 3, complete = TRUE),
@@ -47,9 +47,9 @@ dadosRS_MM <- table_PS_8 %>%
 # BRASIL
 #####################################################
   
-table_PS_8 <- readxl::read_excel("table_PS_8.xlsx", sheet = "Indicador TRI BR")
+table_PS_9 <- readxl::read_excel("Dados/table_PS_9.xlsx", sheet = "Indicador TRI BR")
 
-dadosBR_MM <- table_PS_8 %>% 
+dadosBR_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
   dplyr::mutate(
     soma_N_MM4 = slider::slide_sum(soma_N, before = 3, complete = TRUE),
@@ -67,4 +67,4 @@ sheets <- list("MM4 RS TRI"   = dadosRS_MM,
                "MM4 BR TRI"   = dadosBR_MM)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_MM_1.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_MM_2.xlsx"))

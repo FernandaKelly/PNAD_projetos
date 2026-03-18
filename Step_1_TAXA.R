@@ -63,13 +63,13 @@ dadosRS_IMED_ANTERIOR_RS <- table_PS_SAZ_6 %>%
 #####################################################
 #             ACUMULADA EM 4 TRI
 #####################################################
-table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM_2.xlsx", 
+table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM_3.xlsx", 
                                     sheet = "MM4 RS TRI")
 #####################################################
 
 dadosRS_ACUMULADA_RS <- table_PS_MM_2 %>% 
-  dplyr::arrange(atividade, Ano, Trimestre) %>%
-  dplyr::group_by(atividade) %>%
+  dplyr::arrange(atividade, Trimestre, Ano) %>%
+  dplyr::group_by(atividade, Trimestre) %>%
   dplyr::mutate(
     taxa_ACUMULADA_N = 100 * (indicadorVA_N_MM4 - lag(indicadorVA_N_MM4)) / lag(indicadorVA_N_MM4),
     taxa_ACUMULADA_qtd_HHabituais = 100 * (indicadorVA_qtd_HHabituais_MM4 - lag(indicadorVA_qtd_HHabituais_MM4)) / lag(indicadorVA_qtd_HHabituais_MM4),
@@ -116,13 +116,13 @@ dadosRS_IMED_ANTERIOR_BR <- table_PS_SAZ_6 %>%
 #####################################################
 #             ACUMULADA EM 4 TRI
 #####################################################
-table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM_2.xlsx", 
+table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM_3.xlsx", 
                                     sheet = "MM4 BR TRI")
 #####################################################
 
 dadosRS_ACUMULADA_BR <- table_PS_MM_2 %>% 
-  dplyr::arrange(atividade, Ano, Trimestre) %>%
-  dplyr::group_by(atividade) %>%
+  dplyr::arrange(atividade, Trimestre, Ano) %>%
+  dplyr::group_by(atividade, Trimestre) %>%
   dplyr::mutate(
     taxa_ACUMULADA_N = 100 * (indicadorVA_N_MM4 - lag(indicadorVA_N_MM4)) / lag(indicadorVA_N_MM4),
     taxa_ACUMULADA_qtd_HHabituais = 100 * (indicadorVA_qtd_HHabituais_MM4 - lag(indicadorVA_qtd_HHabituais_MM4)) / lag(indicadorVA_qtd_HHabituais_MM4),
@@ -143,7 +143,7 @@ sheets <- list("dadosRS_TAXA_INTERANUAL_RS"   = dadosRS_TAXA_INTERANUAL_RS,
                "dadosRS_ACUMULADA_BR"   = dadosRS_ACUMULADA_BR)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_TAXA_1.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_TAXA_2.xlsx"))
 
 
 

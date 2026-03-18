@@ -34,7 +34,7 @@ table_PS_9 <- readxl::read_excel("Dados/table_PS_9.xlsx",
 dadosRS_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
   dplyr::mutate(
-                soma_N_MM4 = slider::slide_sum(soma_N, before = 3, complete = TRUE),
+                soma_N_MM4 = slider::slide_mean(soma_N, before = 3, complete = TRUE),
                 qtd_horasHabituais_MM4 = slider::slide_sum(qtd_horasHabituais, before = 3, complete = TRUE),
                 qtd_horasEfetivas_MM4 = slider::slide_sum(qtd_horasEfetivas, before = 3, complete = TRUE),
                 VA_RS_MM4 = slider::slide_sum(VA_RS, before = 3, complete = TRUE),
@@ -52,7 +52,7 @@ table_PS_9 <- readxl::read_excel("Dados/table_PS_9.xlsx", sheet = "Indicador TRI
 dadosBR_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
   dplyr::mutate(
-    soma_N_MM4 = slider::slide_sum(soma_N, before = 3, complete = TRUE),
+    soma_N_MM4 = slider::slide_mean(soma_N, before = 3, complete = TRUE),
     qtd_horasHabituais_MM4 = slider::slide_sum(qtd_horasHabituais, before = 3, complete = TRUE),
     qtd_horasEfetivas_MM4 = slider::slide_sum(qtd_horasEfetivas, before = 3, complete = TRUE),
     VA_BR_MM4 = slider::slide_sum(VA_BR, before = 3, complete = TRUE),
@@ -67,4 +67,4 @@ sheets <- list("MM4 RS TRI"   = dadosRS_MM,
                "MM4 BR TRI"   = dadosBR_MM)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_MM_2.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_MM_3.xlsx"))

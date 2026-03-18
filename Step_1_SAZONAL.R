@@ -632,7 +632,7 @@ table_PS_9_BR <- read_excel("Dados/table_PS_9.xlsx",
 va <- table_PS_9_BR %>% 
   dplyr::select(atividade, "PERÍODO", VA_BR) %>% 
   tidyr::pivot_wider(names_from  = atividade,
-                     values_from = VA_RS) %>% 
+                     values_from = VA_BR) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
 

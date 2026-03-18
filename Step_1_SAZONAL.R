@@ -515,10 +515,6 @@ ef <- table_PS_9_RS %>%
 
 
 
-
-
-
-
 table_PS_SAZ_6_RS <- read_excel("Dados/table_PS_SAZ_6.xlsx", 
                                 sheet = "P&S SAZ_VAR RS") %>% 
   dplyr::select(atividade:VA_RS) %>% 
@@ -580,11 +576,29 @@ ef_sa <- table_PS_SAZ_6_RS %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
 
 
+#####################################################
+#                        EXCEL
+#####################################################
+
+sheets <- list("prod_n"          = prod_n,
+               "prod_hb"         = prod_hb,
+               "prod_ef"         = prod_ef,
+               "prod_n_sa"       = prod_n_sa,
+               "prod_hb_sa"      = prod_hb_sa,
+               "prod_ef_sa"      = prod_ef_sa,
+               "prod_n_4"        = prod_n_4,
+               "prod_hb_4"       = prod_hb_4
+                                )
+
+
+writexl::write_xlsx(sheets, 
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PROD_BR_1.xlsx"))
 
 
 ######################################################################
 #                             BRASIL
 ######################################################################
+
 table_PS_9_BR <- read_excel("Dados/table_PS_9.xlsx", 
                             sheet = "Indicador TRI BR") %>% 
   dplyr::select(atividade:VA_BR)

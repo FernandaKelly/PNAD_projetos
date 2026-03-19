@@ -298,6 +298,10 @@ options(timeout = 600)
 options(scipen = 999)
 library(esquisse)
 #esquisse::esquisser(viewer = "browser")
+######################################################################
+# Para a construção dos plot foi necessário agregar os dados da sazonalidade feita diretamente no indicador e
+# os dados em que fizemos essa sazonalidade por variável e, por isso, foi criado a sheet DIR_SEP
+######################################################################
 
 table_PS_SAZ_5_DIR_SEP_RS <- read_excel("Dados/table_PS_SAZ_5.xlsx", 
                                              sheet = "DIR_SEP_RS")

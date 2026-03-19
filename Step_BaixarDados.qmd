@@ -1,0 +1,697 @@
+---
+title: "PNAD Contínua" # Título do relatório
+subtitle: "**Baixar dados**"
+author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
+lang: pt 
+date: "`r format(Sys.Date())`" 
+date-format: short 
+toc: true 
+format: 
+    html: 
+      embed-resources: true
+      #css: ["custom.css"] 
+      code-fold: false 
+      code-tools: true  
+      theme: 
+        light: cosmo
+        dark: superhero 
+#title-block-banner: "#874a9c" 
+code-annotations: hover 
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+
+```{r}
+#| echo: false
+#| 
+# install.packages("PNADcIBGE")
+# install.packages("survey")
+library(PNADcIBGE)
+library(survey)
+library(foreign)
+library(srvyr)
+library(reactable)
+library(purrr)
+library(furrr)
+library(future)
+```
+
+Aqui você tem as informações necessárias para baixar dados de visitas e trimestre. Lembre-se, os anos de 2020, 2021 e 2022, o IBGE indica a utilização da 5° visita para ano.
+
+
+# Trimestre
+
+## 2012
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2012,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2012 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2012) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2012_completo <- dplyr::bind_rows(dadosPNADc2012, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2012_completo.RData")
+```
+
+## 2013
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2013,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2012 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2013) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2013_completo <- dplyr::bind_rows(dadosPNADc2013, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2013_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2013_completo.RData")
+```
+
+
+## 2014
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2014,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2014 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2014) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2014_completo <- dplyr::bind_rows(dadosPNADc2014, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2014_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2014_completo.RData")
+```
+
+## 2015
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2015,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2015 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2015) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2015_completo <- dplyr::bind_rows(dadosPNADc2015, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2015_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2015_completo.RData")
+```
+
+## 2016
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2016,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2016 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2016) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2016_completo <- dplyr::bind_rows(dadosPNADc2016, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2012_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2012_completo.RData")
+```
+
+## 2017
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2017,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2017 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2017) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2017_completo <- dplyr::bind_rows(dadosPNADc2017, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2017_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2017_completo.RData")
+```
+
+## 2018
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2018,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2018 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2018) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2018_completo <- dplyr::bind_rows(dadosPNADc2018, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2018_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2018_completo.RData")
+```
+
+## 2019
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2019,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2019 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2019) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2019_completo <- dplyr::bind_rows(dadosPNADc2019, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2019_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2019_completo.RData")
+```
+
+## 2020
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2020,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2020 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2020) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2020_completo <- dplyr::bind_rows(dadosPNADc2020, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2020_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2020_completo.RData")
+```
+
+## 2021
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2021,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2021 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2021) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2021_completo <- dplyr::bind_rows(dadosPNADc2021, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2021_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2021_completo.RData")
+```
+
+## 2022
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2022,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2022 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2022) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2022_completo <- dplyr::bind_rows(dadosPNADc2022, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2022_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2022_completo.RData")
+```
+
+## 2023
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2023,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2023 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2023) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2023_completo <- dplyr::bind_rows(dadosPNADc2023, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2023_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2023_completo.RData")
+```
+
+## 2024
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2024,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2024 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2024) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2024_completo <- dplyr::bind_rows(dadosPNADc2024, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2024_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2024_completo.RData")
+```
+
+## 2025
+
+```{r}
+# Vetor com os trimestres
+trimestres <- 1:4
+
+# Função para baixar os dados de cada trimestre
+baixar_pnad <- function(t) {
+  get_pnadc(year = 2025,
+            quarter = t,
+            #vars = c("UF", "V4039C", "VD4002", "V4013"),
+            design = FALSE)
+}
+
+# Aplicando a função para todos os trimestres
+dadosPNADc2025 <- map(trimestres, baixar_pnad)
+# Nomeando cada elemento da lista
+names(dadosPNADc2025) <- paste0("Trimestre_", trimestres)
+
+dadosPNADc2025_completo <- dplyr::bind_rows(dadosPNADc2025, .id = "Trimestre")
+
+```
+
+```{r}
+save(dadosPNADc2025_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/dadosPNADc2025_completo.RData")
+```
+
+## 2026
+
+```{r}
+
+dadosPNADc2026_1 <- PNADcIBGE::get_pnadc(
+      year = 2026,
+      quarter = 1,
+      design = FALSE
+    ) 
+# 
+# dadosPNADc2026_2 <- PNADcIBGE::get_pnadc(
+#       year = 2026,
+#       quarter = 2,
+#       design = FALSE
+#     )
+# 
+# dadosPNADc2026_3 <- PNADcIBGE::get_pnadc(
+#       year = 2026,
+#       quarter = 3,
+#       design = FALSE
+#     )
+# 
+# dadosPNADc2026_4 <- PNADcIBGE::get_pnadc(
+#       year = 2026,
+#       quarter = 4,
+#       design = FALSE
+#     )
+
+```
+
+```{r}
+dadosPNADc2026_completo <-  dplyr::bind_rows(dadosPNADc2026_1)
+
+                                             # dadosPNADc2026_2,
+                                             # dadosPNADc2026_3,
+                                             # dadosPNADc2026_4)
+```
+
+```{r}
+
+save(dadosPNADc2026_completo, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2026_completo.RData")
+```
+
+
+# Visitas
+
+```{r}
+future::plan(multisession, workers = 7)
+```
+
+### 2012
+
+```{r}
+
+dadosPNADc1VISITA_2012 <- PNADcIBGE::get_pnadc(year = 2012,
+                                               interview = 1,
+                                               design = FALSE)
+
+save(dadosPNADc1VISITA_2012, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2012.RData")
+```
+
+
+### 2013
+
+```{r}
+
+dadosPNADc1VISITA_2013 <- PNADcIBGE::get_pnadc(year = 2013,
+                                               interview = 1,
+                                               design = FALSE)
+
+save(dadosPNADc1VISITA_2013, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2013.RData")
+```
+
+
+### 2014
+
+```{r}
+
+dadosPNADc1VISITA_2014 <- PNADcIBGE::get_pnadc(year = 2014,
+                                               interview = 1,
+                                               design = FALSE)
+
+save(dadosPNADc1VISITA_2014, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2014.RData")
+```
+
+
+
+### 2015
+
+```{r}
+
+dadosPNADc1VISITA_2015 <- PNADcIBGE::get_pnadc(year = 2015,
+                                               interview = 1,
+                                               design = FALSE)
+
+save(dadosPNADc1VISITA_2015, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2015.RData")
+```
+
+
+### 2016
+
+```{r}
+
+dadosPNADc1VISITA_2016 <- PNADcIBGE::get_pnadc(year = 2016,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2016, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2016.RData")
+```
+
+### 2017
+
+```{r}
+
+dadosPNADc1VISITA_2017 <- PNADcIBGE::get_pnadc(year = 2017,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2017, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2017.RData")
+```
+
+### 2018
+
+```{r}
+
+dadosPNADc1VISITA_2018 <- PNADcIBGE::get_pnadc(year = 2018,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2018, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2018.RData")
+```
+
+### 2019
+
+```{r}
+
+dadosPNADc1VISITA_2019 <- PNADcIBGE::get_pnadc(year = 2019,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2019, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+```
+
+
+### 2020
+
+```{r}
+
+dadosPNADc5VISITA_2020 <- PNADcIBGE::get_pnadc(year = 2020,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2020, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2020.RData")
+```
+
+
+### 2021
+
+```{r}
+
+dadosPNADc5VISITA_2021 <- PNADcIBGE::get_pnadc(year = 2021,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2021, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2021.RData")
+```
+
+### 2022
+
+```{r}
+
+dadosPNADc5VISITA_2022 <- PNADcIBGE::get_pnadc(year = 2022,
+                                               interview = 5,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc5VISITA_2022, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2022.RData")
+```
+
+
+### 2023
+
+```{r}
+
+dadosPNADc1VISITA_2023 <- PNADcIBGE::get_pnadc(year = 2023,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2023, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2023.RData")
+```
+
+
+### 2024
+
+```{r}
+
+dadosPNADc1VISITA_2024 <- PNADcIBGE::get_pnadc(year = 2024,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2024, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
+```
+
+
+### 2025
+
+```{r}
+
+dadosPNADc1VISITA_2025 <- PNADcIBGE::get_pnadc(year = 2025,
+                                               interview = 1,
+                                               design = FALSE)
+
+```
+
+```{r}
+save(dadosPNADc1VISITA_2025, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2025.RData")
+```
+
+
+<!-- # ```{r} -->
+<!-- # future::plan(multisession, workers = 7) -->
+<!-- # ``` -->
+
+<!-- # ```{r} -->
+<!-- # anos <- 2020:2022 -->
+<!-- #  -->
+<!-- # visita5_pnad <- furrr::future_map_dfr( -->
+<!-- #   anos, -->
+<!-- #   \(ano) { -->
+<!-- #     library(PNADcIBGE, quietly = TRUE) -->
+<!-- #     PNADcIBGE::get_pnadc( -->
+<!-- #       year = ano, -->
+<!-- #       interview = 5, -->
+<!-- #       design = FALSE -->
+<!-- #     )  -->
+<!-- #   } -->
+<!-- # ) -->
+<!-- #  -->
+<!-- # ``` -->
+
+<!-- # ```{r} -->
+<!-- # save(visita5_pnad, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_completo.RData") -->
+<!-- # ``` -->
+
+
+

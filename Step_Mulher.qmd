@@ -44,8 +44,7 @@ library(gtsummary)
 ```
 
 
-## Demanda: Dia da Mulher
-
+# Demanda: Dia da Mulher
 
 ```{r}
 load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2024_completo.RData")

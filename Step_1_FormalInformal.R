@@ -21,6 +21,8 @@ library(here)
 here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos")
 
 #####################################################
+#        ANÁLISE FEITA PARA DADOS ANUAIS
+#####################################################
 # 2012
 #####################################################
 

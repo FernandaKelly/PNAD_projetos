@@ -68,28 +68,56 @@ va <- table_PS_9_RS %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_RS) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 n <- table_PS_9_RS %>% 
   dplyr::select(atividade, "PERÍODO", soma_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb <- table_PS_9_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef <- table_PS_9_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ###
 
@@ -129,7 +157,14 @@ va_sa <- table_PS_SAZ_6_RS %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_RS) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 n_sa <- table_PS_SAZ_6_RS %>% 
@@ -137,21 +172,42 @@ n_sa <- table_PS_SAZ_6_RS %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb_sa <- table_PS_SAZ_6_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef_sa <- table_PS_SAZ_6_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 ###
@@ -191,7 +247,14 @@ va_MM4 <- table_PS_MM_3_RS %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_RS_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 n_MM4 <- table_PS_MM_3_RS %>% 
@@ -199,21 +262,42 @@ n_MM4 <- table_PS_MM_3_RS %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb_MM4 <- table_PS_MM_3_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais_MM4) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef_MM4 <- table_PS_MM_3_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas_MM4) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ###
 
@@ -518,28 +602,56 @@ va <- table_PS_9_BR %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_BR) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 n <- table_PS_9_BR %>% 
   dplyr::select(atividade, "PERÍODO", soma_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb <- table_PS_9_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef <- table_PS_9_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 
@@ -579,7 +691,14 @@ va_sa <- table_PS_SAZ_6_BR %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_BR) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 n_sa <- table_PS_SAZ_6_BR %>% 
@@ -587,21 +706,42 @@ n_sa <- table_PS_SAZ_6_BR %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb_sa <- table_PS_SAZ_6_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef_sa <- table_PS_SAZ_6_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 ###
@@ -641,7 +781,14 @@ va_MM4 <- table_PS_MM_3_BR %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_BR_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 
 n_MM4 <- table_PS_MM_3_BR %>% 
@@ -649,21 +796,42 @@ n_MM4 <- table_PS_MM_3_BR %>%
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 hb_MM4 <- table_PS_MM_3_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais_MM4) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
 ef_MM4 <- table_PS_MM_3_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas_MM4) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas_MM4) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
-                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                  "Construção", "INDÚSTRIA", "Comércio", "Transporte, armazenagem e correio",
+                  "Informação e comunicação",
+                  "Atividades financeiras, de seguros e serviços relacionados",
+                  "Atividades imobiliárias",
+                  "Outras atividades de serviços",
+                  "Adm., defesa, saúde e educação públicas e seguridade social",
+                  "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 ###
 
 tabPSTRI_BR_4_n <- read_excel("Dados/tabPSTRI_BR_4.xlsx", 

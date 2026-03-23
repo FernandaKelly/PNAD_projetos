@@ -453,6 +453,10 @@ sheets <- list("va"          = va,
                "n_sa"        = n_sa,
                "hb_sa"       = hb_sa,
                "ef_sa"       = ef_sa,
+               "va_MM4"      = va_MM4,
+               "n_MM4"       = n_MM4,
+               "hb_MM4"      = hb_MM4,
+               "ef_MM4"      = ef_MM4,
                "n_p_cv"      = n_p_cv, 
                "hb_p_cv"     = hb_p_cv,
                "ef_p_cv"     = ef_p_cv,
@@ -464,6 +468,12 @@ sheets <- list("va"          = va,
 
 writexl::write_xlsx(sheets, 
                     paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PROD_RS_1_aux.xlsx"))
+
+
+
+#####################################################
+rm(list = ls())
+#####################################################
 
 
 ######################################################################
@@ -594,6 +604,66 @@ ef_sa <- table_PS_SAZ_6_BR %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
 
 
+###
+
+table_PS_MM_3_BR <- readxl::read_excel("Dados/table_PS_MM_3.xlsx", 
+                                       sheet = "MM4 BR TRI") %>% 
+  dplyr::select(atividade, Ano, Trimestre, soma_N_MM4, qtd_horasHabituais_MM4, qtd_horasEfetivas_MM4, VA_BR_MM4) %>% 
+  dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
+                                             Trimestre == 2 ~ "II",
+                                             Trimestre == 3 ~ "III",
+                                             Trimestre == 4 ~ "IV"),
+                
+                atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
+                                             atividade == "2"~ "Indústria extrativa",
+                                             atividade == "3"~ "Indústria de transformação",
+                                             atividade == "4"~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                             atividade == "5"~ "Construção",
+                                             atividade == "industria" ~ "INDÚSTRIA",
+                                             atividade == "6"~ "Comércio",
+                                             atividade == "7"~ "Transporte, armazenagem e correio",
+                                             atividade == "8"~ "Informação e comunicação",
+                                             atividade == "9"~ "Atividades financeiras, de seguros e serviços relacionados",
+                                             atividade == "10" ~ "Atividades imobiliárias",
+                                             atividade == "11" ~ "Outras atividades de serviços",
+                                             atividade == "12" ~ "Adm., defesa, saúde e educação públicas e seguridade social",
+                                             atividade == "servicos" ~ "SERVIÇOS",
+                                             atividade == "total" ~ "TOTAL",
+                                             atividade == "total_exc" ~ "SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+                "PERÍODO" = paste(Ano, Trimestre, sep = ".")
+                
+  ) %>% 
+  dplyr::select(atividade, "PERÍODO", soma_N_MM4, qtd_horasHabituais_MM4, qtd_horasEfetivas_MM4, VA_BR_MM4)
+
+
+va_MM4 <- table_PS_MM_3_BR %>% 
+  dplyr::select(atividade, "PERÍODO", VA_BR_MM4) %>% 
+  tidyr::pivot_wider(names_from  = atividade,
+                     values_from = VA_BR_MM4) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+
+
+n_MM4 <- table_PS_MM_3_BR %>% 
+  dplyr::select(atividade, "PERÍODO", soma_N_MM4) %>% 
+  tidyr::pivot_wider(names_from  = atividade,
+                     values_from = soma_N_MM4) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+
+hb_MM4 <- table_PS_MM_3_BR %>% 
+  dplyr::select(atividade, "PERÍODO", qtd_horasHabituais_MM4) %>% 
+  tidyr::pivot_wider(names_from  = atividade,
+                     values_from = qtd_horasHabituais_MM4) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
+
+ef_MM4 <- table_PS_MM_3_BR %>% 
+  dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas_MM4) %>% 
+  tidyr::pivot_wider(names_from  = atividade,
+                     values_from = qtd_horasEfetivas_MM4) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção", "INDÚSTRIA")
 ###
 
 tabPSTRI_BR_4_n <- read_excel("Dados/tabPSTRI_BR_4.xlsx", 
@@ -832,6 +902,10 @@ sheets <- list("va"          = va,
                "n_sa"        = n_sa,
                "hb_sa"       = hb_sa,
                "ef_sa"       = ef_sa,
+               "va_MM4"      = va_MM4,
+               "n_MM4"       = n_MM4,
+               "hb_MM4"      = hb_MM4,
+               "ef_MM4"      = ef_MM4,
                "n_p_cv"      = n_p_cv, 
                "hb_p_cv"     = hb_p_cv,
                "ef_p_cv"     = ef_p_cv,

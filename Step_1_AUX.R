@@ -594,7 +594,7 @@ table_PS_9_BR <- read_excel("Dados/table_PS_9.xlsx",
   dplyr::select(atividade, "PERÍODO", VA_BR, soma_N, qtd_horasHabituais,
                 qtd_horasEfetivas) %>% 
   dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
-                qtd_horasEfetivas   = qtd_horasEfetivas*12.9)
+                qtd_horasEfetivas  = qtd_horasEfetivas*12.9)
 
 
 va <- table_PS_9_BR %>% 

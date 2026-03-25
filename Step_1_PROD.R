@@ -62,6 +62,8 @@ table_PS_9_RS <- read_excel("Dados/table_PS_9.xlsx",
   dplyr::select(atividade, "PERÍODO", indicadorVA_N, indicadorVA_qtd_HHabituais,
                 indicadorVA_qtd_HEfetivas)
 
+###
+
 prod_n <- table_PS_9_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,

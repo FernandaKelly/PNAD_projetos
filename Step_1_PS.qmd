@@ -58,6 +58,14 @@ total_exc <- PIB_RSVA %>%
   )
 
 PIB_RSVA <- dplyr::bind_rows(PIB_RSVA, total_exc) 
+
+PIB_RSVA_ANO <- PIB_RSVA %>%  
+                   
+                  dplyr::group_by(atividade, ano) %>% 
+                  dplyr::mutate(VA_RS = base::as.numeric(VA_RS),
+                                VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)) %>% 
+                  dplyr::select(-c(tri, VA_RS)) %>%
+                  dplyr::distinct()
   
 PIB_BRVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
     sheet = "VA_BR")
@@ -72,6 +80,14 @@ total_exc <- PIB_BRVA %>%
   )
 
 PIB_BRVA <- dplyr::bind_rows(PIB_BRVA, total_exc) 
+
+PIB_BRVA_ANO <- PIB_BRVA %>%  
+                   
+                  dplyr::group_by(atividade, ano) %>% 
+                  dplyr::mutate(VA_BR = base::as.numeric(VA_BR),
+                                VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)) %>% 
+                  dplyr::select(-c(tri, VA_BR)) %>%
+                  dplyr::distinct()
 
 ```
 
@@ -545,20 +561,18 @@ table_ANORS_PS <- dplyr::bind_rows(
 
 table_ANORS_PS_indicador <- table_ANORS_PS %>%
   dplyr::filter(atividade != 0) %>%
-  dplyr::left_join(PIB_RSVA %>% 
-                     dplyr::group_by(atividade, ano) %>% 
-                     dplyr::mutate(
-                                   #VA_RS =  gsub(",", ".", VA_RS),
-                                   VA_RS = base::as.numeric(VA_RS),
-                                   VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)),
+  dplyr::filter(Ano != 2025) %>% 
+  dplyr::left_join(PIB_RSVA_ANO,
                    by = c("atividade" = "atividade",
                            "Ano" = "ano")) %>% 
+  
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_RS_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_RS_soma/(qtd_horasHabituais*51.6),
-                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6)) %>% 
-  dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
-  dplyr::distinct()
+                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6)) 
+# %>% 
+#   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
+#   dplyr::distinct()
 ```
 
 
@@ -688,21 +702,18 @@ table_ANOBR_PS <- dplyr::bind_rows(
 table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::mutate(Ano = base::as.double(Ano)) %>% 
   dplyr::filter(atividade != 0) %>%
-  dplyr::left_join(PIB_BRVA %>% 
-                     dplyr::group_by(atividade, ano) %>% 
-                     dplyr::mutate(
-                                   atividade = base::as.character(atividade),
-                                   VA_BR = base::as.numeric(VA_BR),
-                                   VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)),
+   dplyr::filter(Ano != 2025) %>%
+  dplyr::left_join(PIB_BRVA_ANO, 
                    by = c("atividade" = "atividade",
                            "Ano" = "ano")) %>% 
-  dplyr::select(-c(tri, VA_BR)) %>% 
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_BR_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_BR_soma/(qtd_horasHabituais*51.6),
-                indicadorVA_qtd_HEfetivas = VA_BR_soma/(qtd_horasEfetivas*51.6)) %>% 
-  dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
-  dplyr::distinct()
+                indicadorVA_qtd_HEfetivas = VA_BR_soma/(qtd_horasEfetivas*51.6)) 
+
+# %>% 
+#   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
+#   dplyr::distinct()
 
 ```
 

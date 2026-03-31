@@ -1141,122 +1141,14 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
 ```
 
-### Na força de trabalho
-
-```{r}
-dadosPNADc2012 <- dadosPNADc1VISITA_2012 %>% 
-  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
-                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
-
-dadosPNADc2012  <- PNADcIBGE::pnadc_design(dadosPNADc2012)
-dadosPNADc2012 <- srvyr::as_survey(dadosPNADc2012)
-
-table_12 <- dadosPNADc2012 %>% 
-  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
-  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
-                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
-  dplyr::mutate(ano = 2012)
-
-dadosPNADc2013 <- dadosPNADc1VISITA_2013 %>% 
-  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
-                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
-
-dadosPNADc2013  <- PNADcIBGE::pnadc_design(dadosPNADc2013)
-dadosPNADc2013 <- srvyr::as_survey(dadosPNADc2013)
-
-table_13 <- dadosPNADc2013 %>% 
-  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
-  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
-                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
-dplyr::mutate(ano = 2013)
-
-dadosPNADc2014 <- dadosPNADc1VISITA_2014 %>% 
-  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
-                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
-
-dadosPNADc2014  <- PNADcIBGE::pnadc_design(dadosPNADc2014)
-dadosPNADc2014 <- srvyr::as_survey(dadosPNADc2014)
-
-table_14 <- dadosPNADc2014 %>% 
-  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
-  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
-                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
-dplyr::mutate(ano = 2014)
-
-dadosPNADc2015 <- dadosPNADc1VISITA_2015 %>% 
-  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
-                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
-
-dadosPNADc2015  <- PNADcIBGE::pnadc_design(dadosPNADc2015)
-dadosPNADc2015 <- srvyr::as_survey(dadosPNADc2015)
-
-table_15 <- dadosPNADc2015 %>% 
-  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
-  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
-                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
-dplyr::mutate(ano = 2015)
-
-##
-dadosPNADc2015 <- dadosPNADc1VISITA_2015 %>% 
-  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
-                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
-
-dadosPNADc2015  <- PNADcIBGE::pnadc_design(dadosPNADc2015)
-dadosPNADc2015 <- srvyr::as_survey(dadosPNADc2015)
-
-table_15 <- dadosPNADc2015 %>% 
-  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
-  dplyr::summarise(freq_1030 = srvyr::survey_total(V1030, vartype = c("cv")),
-                   freq_1034 = srvyr::survey_total(V1034,vartype = c("cv"))) %>% 
-dplyr::mutate(ano = 2015)
-
-
-
-
-
-```
-
 
 ```{r}
 library(dplyr)
-library(PNADcIBGE)
+library(purrr)
 library(srvyr)
+library(PNADcIBGE)
 
-processa_pnad <- function(base, ano) {
-  
-  base %>%
-    mutate(
-      trabalho_id = case_when(
-        VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
-        VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"
-      ),
-      ocuapacao_id = case_when(
-        VD4002 == "Pessoas ocupadas" ~ "Ocupada",
-        VD4002 == "Pessoas desocupadas" ~ "Desocupadas"
-      )
-    ) %>%
-    PNADcIBGE::pnadc_design() %>%
-    srvyr::as_survey() %>%
-    group_by(trabalho_id, ocuapacao_id) %>%
-    summarise(
-      freq_1030 = survey_total(V1030, vartype = "cv"),
-      freq_1034 = survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = ano)
-}
-
-bases <- list(
+lista_dados <- list(
   `2012` = dadosPNADc1VISITA_2012,
   `2013` = dadosPNADc1VISITA_2013,
   `2014` = dadosPNADc1VISITA_2014,
@@ -1272,14 +1164,95 @@ bases <- list(
   `2024` = dadosPNADc1VISITA_2024
 )
 
-library(purrr)
+table_1 <- imap_dfr(lista_dados, function(dados, ano) {
+  
+  desenho <- PNADcIBGE::pnadc_design(dados)
+  survey  <- srvyr::as_survey(desenho)
+  
+  survey %>%
+    group_by(UF) %>%
+    summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = as.integer(ano))
+})
 
-resultado <- imap_dfr(bases, ~ processa_pnad(.x, as.numeric(.y)))
 
-table_1 <- resultado %>% 
-  dplyr::filter(!(is.na(trabalho_id)))
+table_2 <- imap_dfr(lista_dados, function(dados, ano) {
+  
+  desenho <- PNADcIBGE::pnadc_design(dados)
+  survey  <- srvyr::as_survey(desenho)
+  
+  survey %>%
+    filter(VD4001 == "Pessoas na força de trabalho") %>% 
+    group_by(UF) %>%
+    summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = as.integer(ano))
+})
+
+table_3 <- imap_dfr(lista_dados, function(dados, ano) {
+  
+  desenho <- PNADcIBGE::pnadc_design(dados)
+  survey  <- srvyr::as_survey(desenho)
+  
+  survey %>%
+    filter(VD4001 == "Pessoas fora da força de trabalho") %>% 
+    group_by(UF) %>%
+    summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = as.integer(ano))
+})
+
+
+
+table_4 <- imap_dfr(lista_dados, function(dados, ano) {
+  
+  desenho <- PNADcIBGE::pnadc_design(dados)
+  survey  <- srvyr::as_survey(desenho)
+  
+  survey %>%
+    filter(VD4002 == "Pessoas ocupadas") %>% 
+    group_by(UF) %>%
+    summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = as.integer(ano))
+})
+
+
+table_5 <- imap_dfr(lista_dados, function(dados, ano) {
+  
+  desenho <- PNADcIBGE::pnadc_design(dados)
+  survey  <- srvyr::as_survey(desenho)
+  
+  survey %>%
+    filter(VD4002 == "Pessoas desocupadas") %>% 
+    group_by(UF) %>%
+    summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = as.integer(ano))
+})
+
+
+
+
 
 ```
+
 
 
 
@@ -1302,8 +1275,15 @@ writexl::write_xlsx(table_1P,
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tableRenda_P_19_24_1.xlsx"))
 
 #######################################
-writexl::write_xlsx(table_1, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tablePOP_1.xlsx"))
+
+sheets <- list("Total"       = table_1,
+               "Dentro"      = table_2,
+               "Fora"        = table_3,
+               "Ocupado"     = table_4,
+               "Desocupado"  = table_5)
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tablePOP_2.xlsx"))
 
 ```
 

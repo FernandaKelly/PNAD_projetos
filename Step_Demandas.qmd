@@ -1113,10 +1113,173 @@ table_PS_19_24 <- table_1P %>%
 
 ## Demanda: População de todas UF's
 
+```{r}
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2012.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2013.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2014.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2015.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2016.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2017.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2018.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2019.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2020.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2021.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc5VISITA_2022.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2023.RData")
+
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
+```
+
+### Na força de trabalho
+
+```{r}
+dadosPNADc2012 <- dadosPNADc1VISITA_2012 %>% 
+  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
+                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
+
+dadosPNADc2012  <- PNADcIBGE::pnadc_design(dadosPNADc2012)
+dadosPNADc2012 <- srvyr::as_survey(dadosPNADc2012)
+
+table_12 <- dadosPNADc2012 %>% 
+  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
+  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
+                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
+  dplyr::mutate(ano = 2012)
+
+dadosPNADc2013 <- dadosPNADc1VISITA_2013 %>% 
+  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
+                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
+
+dadosPNADc2013  <- PNADcIBGE::pnadc_design(dadosPNADc2013)
+dadosPNADc2013 <- srvyr::as_survey(dadosPNADc2013)
+
+table_13 <- dadosPNADc2013 %>% 
+  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
+  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
+                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
+dplyr::mutate(ano = 2013)
+
+dadosPNADc2014 <- dadosPNADc1VISITA_2014 %>% 
+  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
+                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
+
+dadosPNADc2014  <- PNADcIBGE::pnadc_design(dadosPNADc2014)
+dadosPNADc2014 <- srvyr::as_survey(dadosPNADc2014)
+
+table_14 <- dadosPNADc2014 %>% 
+  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
+  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
+                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
+dplyr::mutate(ano = 2014)
+
+dadosPNADc2015 <- dadosPNADc1VISITA_2015 %>% 
+  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
+                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
+
+dadosPNADc2015  <- PNADcIBGE::pnadc_design(dadosPNADc2015)
+dadosPNADc2015 <- srvyr::as_survey(dadosPNADc2015)
+
+table_15 <- dadosPNADc2015 %>% 
+  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
+  dplyr::summarise(freq_1030 = srvyr::survey_total(vartype = c("cv")),
+                   freq_1034 = srvyr::survey_total(vartype = c("cv"))) %>% 
+dplyr::mutate(ano = 2015)
+
+##
+dadosPNADc2015 <- dadosPNADc1VISITA_2015 %>% 
+  dplyr::mutate(trabalho_id = dplyr::case_when(VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+                                               VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"),
+                ocuapacao_id = dplyr::case_when(VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+                                                VD4002 == "Pessoas desocupadas" ~ "Desocupadas")) 
+
+dadosPNADc2015  <- PNADcIBGE::pnadc_design(dadosPNADc2015)
+dadosPNADc2015 <- srvyr::as_survey(dadosPNADc2015)
+
+table_15 <- dadosPNADc2015 %>% 
+  dplyr::group_by(trabalho_id, ocuapacao_id) %>% 
+  dplyr::summarise(freq_1030 = srvyr::survey_total(V1030, vartype = c("cv")),
+                   freq_1034 = srvyr::survey_total(V1034,vartype = c("cv"))) %>% 
+dplyr::mutate(ano = 2015)
 
 
 
 
+
+```
+
+
+```{r}
+library(dplyr)
+library(PNADcIBGE)
+library(srvyr)
+
+processa_pnad <- function(base, ano) {
+  
+  base %>%
+    mutate(
+      trabalho_id = case_when(
+        VD4001 == "Pessoas na força de trabalho" ~ "Dentro",
+        VD4001 == "Pessoas fora da força de trabalho" ~ "Fora"
+      ),
+      ocuapacao_id = case_when(
+        VD4002 == "Pessoas ocupadas" ~ "Ocupada",
+        VD4002 == "Pessoas desocupadas" ~ "Desocupadas"
+      )
+    ) %>%
+    PNADcIBGE::pnadc_design() %>%
+    srvyr::as_survey() %>%
+    group_by(trabalho_id, ocuapacao_id) %>%
+    summarise(
+      freq_1030 = survey_total(V1030, vartype = "cv"),
+      freq_1034 = survey_total(V1034, vartype = "cv"),
+      .groups = "drop"
+    ) %>%
+    mutate(ano = ano)
+}
+
+bases <- list(
+  `2012` = dadosPNADc1VISITA_2012,
+  `2013` = dadosPNADc1VISITA_2013,
+  `2014` = dadosPNADc1VISITA_2014,
+  `2015` = dadosPNADc1VISITA_2015,
+  `2016` = dadosPNADc1VISITA_2016,
+  `2017` = dadosPNADc1VISITA_2017,
+  `2018` = dadosPNADc1VISITA_2018,
+  `2019` = dadosPNADc1VISITA_2019,
+  `2020` = dadosPNADc5VISITA_2020,
+  `2021` = dadosPNADc5VISITA_2021,
+  `2022` = dadosPNADc5VISITA_2022,
+  `2023` = dadosPNADc1VISITA_2023,
+  `2024` = dadosPNADc1VISITA_2024
+)
+
+library(purrr)
+
+resultado <- imap_dfr(bases, ~ processa_pnad(.x, as.numeric(.y)))
+
+table_1 <- resultado %>% 
+  dplyr::filter(!(is.na(trabalho_id)))
+
+```
 
 
 
@@ -1137,6 +1300,11 @@ writexl::write_xlsx(table_PS_19_24,
 #######################################
 writexl::write_xlsx(table_1P, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tableRenda_P_19_24_1.xlsx"))
+
+#######################################
+writexl::write_xlsx(table_1, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tablePOP_1.xlsx"))
+
 ```
 
 

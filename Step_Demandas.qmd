@@ -1141,6 +1141,95 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
 ```
 
+```{r}
+dadosPNADc1VISITA_2012  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2012) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2012)
+
+dadosPNADc1VISITA_2013  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2013) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2013)
+
+dadosPNADc1VISITA_2014  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2014) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2014)
+
+dadosPNADc1VISITA_2015  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2015) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2015)
+
+dadosPNADc1VISITA_2016  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2016) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2016)
+
+dadosPNADc1VISITA_2017  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2017) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2017)
+
+dadosPNADc1VISITA_2018  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2018) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2018)
+
+dadosPNADc1VISITA_2019  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2019) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2019)
+
+dadosPNADc1VISITA_2015  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2015) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2015)
+
+dadosPNADc5VISITA_2020  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2020) %>% 
+                            srvyr::as_survey(dadosPNADc5VISITA_2020)
+
+dadosPNADc5VISITA_2021  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2021) %>% 
+                            srvyr::as_survey(dadosPNADc5VISITA_2021)
+
+dadosPNADc5VISITA_2022  <- PNADcIBGE::pnadc_design(dadosPNADc5VISITA_2022) %>% 
+                            srvyr::as_survey(dadosPNADc5VISITA_2022)
+
+dadosPNADc1VISITA_2023  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2023) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2023)
+
+dadosPNADc1VISITA_2024  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2024) %>% 
+                            srvyr::as_survey(dadosPNADc1VISITA_2024)
+
+
+dadosPNADc1VISITA_2013$variables$V1030
+dadosPNADc1VISITA_2014$variables$V1030
+dadosPNADc1VISITA_2015$variables$V1030
+dadosPNADc1VISITA_2024$variables$V1030
+```
+
+```{r}
+
+dadosPNADc1VISITA_2012  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2012)
+dadosPNADc1VISITA_2012 <- srvyr::as_survey(dadosPNADc1VISITA_2012)
+
+table_12_pop <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
+      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"))
+
+
+table_12_pop <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vatype = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r}
 library(dplyr)

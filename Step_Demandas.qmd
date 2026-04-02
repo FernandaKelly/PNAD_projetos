@@ -1187,32 +1187,60 @@ dadosPNADc1VISITA_2024  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2024) %>%
 
 ```{r}
 ###############################################
-dadosPNADc1VISITA_2012  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2012)
-dadosPNADc1VISITA_2012 <- srvyr::as_survey(dadosPNADc1VISITA_2012)
 
 table_12_V1030 <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, V1030) %>%
     dplyr::summarise(
-      freq = srvyr::survey_total(vartype = "cv"))
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2012)
 
 table_12_V1034 <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, V1034) %>%
     dplyr::summarise(
-      freq = srvyr::survey_total(vartype = "cv"))
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2012)
 
-table_12_idade <- dadosPNADc1VISITA_2012 %>% 
+table_12_pop_idade <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, V2009) %>%
     dplyr::summarise(
-      freq = srvyr::survey_total(vatype = "cv")) %>% 
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
   dplyr::group_by(UF) %>% 
-  dplyr::summarise(soma_idade = sum(freq))
-
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2012)
 
 table_12_fdt <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, VD4001) %>%
     dplyr::summarise(
-      freq_ = srvyr::survey_total(vatype = "cv")) 
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2012)
 
+table_12_cond_ocup <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2012)
+
+table_12_potencial <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2012)
+
+table_12_ppa <- dadosPNADc1VISITA_2012 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2012)
 
 ###############################################
 ```

@@ -1183,32 +1183,38 @@ dadosPNADc1VISITA_2023  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2023) %>%
 
 dadosPNADc1VISITA_2024  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2024) %>% 
                             srvyr::as_survey(dadosPNADc1VISITA_2024)
-
-
-dadosPNADc1VISITA_2013$variables$V1030
-dadosPNADc1VISITA_2014$variables$V1030
-dadosPNADc1VISITA_2015$variables$V1030
-dadosPNADc1VISITA_2024$variables$V1030
 ```
 
 ```{r}
-
+###############################################
 dadosPNADc1VISITA_2012  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2012)
 dadosPNADc1VISITA_2012 <- srvyr::as_survey(dadosPNADc1VISITA_2012)
 
-table_12_pop <- dadosPNADc1VISITA_2012 %>% 
+table_12_V1030 <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, V1030) %>%
     dplyr::summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"))
+      freq = srvyr::survey_total(vartype = "cv"))
 
+table_12_V1034 <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv"))
 
-table_12_pop <- dadosPNADc1VISITA_2012 %>% 
+table_12_idade <- dadosPNADc1VISITA_2012 %>% 
 dplyr::group_by(UF, V2009) %>%
     dplyr::summarise(
       freq = srvyr::survey_total(vatype = "cv")) %>% 
   dplyr::group_by(UF) %>% 
   dplyr::summarise(soma_idade = sum(freq))
+
+
+table_12_fdt <- dadosPNADc1VISITA_2012 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq_ = srvyr::survey_total(vatype = "cv")) 
+
+
+###############################################
 ```
 
 

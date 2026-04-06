@@ -1245,16 +1245,726 @@ dplyr::group_by(UF, V2009) %>%
 ###############################################
 ```
 
+```{r}
+###############################################
+
+table_13_V1030 <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_13_V1034 <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_13_pop_idade <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_13_fdt <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_13_cond_ocup <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_13_potencial <- dadosPNADc1VISITA_2013 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2013)
+
+table_12_ppa <- dadosPNADc1VISITA_2013 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2012)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_14_V1030 <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_V1034 <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_pop_idade <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_fdt <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_cond_ocup <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_potencial <- dadosPNADc1VISITA_2014 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2014)
+
+table_14_ppa <- dadosPNADc1VISITA_2014 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2014)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_15_V1030 <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_V1034 <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_pop_idade <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_fdt <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_cond_ocup <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_potencial <- dadosPNADc1VISITA_2015 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2015)
+
+table_15_ppa <- dadosPNADc1VISITA_2015 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2015)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_16_V1030 <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_V1034 <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_pop_idade <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_fdt <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_cond_ocup <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_potencial <- dadosPNADc1VISITA_2016 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2016)
+
+table_16_ppa <- dadosPNADc1VISITA_2016 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2016)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_17_V1030 <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_V1034 <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_pop_idade <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_fdt <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_cond_ocup <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_potencial <- dadosPNADc1VISITA_2017 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2017)
+
+table_17_ppa <- dadosPNADc1VISITA_2017 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2017)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_18_V1030 <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_V1034 <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_pop_idade <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_fdt <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_cond_ocup <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_potencial <- dadosPNADc1VISITA_2018 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2018)
+
+table_18_ppa <- dadosPNADc1VISITA_2018 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2018)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_19_V1030 <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_V1034 <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_pop_idade <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_fdt <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_cond_ocup <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_potencial <- dadosPNADc1VISITA_2019 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2019)
+
+table_19_ppa <- dadosPNADc1VISITA_2019 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2019)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_20_V1030 <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_V1034 <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_pop_idade <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_fdt <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_cond_ocup <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_potencial <- dadosPNADc5VISITA_2020 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2020)
+
+table_20_ppa <- dadosPNADc5VISITA_2020 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2020)
+
+###############################################
+```
 
 
+```{r}
+###############################################
 
+table_21_V1030 <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_V1034 <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_pop_idade <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_fdt <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_cond_ocup <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_potencial <- dadosPNADc5VISITA_2021 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2021)
 
+table_21_ppa <- dadosPNADc5VISITA_2021 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2021)
 
+###############################################
+```
+
+```{r}
+###############################################
+
+table_22_V1030 <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_V1034 <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_pop_idade <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_fdt <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_cond_ocup <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_potencial <- dadosPNADc5VISITA_2022 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2022)
+
+table_22_ppa <- dadosPNADc5VISITA_2022 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2022)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_23_V1030 <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_V1034 <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_pop_idade <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_fdt <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_cond_ocup <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_potencial <- dadosPNADc1VISITA_2023 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2023)
+
+table_23_ppa <- dadosPNADc1VISITA_2023 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2023)
+
+###############################################
+```
+
+```{r}
+###############################################
+
+table_24_V1030 <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, V1030) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_V1034 <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, V1034) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype = "cv")) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_pop_idade <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_fdt <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, VD4001) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4001))) %>% 
+  tidyr::pivot_wider(names_from = VD4001,
+                         values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_cond_ocup <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, VD4002) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::filter(!(is.na(VD4002))) %>%
+  tidyr::pivot_wider(names_from = VD4002, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_potencial <- dadosPNADc1VISITA_2024 %>% 
+dplyr::group_by(UF, VD4003) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv"))  %>% 
+  dplyr::filter(!(is.na(VD4003))) %>%
+  tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
+  dplyr::mutate(ano = 2024)
+
+table_24_ppa <- dadosPNADc1VISITA_2024 %>% 
+dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
+dplyr::group_by(UF, V2009) %>%
+    dplyr::summarise(
+      freq = srvyr::survey_total(vartype  = "cv")) %>% 
+  dplyr::group_by(UF) %>% 
+  dplyr::summarise(soma_idade = sum(freq)) %>% 
+  dplyr::mutate(ano = 2024)
+
+###############################################
+```
 
 
 

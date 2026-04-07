@@ -1293,14 +1293,14 @@ dplyr::group_by(UF, VD4003) %>%
   tidyr::pivot_wider(names_from = VD4003, values_from = c(freq, freq_cv)) %>% 
   dplyr::mutate(ano = 2013)
 
-table_12_ppa <- dadosPNADc1VISITA_2013 %>% 
+table_13_ppa <- dadosPNADc1VISITA_2013 %>% 
 dplyr::filter(V2009 >= 14 & V2009 <= 65) %>%   
 dplyr::group_by(UF, V2009) %>%
     dplyr::summarise(
       freq = srvyr::survey_total(vartype  = "cv")) %>% 
   dplyr::group_by(UF) %>% 
   dplyr::summarise(soma_idade = sum(freq)) %>% 
-  dplyr::mutate(ano = 2012)
+  dplyr::mutate(ano = 2013)
 
 ###############################################
 ```
@@ -1725,7 +1725,6 @@ dplyr::group_by(UF, V2009) %>%
 ###############################################
 ```
 
-
 ```{r}
 ###############################################
 
@@ -1966,125 +1965,138 @@ dplyr::group_by(UF, V2009) %>%
 ###############################################
 ```
 
-
-
-
-
-
-
-
-
-
 ```{r}
-library(dplyr)
-library(purrr)
-library(srvyr)
-library(PNADcIBGE)
+#################################################
+#                 EMPILHAMENTO
+#################################################
 
-lista_dados <- list(
-  `2012` = dadosPNADc1VISITA_2012,
-  `2013` = dadosPNADc1VISITA_2013,
-  `2014` = dadosPNADc1VISITA_2014,
-  `2015` = dadosPNADc1VISITA_2015,
-  `2016` = dadosPNADc1VISITA_2016,
-  `2017` = dadosPNADc1VISITA_2017,
-  `2018` = dadosPNADc1VISITA_2018,
-  `2019` = dadosPNADc1VISITA_2019,
-  `2020` = dadosPNADc5VISITA_2020,
-  `2021` = dadosPNADc5VISITA_2021,
-  `2022` = dadosPNADc5VISITA_2022,
-  `2023` = dadosPNADc1VISITA_2023,
-  `2024` = dadosPNADc1VISITA_2024
-)
 
-table_1 <- imap_dfr(lista_dados, function(dados, ano) {
+table_V1030 <- table_12_V1030 %>% 
+              dplyr::bind_rows(table_13_V1030 , 
+                               table_14_V1030 , 
+                               table_15_V1030 , 
+                               table_16_V1030 , 
+                               table_17_V1030 , 
+                               table_18_V1030 , 
+                               table_19_V1030 , 
+                               table_20_V1030 , 
+                               table_21_V1030 , 
+                               table_22_V1030 , 
+                               table_23_V1030 , 
+                               table_24_V1030)
   
-  desenho <- PNADcIBGE::pnadc_design(dados)
-  survey  <- srvyr::as_survey(desenho)
-  
-  survey %>%
-    group_by(UF) %>%
-    summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = as.integer(ano))
-})
 
 
-table_2 <- imap_dfr(lista_dados, function(dados, ano) {
-  
-  desenho <- PNADcIBGE::pnadc_design(dados)
-  survey  <- srvyr::as_survey(desenho)
-  
-  survey %>%
-    filter(VD4001 == "Pessoas na força de trabalho") %>% 
-    group_by(UF) %>%
-    summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = as.integer(ano))
-})
+table_V1034 <- table_12_V1034 %>% 
+              dplyr::bind_rows(table_13_V1034 , 
+                               table_14_V1034 , 
+                               table_15_V1034 , 
+                               table_16_V1034 , 
+                               table_17_V1034 , 
+                               table_18_V1034 , 
+                               table_19_V1034 , 
+                               table_20_V1034 , 
+                               table_21_V1034 , 
+                               table_22_V1034 , 
+                               table_23_V1034 , 
+                               table_24_V1034)
 
-table_3 <- imap_dfr(lista_dados, function(dados, ano) {
-  
-  desenho <- PNADcIBGE::pnadc_design(dados)
-  survey  <- srvyr::as_survey(desenho)
-  
-  survey %>%
-    filter(VD4001 == "Pessoas fora da força de trabalho") %>% 
-    group_by(UF) %>%
-    summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = as.integer(ano))
-})
+table_pop_idade <- table_12_pop_idade %>% 
+              dplyr::bind_rows(table_13_pop_idade , 
+                               table_14_pop_idade , 
+                               table_15_pop_idade , 
+                               table_16_pop_idade , 
+                               table_17_pop_idade , 
+                               table_18_pop_idade , 
+                               table_19_pop_idade , 
+                               table_20_pop_idade , 
+                               table_21_pop_idade , 
+                               table_22_pop_idade , 
+                               table_23_pop_idade , 
+                               table_24_pop_idade)
 
+table_fdt <- table_12_fdt %>% 
+              dplyr::bind_rows(table_13_fdt , 
+                               table_14_fdt , 
+                               table_15_fdt , 
+                               table_16_fdt , 
+                               table_17_fdt , 
+                               table_18_fdt , 
+                               table_19_fdt , 
+                               table_20_fdt , 
+                               table_21_fdt , 
+                               table_22_fdt , 
+                               table_23_fdt , 
+                               table_24_fdt)
 
+table_cond_ocup <- table_12_cond_ocup %>% 
+              dplyr::bind_rows(table_13_cond_ocup , 
+                               table_14_cond_ocup , 
+                               table_15_cond_ocup , 
+                               table_16_cond_ocup , 
+                               table_17_cond_ocup , 
+                               table_18_cond_ocup , 
+                               table_19_cond_ocup , 
+                               table_20_cond_ocup , 
+                               table_21_cond_ocup , 
+                               table_22_cond_ocup , 
+                               table_23_cond_ocup , 
+                               table_24_cond_ocup)
 
-table_4 <- imap_dfr(lista_dados, function(dados, ano) {
-  
-  desenho <- PNADcIBGE::pnadc_design(dados)
-  survey  <- srvyr::as_survey(desenho)
-  
-  survey %>%
-    filter(VD4002 == "Pessoas ocupadas") %>% 
-    group_by(UF) %>%
-    summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = as.integer(ano))
-})
+table_potencial <- table_12_potencial %>% 
+              dplyr::bind_rows(table_13_potencial , 
+                               table_14_potencial , 
+                               table_15_potencial , 
+                               table_16_potencial , 
+                               table_17_potencial , 
+                               table_18_potencial , 
+                               table_19_potencial , 
+                               table_20_potencial , 
+                               table_21_potencial , 
+                               table_22_potencial , 
+                               table_23_potencial , 
+                               table_24_potencial)
 
-
-table_5 <- imap_dfr(lista_dados, function(dados, ano) {
-  
-  desenho <- PNADcIBGE::pnadc_design(dados)
-  survey  <- srvyr::as_survey(desenho)
-  
-  survey %>%
-    filter(VD4002 == "Pessoas desocupadas") %>% 
-    group_by(UF) %>%
-    summarise(
-      freq_1030 = srvyr::survey_total(V1030, vartype = "cv"),
-      freq_1034 = srvyr::survey_total(V1034, vartype = "cv"),
-      .groups = "drop"
-    ) %>%
-    mutate(ano = as.integer(ano))
-})
-
-
-
+table_ppa <- table_12_ppa %>% 
+              dplyr::bind_rows(table_13_ppa , 
+                               table_14_ppa , 
+                               table_15_ppa , 
+                               table_16_ppa , 
+                               table_17_ppa , 
+                               table_18_ppa , 
+                               table_19_ppa , 
+                               table_20_ppa , 
+                               table_21_ppa , 
+                               table_22_ppa , 
+                               table_23_ppa , 
+                               table_24_ppa)
 
 
 ```
+
+
+```{r}
+sheets <- list("V1030"     = table_V1030,
+               "V1034"     = table_V1034,
+               "pop_idade" = table_pop_idade,
+               "fdt"       = table_fdt,
+               "cond_ocup" = table_cond_ocup,
+               "potencial" = table_potencial,
+               "ppa"       = table_ppa)
+
+                 
+
+writexl::write_xlsx(sheets, 
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tablePOP_1.xlsx"))
+```
+
+
+
+
+
+
+
+
 
 
 
@@ -2092,6 +2104,7 @@ table_5 <- imap_dfr(lista_dados, function(dados, ano) {
 # Excel
 
 ```{r}
+#######################################
 sheets <- list("PRINCIPAL"    = table_P,
                "SECUNDARIO"   = table_S)
 
@@ -2118,6 +2131,7 @@ sheets <- list("Total"       = table_1,
 writexl::write_xlsx(sheets, 
            paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tablePOP_2.xlsx"))
 
+#######################################
 ```
 
 

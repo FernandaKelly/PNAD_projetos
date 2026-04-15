@@ -1,38 +1,11 @@
----
-title: "PNAD Contínua" # Título do relatório
-subtitle: "**Primário e Secundário: Ano/Trimestre - RS/BR**"
-author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
-lang: pt 
-date: "`r format(Sys.Date())`" 
-date-format: short 
-toc: true 
-format: 
-    html: 
-      embed-resources: true
-      #css: ["custom.css"] 
-      code-fold: false 
-      code-tools: true  
-      theme: 
-        light: cosmo
-        dark: superhero 
-#title-block-banner: "#874a9c" 
-code-annotations: hover 
-execute:
-  warning: false
-  message: false
-  echo: false
----
+##############################################
+#          PNAD Contínua
+# Primário e Secundário: Ano/Trimestre - RS/BR
+##############################################
 
-```{r}
-options(timeout = 600) 
-options(scipen = 999)
-```
- 
-```{r}
-#| echo: false
-#| 
-# install.packages("PNADcIBGE")
-# install.packages("survey")
+##################################
+#    LEITURA DE PACOTES
+##################################
 library(PNADcIBGE)
 library(survey)
 library(foreign)
@@ -40,15 +13,14 @@ library(srvyr)
 library(reactable)
 library(purrr)
 library(readxl)
-```
 
-# Dados
-
-## PIB
-
-```{r}
+options(timeout = 600) 
+options(scipen = 999)
+##################################
+# Dados: PIB
+##################################
 PIB_RSVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
-    sheet = "VA_RS") 
+                       sheet = "VA_RS") 
 
 total_exc <- PIB_RSVA %>%
   dplyr::filter(atividade %in% c("2","3","4","5","6","7","8","9","11")) %>%
@@ -62,15 +34,15 @@ total_exc <- PIB_RSVA %>%
 PIB_RSVA <- dplyr::bind_rows(PIB_RSVA, total_exc) 
 
 PIB_RSVA_ANO <- PIB_RSVA %>%  
-                   
-                  dplyr::group_by(atividade, ano) %>% 
-                  dplyr::mutate(VA_RS = base::as.numeric(VA_RS),
-                                VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)) %>% 
-                  dplyr::select(-c(tri, VA_RS)) %>%
-                  dplyr::distinct()
   
+  dplyr::group_by(atividade, ano) %>% 
+  dplyr::mutate(VA_RS = base::as.numeric(VA_RS),
+                VA_RS_soma = base::sum(VA_RS, na.rm = TRUE)) %>% 
+  dplyr::select(-c(tri, VA_RS)) %>%
+  dplyr::distinct()
+
 PIB_BRVA <- read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_VA.xlsx", 
-    sheet = "VA_BR")
+                       sheet = "VA_BR")
 
 total_exc <- PIB_BRVA %>%
   dplyr::filter(atividade %in% c("2","3","4","5","6","7","8","9","11")) %>%
@@ -84,20 +56,19 @@ total_exc <- PIB_BRVA %>%
 PIB_BRVA <- dplyr::bind_rows(PIB_BRVA, total_exc) 
 
 PIB_BRVA_ANO <- PIB_BRVA %>%  
-                   
-                  dplyr::group_by(atividade, ano) %>% 
-                  dplyr::mutate(VA_BR = base::as.numeric(VA_BR),
-                                VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)) %>% 
-                  dplyr::select(-c(tri, VA_BR)) %>%
-                  dplyr::distinct()
+  
+  dplyr::group_by(atividade, ano) %>% 
+  dplyr::mutate(VA_BR = base::as.numeric(VA_BR),
+                VA_BR_soma = base::sum(VA_BR, na.rm = TRUE)) %>% 
+  dplyr::select(-c(tri, VA_BR)) %>%
+  dplyr::distinct()
 
-```
 
+################################################
 ## Trimestre
-
 ### Rio Grande do Sul (RS)
+################################################
 
-```{r}
 ################################################
 # LEITURA DA BASE DE DADOS
 ################################################
@@ -140,7 +111,7 @@ tabPSTRI_RS <- map_dfr(
 #                                                na.rm = TRUE) ) %>% 
 #   dplyr::select(atividade, Ano, Trimestre, soma_N, qtd_horasHabituais, qtd_horasEfetivas) %>% 
 #   dplyr::distinct()
-  
+
 table_atividades <- tabPSTRI_RS %>% 
   dplyr::mutate(
     Trimestre = dplyr::recode(
@@ -219,7 +190,7 @@ grupos <- list(
 
 table_grupos_Total_exc <- table_atividades %>% 
   dplyr::mutate(
-     categoria = dplyr::case_when(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total_exc     ~ "total_exc",
       TRUE                            ~ NA_character_
     )
@@ -242,12 +213,12 @@ table_TRIRS_PS <- dplyr::bind_rows(
       atividade  = as.character(atividade)
     ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 
-```
 
 
+################################################
 #### Indicador
+################################################
 
-```{r}
 
 table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
   dplyr::filter(atividade != 0) %>%
@@ -258,37 +229,17 @@ table_TRIRS_PS_indicador <- table_TRIRS_PS %>%
                           "Trimestre" = "tri")) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
   dplyr::mutate(
-                #VA_RS =  gsub(",", ".", VA_RS),
-                VA_RS = base::as.numeric(VA_RS),
-                
-                indicadorVA_N = VA_RS/soma_N,
-                indicadorVA_qtd_HHabituais = VA_RS/(qtd_horasHabituais*12.9),
-                indicadorVA_qtd_HEfetivas = VA_RS/(qtd_horasEfetivas*12.9))
+    #VA_RS =  gsub(",", ".", VA_RS),
+    VA_RS = base::as.numeric(VA_RS),
+    
+    indicadorVA_N = VA_RS/soma_N,
+    indicadorVA_qtd_HHabituais = VA_RS/(qtd_horasHabituais*12.9),
+    indicadorVA_qtd_HEfetivas = VA_RS/(qtd_horasEfetivas*12.9))
 
-```
-
-```{r}
-# PIB_RSVA %>%
-#       dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
-#                          VA_ind = ifelse(atividade %in% c(2, 3, 4, 5), VA_RS, 0)) %>%
-#   dplyr::group_by(ano, tri) %>%
-#   dplyr::mutate(VA_industria = sum(VA_ind, na.rm = TRUE))
-
-# PIB_RSVA %>% 
-#   dplyr::mutate(
-#     tri = factor(tri, levels = c("1", "2", "3", "4")),
-#     VA_ind = ifelse(atividade %in% c(2, 3, 4, 5), VA_RS, 0)
-#   ) %>% 
-#   dplyr::group_by(ano, tri) %>% 
-#   dplyr::summarise(
-#     VA_industria = sum(VA_ind, na.rm = TRUE),
-#     .groups = "drop"
-#   )
-```
-
+################################################
 ### Brasil (BR)
+################################################
 
-```{r}
 ################################################
 # LEITURA DA BASE DE DADOS
 ################################################
@@ -337,7 +288,7 @@ table_atividades <- tabPSTRI_BR %>%
 grupos <- list(
   "industria" = c(2, 3, 4, 5),
   "servicos"  = c(6, 7, 8, 9, 10, 11, 12)
-  )
+)
 
 table_grupos <- table_atividades %>% 
   dplyr::mutate(
@@ -389,7 +340,7 @@ grupos <- list(
 
 table_grupos_Total_exc <- table_atividades %>% 
   dplyr::mutate(
-     categoria = dplyr::case_when(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total_exc     ~ "total_exc",
       TRUE                            ~ NA_character_
     )
@@ -411,11 +362,11 @@ table_TRIBR_PS <- dplyr::bind_rows(
     dplyr::mutate(
       atividade  = as.character(atividade)
     ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
-```
 
+################################################
 #### Indicador
+################################################
 
-```{r}
 
 table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
   dplyr::filter(atividade != 0) %>%
@@ -423,25 +374,24 @@ table_TRIBR_PS_indicador <- table_TRIBR_PS %>%
                      dplyr::mutate(tri = base::factor(tri, levels = c("1", "2", "3", "4")),
                                    ano = as.double(ano),
                                    atividade = base::as.character(atividade)),
-                                   by = c("atividade" = "atividade",
-                                          "Ano" = "ano",
-                                          "Trimestre" = "tri")) %>% 
+                   by = c("atividade" = "atividade",
+                          "Ano" = "ano",
+                          "Trimestre" = "tri")) %>% 
   dplyr::group_by(atividade, Ano, Trimestre) %>% 
   dplyr::mutate(
-                #VA_BR =  gsub(",", ".", VA_BR),
-                VA_BR = base::as.numeric(VA_BR),
-                indicadorVA_N = VA_BR/soma_N,
-                indicadorVA_qtd_HHabituais = VA_BR/(qtd_horasHabituais*12.9),
-                indicadorVA_qtd_HEfetivas = VA_BR/(qtd_horasEfetivas*12.9))
-
-```
+    #VA_BR =  gsub(",", ".", VA_BR),
+    VA_BR = base::as.numeric(VA_BR),
+    indicadorVA_N = VA_BR/soma_N,
+    indicadorVA_qtd_HHabituais = VA_BR/(qtd_horasHabituais*12.9),
+    indicadorVA_qtd_HEfetivas = VA_BR/(qtd_horasEfetivas*12.9))
 
 
+
+################################################
 ## Ano
-
 ### Rio Grande do Sul (RS)
+################################################
 
-```{r}
 ################################################
 # LEITURA DA BASE DE DADOS
 ################################################
@@ -533,7 +483,7 @@ grupos <- list(
 
 table_grupos_Total_exc <- table_atividades %>% 
   dplyr::mutate(
-     categoria = dplyr::case_when(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total_exc     ~ "total_exc",
       TRUE                            ~ NA_character_
     )
@@ -555,32 +505,28 @@ table_ANORS_PS <- dplyr::bind_rows(
     dplyr::mutate(
       atividade  = as.character(atividade)
     ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
-```
 
+################################################
 #### Indicador
+################################################
 
-```{r}
 
 table_ANORS_PS_indicador <- table_ANORS_PS %>%
   dplyr::filter(atividade != 0) %>%
   dplyr::filter(Ano != 2025) %>% 
   dplyr::left_join(PIB_RSVA_ANO,
                    by = c("atividade" = "atividade",
-                           "Ano" = "ano")) %>% 
+                          "Ano" = "ano")) %>% 
   
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_RS_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_RS_soma/(qtd_horasHabituais*51.6),
-                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6)) 
-# %>% 
-#   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
-#   dplyr::distinct()
-```
+                indicadorVA_qtd_HEfetivas = VA_RS_soma/(qtd_horasEfetivas*51.6))
 
-
+################################################
 ### Brasil (BR)
+################################################
 
-```{r}
 ################################################
 # LEITURA DA BASE DE DADOS
 ################################################
@@ -672,7 +618,7 @@ grupos <- list(
 
 table_grupos_Total_exc <- table_atividades %>% 
   dplyr::mutate(
-     categoria = dplyr::case_when(
+    categoria = dplyr::case_when(
       atividade %in% grupos$total_exc     ~ "total_exc",
       TRUE                            ~ NA_character_
     )
@@ -695,34 +641,26 @@ table_ANOBR_PS <- dplyr::bind_rows(
       atividade  = as.character(atividade)
     ), table_grupos, table_grupos_Total, table_grupos_Total_exc)
 
-```
 
+################################################
 #### Indicador
-
-```{r}
+################################################
 
 table_ANOBR_PS_indicador <- table_ANOBR_PS %>%
   dplyr::mutate(Ano = base::as.double(Ano)) %>% 
   dplyr::filter(atividade != 0) %>%
-   dplyr::filter(Ano != 2025) %>%
+  dplyr::filter(Ano != 2025) %>%
   dplyr::left_join(PIB_BRVA_ANO, 
                    by = c("atividade" = "atividade",
-                           "Ano" = "ano")) %>% 
+                          "Ano" = "ano")) %>% 
   dplyr::group_by(atividade, Ano) %>% 
   dplyr::mutate(indicadorVA_N = VA_BR_soma/soma_N,
                 indicadorVA_qtd_HHabituais = VA_BR_soma/(qtd_horasHabituais*51.6),
                 indicadorVA_qtd_HEfetivas = VA_BR_soma/(qtd_horasEfetivas*51.6)) 
 
-# %>% 
-#   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
-#   dplyr::distinct()
-
-```
-
+################################################
 # Excel
-
-```{r}
-
+################################################
 sheets <- list("P&S TRI RS" = table_TRIRS_PS,
                "P&S TRI BR" = table_TRIBR_PS, 
                "P&S ANO RS" = table_ANORS_PS,
@@ -732,165 +670,9 @@ sheets <- list("P&S TRI RS" = table_TRIRS_PS,
                "Indicador TRI BR" = table_TRIBR_PS_indicador, 
                "Indicador ANO RS" = table_ANORS_PS_indicador,
                "Indicador ANO BR" = table_ANOBR_PS_indicador
-              )
-
-writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx"))
-```
-
-# Plots
-
-```{r}
-ggplot(table_TRIRS_PS) +
-  aes(x = Ano) +
-  
-  geom_line(
-    aes(y = qtd_horasHabituais,
-        colour = "Habituais RS"),
-    linewidth = 1
-  ) +
-  
-  geom_line(
-    aes(y = qtd_horasEfetivas,
-        colour = "Efetivas RS"),
-    linewidth = 1
-  ) +
-  
-  scale_colour_manual(
-    name = "",
-    breaks = c("Habituais RS", "Efetivas RS"),
-    values = c(
-      "Habituais RS" = "#112446",
-      "Efetivas RS"  = "#E4003A"
-    )
-  )  +
-  
-  facet_wrap(
-    vars(atividade),
-    scales = "free"
-  ) +
-  
-  theme_minimal()
-
-```
-
-```{r}
-ggplot(table_TRIBR_PS) +
-  aes(x = Ano) +
-  
-  geom_line(
-    aes(y = qtd_horasHabituais,
-        colour = "Habituais BR"),
-    linewidth = 1
-  ) +
-  
-  geom_line(
-    aes(y = qtd_horasEfetivas,
-        colour = "Efetivas BR"),
-    linewidth = 1
-  ) +
-  
-  scale_colour_manual(
-    name = "",
-    breaks = c("Habituais BR", "Efetivas BR"),
-    values = c(
-      "Habituais BR" = "#112446",
-      "Efetivas BR"  = "#E4003A"
-    )
-  )  +
-  
-  facet_wrap(
-    vars(atividade),
-    scales = "free"
-  ) +
-  
-  theme_minimal()
-
-```
-
-```{r}
-PIB_RSVA %>% 
-  dplyr::mutate(ano = base::as.numeric(ano),
-                VA_RS = base::as.numeric(VA_RS)) %>% 
-ggplot() +
-  aes(x = ano, y = VA_RS) +
-  geom_line(colour = "#112446") +
-  facet_wrap(
-    vars(atividade),
-    scales = "free"
-  ) +
-  theme_minimal()
-
-```
-
-```{r}
-PIB_BRVA %>% 
-  dplyr::mutate(ano = base::as.numeric(ano),
-                VA_BR = base::as.numeric(VA_BR)) %>% 
-ggplot() +
-  aes(x = ano, y = VA_BR) +
-  geom_line(colour = "#112446") +
-  facet_wrap(
-    vars(atividade),
-    scales = "free"
-  ) +
-  theme_minimal()
-```
-
-# Leitura: duckdb
-
-```{r}
-
-###########################################################
-# TESTE DE CÁLCULO DAS HORAS HABITUAIS UTILIZANDO O DUCKDB
-###########################################################
-
-library(DBI)
-library(duckdb)
-library(dplyr)
-
-con <- dbConnect(
-  duckdb(),
-  dbdir = "dados/pnad.duckdb"
 )
 
-env_tmp <- new.env()
-
-load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Trimestre/dadosPNADc2023_completo.RData", envir = env_tmp)
-
-pnad2023 <- env_tmp$dadosPNADc2023_completo
-
-#criar a tabela no duckdb
-dbWriteTable(con, "dadosPNADc2023_completo",
-             pnad2023, overwrite = TRUE)
-
-dadosPNADC_2023 <- tbl(con, "dadosPNADc2023_completo") 
-
-
-##########################################
-# DESCONECTAR O DBI
-##########################################
-
-dbDisconnect(con, shutdown = TRUE)
-
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+writexl::write_xlsx(sheets, 
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_9.xlsx"))
 
 

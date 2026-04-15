@@ -389,7 +389,7 @@ table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx",
     values_to = "valor"
   ) %>% 
   dplyr::mutate(indice = "n",  
-                nivel  = "BR", )
+                nivel  = "BR" )
 
 
 table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
@@ -400,7 +400,7 @@ table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx",
     values_to = "valor"
   ) %>% 
   dplyr::mutate(indice = "hb", 
-                nivel  = "BR", )
+                nivel  = "BR" )
 
 
 table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
@@ -411,7 +411,7 @@ table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx",
     values_to = "valor"
   ) %>% 
   dplyr::mutate(indice = "ef", 
-                nivel  = "BR", )
+                nivel  = "BR" )
 
 
 
@@ -420,29 +420,22 @@ table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx",
 #              EMPILHAMENTO
 #################################################
 
-table_PROD_BR_1_va <- table_PROD_BR_1_va  %>% 
-  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))  
-  
-table_PROD_BR_1_n <- table_PROD_BR_1_n %>% 
-  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO")) 
 
-table_PROD_BR_1_hb <-  table_PROD_BR_1_hb %>% 
-  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))
+table_BR_ANUAL <- table_PROD_BR_1_va %>% 
+  dplyr::bind_rows(table_PROD_BR_1_n,     table_PROD_BR_1_hb,     table_PROD_BR_1_ef) %>% 
+  dplyr::mutate("PERÍODO"= base::as.character(PERÍODO))
 
-table_PROD_BR_1_ef <- table_PROD_BR_1_ef%>% 
-  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))
+table_RS_ANUAL <- table_PROD_RS_1_va %>%
+  dplyr::bind_rows(table_PROD_RS_1_n, table_PROD_RS_1_hb, table_PROD_RS_1_ef) 
 
-
-
-table_PBI_ANUAL <- table_PROD_RS_1_va %>%
-  dplyr::bind_rows(table_PROD_RS_1_n, table_PROD_RS_1_hb, table_PROD_RS_1_ef,
-                   table_PROD_BR_1_va,    table_PROD_BR_1_n,     table_PROD_BR_1_hb,     table_PROD_BR_1_ef)
+table_PBI_ANUAL <-  table_RS_ANUAL %>% 
+                    bind_rows(table_BR_ANUAL)
 
 #################################################
 #                EXCEL
 #################################################
 
-writexl::write_xlsx(table_PBI, 
+writexl::write_xlsx(table_PBI_ANUAL, 
                     paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PROD_PBI_ANUAL_1.xlsx"))
 
 

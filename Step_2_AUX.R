@@ -113,6 +113,10 @@ ef <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR EMPRESARIAL NÃO-AGRÍCOLA")
 
+
+
+
+
 ######################################################################
 # CV: PRINCIPAL
 ######################################################################
@@ -208,6 +212,102 @@ ef_p_cv <- tabPSANOS_RS_10_ef %>%
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = Qtd_horasEfetivas_cv) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+######################################################################
+# N: PRINCIPAL
+######################################################################
+
+tabPSANOS_RS_10_n <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                sheet = "N PRINCIPAL") %>% 
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, freq) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", freq) 
+
+
+n_p <- tabPSANOS_RS_10_n %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", freq) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = freq) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+
+
+tabPSANOS_RS_10_hb <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                 sheet = "HABITUAL PRINCIPAL") %>% 
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, Qtd_horasHabituais) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) 
+
+
+hb_p <- tabPSANOS_RS_10_hb %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = Qtd_horasHabituais) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+tabPSANOS_RS_10_ef <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                 sheet = "EFETIVA PRINCIPAL") %>% 
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, Qtd_horasEfetivas) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) 
+
+
+ef_p <- tabPSANOS_RS_10_ef %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = Qtd_horasEfetivas) %>% 
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
@@ -310,6 +410,101 @@ ef_s_cv <- tabPSANOS_RS_10_ef %>%
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
+######################################################################
+# N: SECUNDARIO
+######################################################################
+
+tabPSANOS_RS_10_n <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                sheet = "N SECUNDÁRIO") %>% 
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, freq) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", freq) 
+
+
+n_s <- tabPSANOS_RS_10_n %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", freq) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = freq) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+
+
+tabPSANOS_RS_10_hb <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                 sheet = "HABITUAL SECUNDÁRIO") %>% 
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, Qtd_horasHabituais) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasHabituais) 
+
+
+hb_s <- tabPSANOS_RS_10_hb %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasHabituais) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = Qtd_horasHabituais) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+tabPSANOS_RS_10_ef <- read_excel("Dados/tabPSANOS_RS_10.xlsx", 
+                                 sheet = "EFETIVA SECUNDÁRIO") %>% 
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, Qtd_horasEfetivas) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasEfetivas) 
+
+
+ef_s <- tabPSANOS_RS_10_ef %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasEfetivas) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = Qtd_horasEfetivas) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
 #####################################################
 #                        EXCEL
 #####################################################
@@ -318,6 +513,14 @@ sheets <- list("va"          = va,
                "n"           = n,
                "hb"          = hb,
                "ef"          = ef,
+               
+               "n_p"      = n_p, 
+               "hb_p"     = hb_p,
+               "ef_p"     = ef_p,
+               "n_s"      = n_s, 
+               "hb_s"     = hb_s,
+               "ef_s"     = ef_s,
+               
                "n_p_cv"      = n_p_cv, 
                "hb_p_cv"     = hb_p_cv,
                "ef_p_cv"     = ef_p_cv,
@@ -514,6 +717,100 @@ ef_p_cv <- tabPSANOS_BR_5_ef %>%
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
+######################################################################
+# N: PRINCIPAL
+######################################################################
+
+tabPSANOS_BR_5_n <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                               sheet = "N PRINCIPAL") %>% 
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, freq) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", freq) 
+
+
+n_p <- tabPSANOS_BR_5_n %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", freq) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = freq) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+
+
+tabPSANOS_BR_5_hb <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                                sheet = "HABITUAL PRINCIPAL") %>%  
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, Qtd_horasHabituais) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) 
+
+
+hb_p <- tabPSANOS_BR_5_hb %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = Qtd_horasHabituais) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+tabPSANOS_BR_5_ef <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                                sheet = "EFETIVA PRINCIPAL") %>% 
+  dplyr::filter(cod_SCN_PR != 0) %>% 
+  dplyr::select(cod_SCN_PR, Ano, Qtd_horasEfetivas) %>% 
+  dplyr::mutate(cod_SCN_PR = dplyr::case_when(cod_SCN_PR == 1~ "Agropecuária",
+                                              cod_SCN_PR == 2~ "Indústria extrativa",
+                                              cod_SCN_PR == 3~ "Indústria de transformação",
+                                              cod_SCN_PR == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                              cod_SCN_PR == 5~ "Construção",
+                                              cod_SCN_PR == 6~ "Comércio",
+                                              cod_SCN_PR == 7~ "Transporte, armazenagem e correio",
+                                              cod_SCN_PR == 8~ "Informação e comunicação",
+                                              cod_SCN_PR == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                              cod_SCN_PR == 10 ~ "Atividades imobiliárias",
+                                              cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                              cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) 
+
+
+ef_p <- tabPSANOS_BR_5_ef %>% 
+  dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_PR,
+                     values_from = Qtd_horasEfetivas) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
 ######################################################################
 # CV: SECUNDARIO
@@ -613,6 +910,102 @@ ef_s_cv <- tabPSANOS_BR_5_ef %>%
   dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
+######################################################################
+# N: SECUNDARIO
+######################################################################
+
+tabPSANOS_BR_5_n <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                               sheet = "N SECUNDÁRIO") %>%
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, freq) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", freq) 
+
+
+n_s <- tabPSANOS_RS_10_n %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", freq) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = freq) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+
+
+tabPSANOS_BR_5_hb <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                                sheet = "HABITUAL SECUNDÁRIO") %>%
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, Qtd_horasHabituais) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasHabituais) 
+
+
+hb_s <- tabPSANOS_RS_10_hb %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasHabituais) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = Qtd_horasHabituais) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
+tabPSANOS_BR_5_ef <- read_excel("Dados/tabPSANOS_BR_5.xlsx", 
+                                sheet = "EFETIVA SECUNDÁRIO") %>% 
+  dplyr::filter(cod_SCN_SEC != 0) %>% 
+  dplyr::select(cod_SCN_SEC, Ano, Qtd_horasEfetivas) %>% 
+  dplyr::mutate(cod_SCN_SEC = dplyr::case_when(cod_SCN_SEC == 1~ "Agropecuária",
+                                               cod_SCN_SEC == 2~ "Indústria extrativa",
+                                               cod_SCN_SEC == 3~ "Indústria de transformação",
+                                               cod_SCN_SEC == 4~ "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação",
+                                               cod_SCN_SEC == 5~ "Construção",
+                                               cod_SCN_SEC == 6~ "Comércio",
+                                               cod_SCN_SEC == 7~ "Transporte, armazenagem e correio",
+                                               cod_SCN_SEC == 8~ "Informação e comunicação",
+                                               cod_SCN_SEC == 9~ "Atividades financeiras, de seguros e serviços relacionados",
+                                               cod_SCN_SEC == 10 ~ "Atividades imobiliárias",
+                                               cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                               cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")
+                
+  ) %>% 
+  dplyr::rename("PERÍODO" = Ano) %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasEfetivas) 
+
+
+ef_s <- tabPSANOS_RS_10_ef %>% 
+  dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasEfetivas) %>% 
+  tidyr::pivot_wider(names_from  = cod_SCN_SEC,
+                     values_from = Qtd_horasEfetivas) %>% 
+  dplyr::relocate("PERÍODO", "Agropecuária", "Indústria extrativa", "Indústria de transformação",
+                  "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
+
+
 #####################################################
 #                        EXCEL
 #####################################################
@@ -621,6 +1014,14 @@ sheets <- list("va"          = va,
                "n"           = n,
                "hb"          = hb,
                "ef"          = ef,
+               
+               "n_p"      = n_p, 
+               "hb_p"     = hb_p,
+               "ef_p"     = ef_p,
+               "n_s"      = n_s, 
+               "hb_s"     = hb_s,
+               "ef_s"     = ef_s,
+               
                "n_p_cv"      = n_p_cv, 
                "hb_p_cv"     = hb_p_cv,
                "ef_p_cv"     = ef_p_cv,

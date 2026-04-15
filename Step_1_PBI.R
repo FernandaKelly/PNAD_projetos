@@ -25,6 +25,11 @@ library(readxl)
 library(here)
 here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados")
 
+
+################################################
+#                  TRIMESTRAL
+################################################
+
 #####################################################
 #              LEITURA DE BASES
 #####################################################
@@ -311,7 +316,134 @@ writexl::write_xlsx(table_PBI,
 
 
 
+################################################
+#           ANUAL
+################################################
 
+
+#####################################################
+#              LEITURA DE BASES
+#####################################################
+
+table_PROD_RS_1_va <- read_excel("Dados/table_PROD_RS_ANUAL_1_aux.xlsx", 
+                                 sheet = "va") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "va",
+                nivel  = "RS")
+
+
+table_PROD_RS_1_n <- read_excel("Dados/table_PROD_RS_ANUAL_1_aux.xlsx", 
+                                sheet = "n") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "n",
+                nivel  = "RS")
+
+
+table_PROD_RS_1_hb <- read_excel("Dados/table_PROD_RS_ANUAL_1_aux.xlsx", 
+                                 sheet = "hb") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "hb",
+                nivel  = "RS")
+
+
+table_PROD_RS_1_ef <- read_excel("Dados/table_PROD_RS_ANUAL_1_aux.xlsx", 
+                                 sheet = "ef") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "ef",
+                nivel  = "RS")
+
+###
+
+table_PROD_BR_1_va <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
+                                 sheet = "va") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "va" ,
+                nivel  = "BR" )
+
+
+table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
+                                sheet = "n") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "n",  
+                nivel  = "BR", )
+
+
+table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
+                                 sheet = "hb") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "hb", 
+                nivel  = "BR", )
+
+
+table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_ANUAL_1_aux.xlsx", 
+                                 sheet = "ef") %>% 
+  tidyr::pivot_longer(
+    cols = c("Agropecuária":"SETOR EMPRESARIAL NÃO-AGRÍCOLA"),
+    names_to = "atividade",
+    values_to = "valor"
+  ) %>% 
+  dplyr::mutate(indice = "ef", 
+                nivel  = "BR", )
+
+
+
+
+#################################################
+#              EMPILHAMENTO
+#################################################
+
+table_PROD_BR_1_va <- table_PROD_BR_1_va  %>% 
+  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))  
+  
+table_PROD_BR_1_n <- table_PROD_BR_1_n %>% 
+  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO")) 
+
+table_PROD_BR_1_hb <-  table_PROD_BR_1_hb %>% 
+  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))
+
+table_PROD_BR_1_ef <- table_PROD_BR_1_ef%>% 
+  dplyr::mutate("PERÍODO" = base::as.character("PERÍODO"))
+
+
+
+table_PBI_ANUAL <- table_PROD_RS_1_va %>%
+  dplyr::bind_rows(table_PROD_RS_1_n, table_PROD_RS_1_hb, table_PROD_RS_1_ef,
+                   table_PROD_BR_1_va,    table_PROD_BR_1_n,     table_PROD_BR_1_hb,     table_PROD_BR_1_ef)
+
+#################################################
+#                EXCEL
+#################################################
+
+writexl::write_xlsx(table_PBI, 
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PROD_PBI_ANUAL_1.xlsx"))
 
 
 

@@ -22,13 +22,13 @@ library(slider)
 #####################################################
 
 library(here)
-here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE")
 
 #####################################################
 # RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9 <- readxl::read_excel("Dados/table_PS.xlsx", 
+table_PS_9 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                                  sheet = "Indicador TRI RS")
 
 dadosRS_MM <- table_PS_9 %>% 
@@ -51,7 +51,7 @@ dadosRS_MM <- table_PS_9 %>%
 # BRASIL
 #####################################################
   
-table_PS_9 <- readxl::read_excel("Dados/table_PS.xlsx", sheet = "Indicador TRI BR")
+table_PS_9 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", sheet = "Indicador TRI BR")
 
 dadosBR_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
@@ -73,4 +73,4 @@ sheets <- list("MM4 RS TRI"   = dadosRS_MM,
                "MM4 BR TRI"   = dadosBR_MM)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_PS_MM.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_PS_MM.xlsx"))

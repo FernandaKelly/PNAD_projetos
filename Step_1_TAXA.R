@@ -22,7 +22,7 @@ library(slider)
 #####################################################
 
 library(here)
-here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE")
 #####################################################
 
 #####################################################
@@ -30,7 +30,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 #####################################################
 #                     INTERANUAL
 #####################################################
-table_PS_9 <- readxl::read_excel("Dados/table_PS.xlsx", 
+table_PS_9 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                                  sheet = "Indicador TRI RS")
 #####################################################
 
@@ -47,7 +47,7 @@ dadosRS_TAXA_INTERANUAL_RS <- table_PS_9 %>%
 #####################################################
 #              IMEDIATAMENTE ANTERIOR
 #####################################################
-table_PS_SAZ_6 <- readxl::read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                                  sheet = "P&S SAZ_VAR RS")
 #####################################################
 
@@ -64,7 +64,7 @@ dadosRS_IMED_ANTERIOR_RS <- table_PS_SAZ_6 %>%
 #####################################################
 #             ACUMULADA EM 4 TRI
 #####################################################
-table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_2 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                                     sheet = "MM4 RS TRI")
 #####################################################
 
@@ -84,7 +84,7 @@ dadosRS_ACUMULADA_RS <- table_PS_MM_2 %>%
 #####################################################
 #                     INTERANUAL
 #####################################################
-table_PS_9 <- readxl::read_excel("Dados/table_PS.xlsx", 
+table_PS_9 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                                  sheet = "Indicador TRI BR")
 #####################################################
 
@@ -101,7 +101,7 @@ dadosRS_TAXA_INTERANUAL_BR <- table_PS_9 %>%
 #####################################################
 #              IMEDIATAMENTE ANTERIOR
 #####################################################
-table_PS_SAZ_6 <- readxl::read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                                      sheet = "P&S SAZ_VAR BR")
 #####################################################
 
@@ -118,7 +118,7 @@ dadosRS_IMED_ANTERIOR_BR <- table_PS_SAZ_6 %>%
 #####################################################
 #             ACUMULADA EM 4 TRI
 #####################################################
-table_PS_MM_2 <- readxl::read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_2 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                                     sheet = "MM4 BR TRI")
 #####################################################
 
@@ -145,7 +145,7 @@ sheets <- list("dadosRS_TAXA_INTERANUAL_RS"   = dadosRS_TAXA_INTERANUAL_RS,
                "dadosRS_ACUMULADA_BR"   = dadosRS_ACUMULADA_BR)
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_TAXA.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_TAXA.xlsx"))
 
 
 

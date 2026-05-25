@@ -23,7 +23,7 @@ library(readxl)
 #####################################################
 
 library(here)
-here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE")
 
 #####################################################
 #                LEITURA DAS BASES
@@ -33,7 +33,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                          sheet = "Indicador TRI RS") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -109,7 +109,7 @@ prod_ef <- table_PS_9_RS %>%
 
 #####################################################
 
-table_PS_SAZ_6_RS <- read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                              sheet = "P&S SAZ_VAR RS") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicador_N, indicador_qtd_horasHabituais, indicador_qtd_horasEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -184,7 +184,7 @@ prod_ef_sa <- table_PS_SAZ_6_RS %>%
 
 #####################################################
 
-table_PS_MM_2_RS <- read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_2_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                             sheet = "MM4 RS TRI") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N_MM4, indicadorVA_qtd_HHabituais_MM4, indicadorVA_qtd_HEfetivas_MM4) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -259,7 +259,7 @@ prod_ef_4 <- table_PS_MM_2_RS %>%
 
 #####################################################
 
-table_TAXA_1_INTERANUAL <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_INTERANUAL <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                            sheet = "dadosRS_TAXA_INTERANUAL_RS") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_interanual_N, taxa_interanual_qtd_HHabituais, taxa_interanual_qtd_HEfetivas) %>% 
   dplyr::arrange(Ano) %>% 
@@ -335,7 +335,7 @@ tx_prod_ef <- table_TAXA_1_INTERANUAL %>%
 
 #####################################################
 
-table_TAXA_1_IMED_ANTERIOR <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_IMED_ANTERIOR <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                            sheet = "dadosRS_IMED_ANTERIOR_RS") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_IMED_ANTERIOR_N, taxa_IMED_ANTERIOR_qtd_HHabituais, taxa_IMED_ANTERIOR_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -410,7 +410,7 @@ tx_prod_ef_sa <- table_TAXA_1_IMED_ANTERIOR %>%
 
 #####################################################
 
-table_TAXA_1_ACUMULADA <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_ACUMULADA <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                            sheet = "dadosRS_ACUMULADA_RS") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_ACUMULADA_N, taxa_ACUMULADA_qtd_HHabituais, taxa_ACUMULADA_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -519,7 +519,7 @@ rm(list = ls())
 #####################################################
 
 
-table_PS_9_BR <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador TRI BR") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -595,7 +595,7 @@ prod_ef <- table_PS_9_BR %>%
 
 #####################################################
 
-table_PS_SAZ_6_BR <- read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                                 sheet = "P&S SAZ_VAR BR") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicador_N, indicador_qtd_horasHabituais, indicador_qtd_horasEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -670,7 +670,7 @@ prod_ef_sa <- table_PS_SAZ_6_BR %>%
 
 #####################################################
 
-table_PS_MM_2_BR <- read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_2_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                                sheet = "MM4 BR TRI") %>% 
   dplyr::select(atividade, Ano, Trimestre, indicadorVA_N_MM4, indicadorVA_qtd_HHabituais_MM4, indicadorVA_qtd_HEfetivas_MM4) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -745,7 +745,7 @@ prod_ef_4 <- table_PS_MM_2_BR %>%
 
 #####################################################
 
-table_TAXA_1_INTERANUAL <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_INTERANUAL <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                                       sheet = "dadosRS_TAXA_INTERANUAL_BR") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_interanual_N, taxa_interanual_qtd_HHabituais, taxa_interanual_qtd_HEfetivas) %>% 
   dplyr::arrange(Ano) %>% 
@@ -821,7 +821,7 @@ tx_prod_ef <- table_TAXA_1_INTERANUAL %>%
 
 #####################################################
 
-table_TAXA_1_IMED_ANTERIOR <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_IMED_ANTERIOR <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                                          sheet = "dadosRS_IMED_ANTERIOR_BR") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_IMED_ANTERIOR_N, taxa_IMED_ANTERIOR_qtd_HHabituais, taxa_IMED_ANTERIOR_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -896,7 +896,7 @@ tx_prod_ef_sa <- table_TAXA_1_IMED_ANTERIOR %>%
 
 #####################################################
 
-table_TAXA_1_ACUMULADA <- read_excel("Dados/table_TAXA.xlsx", 
+table_TAXA_1_ACUMULADA <- read_excel("Dados/PRODUTIVIDADE/table_TAXA.xlsx", 
                                      sheet = "dadosRS_ACUMULADA_BR") %>% 
   dplyr::select(atividade, Ano, Trimestre, taxa_ACUMULADA_N, taxa_ACUMULADA_qtd_HHabituais, taxa_ACUMULADA_qtd_HEfetivas) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",

@@ -32,7 +32,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -181,7 +181,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -330,7 +330,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -480,7 +480,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -629,7 +629,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -778,7 +778,7 @@ writexl::write_xlsx(sheets,
 #               Brasil
 #####################################################
 
-table_PS_9_BR <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO BR") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",

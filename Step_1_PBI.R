@@ -34,7 +34,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 #              LEITURA DE BASES
 #####################################################
 
-table_PROD_RS_1_va <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_va <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                   sheet = "va") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -45,7 +45,7 @@ table_PROD_RS_1_va <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_n <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_n <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                  sheet = "n") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -56,7 +56,7 @@ table_PROD_RS_1_n <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_hb <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_hb <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                 sheet = "hb") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -67,7 +67,7 @@ table_PROD_RS_1_hb <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_ef <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_ef <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                  sheet = "ef") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -77,7 +77,7 @@ table_PROD_RS_1_ef <- read_excel("Dados/table_PROD_RS_aux.xlsx",
   dplyr::mutate(indice = rep("ef"),
                 nivel  = rep("RS"))
 
-table_PROD_RS_1_va_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_va_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                  sheet = "va_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -88,7 +88,7 @@ table_PROD_RS_1_va_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_n_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_n_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                     sheet = "n_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -99,7 +99,7 @@ table_PROD_RS_1_n_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_hb_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_hb_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                    sheet = "hb_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -109,7 +109,7 @@ table_PROD_RS_1_hb_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx",
   dplyr::mutate(indice = rep("hb_sa"),
                 nivel  = rep("RS"))
 
-table_PROD_RS_1_ef_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_ef_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                     sheet = "ef_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -119,7 +119,7 @@ table_PROD_RS_1_ef_sa <- read_excel("Dados/table_PROD_RS_aux.xlsx",
   dplyr::mutate(indice = rep("ef_sa"),
                 nivel  = rep("RS"))
 
-table_PROD_RS_1_va_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_va_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                     sheet = "va_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -129,7 +129,7 @@ table_PROD_RS_1_va_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx",
   dplyr::mutate(indice = rep("va_MM4"),
                 nivel  = rep("RS"))
 
-table_PROD_RS_1_n_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_n_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                      sheet = "n_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -140,7 +140,7 @@ table_PROD_RS_1_n_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_hb_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_hb_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                     sheet = "hb_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -151,7 +151,7 @@ table_PROD_RS_1_hb_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx",
                 nivel  = rep("RS"))
 
 
-table_PROD_RS_1_ef_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx", 
+table_PROD_RS_1_ef_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_aux.xlsx", 
                                      sheet = "ef_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -163,7 +163,7 @@ table_PROD_RS_1_ef_MM4 <- read_excel("Dados/table_PROD_RS_aux.xlsx",
 
 ###
 
-table_PROD_BR_1_va <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_va <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                  sheet = "va") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -174,7 +174,7 @@ table_PROD_BR_1_va <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_n <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                 sheet = "n") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -185,7 +185,7 @@ table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_hb <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                  sheet = "hb") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -196,7 +196,7 @@ table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_ef <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                  sheet = "ef") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -206,7 +206,7 @@ table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_aux.xlsx",
   dplyr::mutate(indice = rep("ef"),
                 nivel  = rep("BR"))
 
-table_PROD_BR_1_va_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_va_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                     sheet = "va_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -217,7 +217,7 @@ table_PROD_BR_1_va_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_n_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_n_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                    sheet = "n_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -228,7 +228,7 @@ table_PROD_BR_1_n_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_hb_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_hb_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                     sheet = "hb_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -238,7 +238,7 @@ table_PROD_BR_1_hb_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx",
   dplyr::mutate(indice = rep("hb_sa"),
                 nivel  = rep("BR"))
 
-table_PROD_BR_1_ef_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_ef_sa <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                     sheet = "ef_sa") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -248,7 +248,7 @@ table_PROD_BR_1_ef_sa <- read_excel("Dados/table_PROD_BR_aux.xlsx",
   dplyr::mutate(indice = rep("ef_sa"),
                 nivel  = rep("BR"))
 
-table_PROD_BR_1_va_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_va_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                      sheet = "va_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -258,7 +258,7 @@ table_PROD_BR_1_va_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx",
   dplyr::mutate(indice = rep("va_MM4"),
                 nivel  = rep("BR"))
 
-table_PROD_BR_1_n_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_n_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                     sheet = "n_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -269,7 +269,7 @@ table_PROD_BR_1_n_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_hb_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_hb_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                      sheet = "hb_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -280,7 +280,7 @@ table_PROD_BR_1_hb_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx",
                 nivel  = rep("BR"))
 
 
-table_PROD_BR_1_ef_MM4 <- read_excel("Dados/table_PROD_BR_aux.xlsx", 
+table_PROD_BR_1_ef_MM4 <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_aux.xlsx", 
                                      sheet = "ef_MM4") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -325,7 +325,7 @@ writexl::write_xlsx(table_PBI,
 #              LEITURA DE BASES
 #####################################################
 
-table_PROD_RS_1_va <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx", 
+table_PROD_RS_1_va <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_ANUAL_aux.xlsx", 
                                  sheet = "va") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -336,7 +336,7 @@ table_PROD_RS_1_va <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx",
                 nivel  = "RS")
 
 
-table_PROD_RS_1_n <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx", 
+table_PROD_RS_1_n <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_ANUAL_aux.xlsx", 
                                 sheet = "n") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -347,7 +347,7 @@ table_PROD_RS_1_n <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx",
                 nivel  = "RS")
 
 
-table_PROD_RS_1_hb <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx", 
+table_PROD_RS_1_hb <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_ANUAL_aux.xlsx", 
                                  sheet = "hb") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -358,7 +358,7 @@ table_PROD_RS_1_hb <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx",
                 nivel  = "RS")
 
 
-table_PROD_RS_1_ef <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx", 
+table_PROD_RS_1_ef <- read_excel("Dados/PRODUTIVIDADE/table_PROD_RS_ANUAL_aux.xlsx", 
                                  sheet = "ef") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -370,7 +370,7 @@ table_PROD_RS_1_ef <- read_excel("Dados/table_PROD_RS_ANUAL_aux.xlsx",
 
 ###
 
-table_PROD_BR_1_va <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx", 
+table_PROD_BR_1_va <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_ANUAL_aux.xlsx", 
                                  sheet = "va") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -381,7 +381,7 @@ table_PROD_BR_1_va <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx",
                 nivel  = "BR" )
 
 
-table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx", 
+table_PROD_BR_1_n <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_ANUAL_aux.xlsx", 
                                 sheet = "n") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -392,7 +392,7 @@ table_PROD_BR_1_n <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx",
                 nivel  = "BR" )
 
 
-table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx", 
+table_PROD_BR_1_hb <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_ANUAL_aux.xlsx", 
                                  sheet = "hb") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),
@@ -403,7 +403,7 @@ table_PROD_BR_1_hb <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx",
                 nivel  = "BR" )
 
 
-table_PROD_BR_1_ef <- read_excel("Dados/table_PROD_BR_ANUAL_aux.xlsx", 
+table_PROD_BR_1_ef <- read_excel("Dados/PRODUTIVIDADE/table_PROD_BR_ANUAL_aux.xlsx", 
                                  sheet = "ef") %>% 
   tidyr::pivot_longer(
     cols = c("Agropecuária":"SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO"),

@@ -30,7 +30,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 ######################################################################
 #                         RIO GRANDE DO SUL
 ######################################################################
-table_PS_9_RS <- readxl::read_excel("Dados/table_PS.xlsx", 
+table_PS_9_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador TRI RS") %>% 
   dplyr::select(atividade:VA_RS) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -123,7 +123,7 @@ ef <- table_PS_9_RS %>%
 
 ###
 
-table_PS_SAZ_6_RS <- readxl::read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                                 sheet = "P&S SAZ_VAR RS") %>% 
   dplyr::select(atividade:VA_RS) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -216,7 +216,7 @@ ef_sa <- table_PS_SAZ_6_RS %>%
 
 ###
 
-table_PS_MM_3_RS <- readxl::read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_3_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                                            sheet = "MM4 RS TRI") %>% 
   dplyr::select(atividade, Ano, Trimestre, soma_N_MM4, qtd_horasHabituais_MM4, qtd_horasEfetivas_MM4, VA_RS_MM4) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -307,7 +307,7 @@ ef_MM4 <- table_PS_MM_3_RS %>%
 
 ###
 
-tabPSTRI_RS_4_n <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_n <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                                                 sheet = "N PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, freq_cv) %>% 
@@ -344,7 +344,7 @@ n_p_cv <- tabPSTRI_RS_4_n %>%
 
 
 
-tabPSTRI_RS_4_hb <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                               sheet = "HABITUAL PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, Qtd_horasHabituais_cv) %>% 
@@ -381,7 +381,7 @@ hb_p_cv <- tabPSTRI_RS_4_hb %>%
 
 
 
-tabPSTRI_RS_4_ef <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                                sheet = "EFETIVA PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, Qtd_horasEfetivas_cv) %>% 
@@ -421,7 +421,7 @@ ef_p_cv <- tabPSTRI_RS_4_ef %>%
 ###
 
 
-tabPSTRI_RS_4_n <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_n <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                               sheet = "N SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, freq_cv) %>% 
@@ -458,7 +458,7 @@ n_s_cv <- tabPSTRI_RS_4_n %>%
 
 
 
-tabPSTRI_RS_4_hb <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                                sheet = "HABITUAL SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, Qtd_horasHabituais_cv) %>% 
@@ -495,7 +495,7 @@ hb_s_cv <- tabPSTRI_RS_4_hb %>%
 
 
 
-tabPSTRI_RS_4_ef <- read_excel("Dados/tabPSTRI_RS.xlsx", 
+tabPSTRI_RS_4_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_RS.xlsx", 
                                sheet = "EFETIVA SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, Qtd_horasEfetivas_cv) %>% 
@@ -570,7 +570,7 @@ rm(list = ls())
 #                             BRASIL
 ######################################################################
 
-table_PS_9_BR <- read_excel("Dados/table_PS.xlsx", 
+table_PS_9_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador TRI BR") %>% 
   dplyr::select(atividade:VA_BR) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -663,7 +663,7 @@ ef <- table_PS_9_BR %>%
 
 
 
-table_PS_SAZ_6_BR <- read_excel("Dados/table_PS_SAZ.xlsx", 
+table_PS_SAZ_6_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS_SAZ.xlsx", 
                                 sheet = "P&S SAZ_VAR BR") %>% 
   dplyr::select(atividade:VA_BR) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -756,7 +756,7 @@ ef_sa <- table_PS_SAZ_6_BR %>%
 
 ###
 
-table_PS_MM_3_BR <- readxl::read_excel("Dados/table_PS_MM.xlsx", 
+table_PS_MM_3_BR <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS_MM.xlsx", 
                                        sheet = "MM4 BR TRI") %>% 
   dplyr::select(atividade, Ano, Trimestre, soma_N_MM4, qtd_horasHabituais_MM4, qtd_horasEfetivas_MM4, VA_BR_MM4) %>% 
   dplyr::mutate(Trimestre = dplyr::case_when(Trimestre == 1 ~ "I",
@@ -846,7 +846,7 @@ ef_MM4 <- table_PS_MM_3_BR %>%
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 ###
 
-tabPSTRI_BR_4_n <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_n <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                               sheet = "N PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, freq_cv) %>% 
@@ -883,7 +883,7 @@ n_p_cv <- tabPSTRI_BR_4_n %>%
 
 
 
-tabPSTRI_BR_4_hb <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                                sheet = "HABITUAL PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, Qtd_horasHabituais_cv) %>% 
@@ -920,7 +920,7 @@ hb_p_cv <- tabPSTRI_BR_4_hb %>%
 
 
 
-tabPSTRI_BR_4_ef <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                                sheet = "EFETIVA PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Trimestre, Qtd_horasEfetivas_cv) %>% 
@@ -960,7 +960,7 @@ ef_p_cv <- tabPSTRI_BR_4_ef %>%
 ###
 
 
-tabPSTRI_BR_4_n <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_n <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                               sheet = "N SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, freq_cv) %>% 
@@ -997,7 +997,7 @@ n_s_cv <- tabPSTRI_BR_4_n %>%
 
 
 
-tabPSTRI_BR_4_hb <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                                sheet = "HABITUAL SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, Qtd_horasHabituais_cv) %>% 
@@ -1034,7 +1034,7 @@ hb_s_cv <- tabPSTRI_BR_4_hb %>%
 
 
 
-tabPSTRI_BR_4_ef <- read_excel("Dados/tabPSTRI_BR.xlsx", 
+tabPSTRI_BR_4_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSTRI_BR.xlsx", 
                                sheet = "EFETIVA SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Trimestre, Qtd_horasEfetivas_cv) %>% 

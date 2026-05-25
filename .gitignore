@@ -9,3 +9,4 @@
 *.fst
 *.rds
 *.csv
+.RData

@@ -532,7 +532,7 @@ sheets <- list("va"          = va,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_PROD_RS_ANUAL_aux.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_PROD_ANUAL_RS_aux.xlsx"))
 
 
 ######################################################################
@@ -1035,6 +1035,6 @@ sheets <- list("va"          = va,
 )
 
 writexl::write_xlsx(sheets, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_PROD_BR_ANUAL_aux.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/PRODUTIVIDADE/table_PROD_ANUAL_BR_aux.xlsx"))
 
 

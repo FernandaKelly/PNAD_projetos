@@ -18,23 +18,47 @@ library(tidyverse)
 library(zoo)
 library(slider)
 library(readxl)
-#####################################################
-#        CONFIGURANDO DIRETÓRIO DE DADOS
-#####################################################
 
+#####################################################
+#    DADOS: PRINCIPAL, SECUNDÁRIO TRIMESTRAL RS
+#####################################################
 library(here)
 setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
 here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
 
-#####################################################
-#        DADOS: PRINCIPAL, SECUNDÁRIO
-#####################################################
-
 source("PNAD_projetos/Step_1_TRI_RS.R")
+
+rm(list = ls())
+#####################################################
+#   DADOS: PRINCIPAL, SECUNDÁRIO TRIMESTRAL BR
+#####################################################
+library(here)
+setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+
 source("PNAD_projetos/Step_2_TRI_BR.R")
+
+rm(list = ls())
+#####################################################
+#        DADOS: PRINCIPAL, SECUNDÁRIO ANUAL RS
+#####################################################
+library(here)
+setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+
 source("PNAD_projetos/Step_1_ANO_RS.R")
+
+rm(list = ls())
+#####################################################
+#        DADOS: PRINCIPAL, SECUNDÁRIO ANUAL BR
+#####################################################
+library(here)
+setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD")
+
 source("PNAD_projetos/Step_2_ANO_BR.R")
 
+rm(list = ls())
 #####################################################
 #        DADOS: PRINCIPAL & SECUNDÁRIO (PS)
 #####################################################
@@ -45,7 +69,6 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 source("PNAD_projetos/Step_1_PS.R")
 
 rm(list = ls())
-
 #####################################################
 #        DADOS: SAZONALIDADE (SAZONAL)
 #####################################################

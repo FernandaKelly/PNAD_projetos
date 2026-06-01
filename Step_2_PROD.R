@@ -32,7 +32,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -60,7 +60,7 @@ table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
   
 ###
 
-prod_n <- table_PS_9_RS %>% 
+prod_n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -74,7 +74,7 @@ prod_n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_RS %>% 
+prod_hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -88,7 +88,7 @@ prod_hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_RS %>% 
+prod_ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -181,7 +181,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -209,7 +209,7 @@ table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 ###
 
-prod_n <- table_PS_9_RS %>% 
+prod_n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -223,7 +223,7 @@ prod_n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_RS %>% 
+prod_hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -237,7 +237,7 @@ prod_hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_RS %>% 
+prod_ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -330,7 +330,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -358,7 +358,7 @@ table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 ###
 
-prod_n <- table_PS_9_RS %>% 
+prod_n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -372,7 +372,7 @@ prod_n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_RS %>% 
+prod_hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -386,7 +386,7 @@ prod_hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_RS %>% 
+prod_ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -405,7 +405,7 @@ prod_ef <- table_PS_9_RS %>%
 #                     INTERANUAL
 #####################################################
 
-dadosRS_TAXA_INTERANUAL_RS <- table_PS_9_RS %>% 
+dadosRS_TAXA_INTERANUAL_RS <- table_PS_RS %>% 
   dplyr::arrange(atividade, "PERÍODO") %>%
   dplyr::group_by(atividade, "PERÍODO") %>%
   dplyr::mutate(
@@ -480,7 +480,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -508,7 +508,7 @@ table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 ###
 
-prod_n <- table_PS_9_RS %>% 
+prod_n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -522,7 +522,7 @@ prod_n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_RS %>% 
+prod_hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -536,7 +536,7 @@ prod_hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_RS %>% 
+prod_ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -555,7 +555,7 @@ prod_ef <- table_PS_9_RS %>%
 #                     INTERANUAL
 #####################################################
 
-dadosRS_TAXA_INTERANUAL_RS <- table_PS_9_RS %>% 
+dadosRS_TAXA_INTERANUAL_RS <- table_PS_RS %>% 
   dplyr::arrange(atividade, "PERÍODO") %>%
   dplyr::group_by(atividade, "PERÍODO") %>%
   dplyr::mutate(
@@ -629,7 +629,7 @@ writexl::write_xlsx(sheets,
 #              RIO GRANDE DO SUL
 #####################################################
 
-table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -657,7 +657,7 @@ table_PS_9_RS <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 ###
 
-prod_n <- table_PS_9_RS %>% 
+prod_n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -671,7 +671,7 @@ prod_n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_RS %>% 
+prod_hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -685,7 +685,7 @@ prod_hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_RS %>% 
+prod_ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -704,7 +704,7 @@ prod_ef <- table_PS_9_RS %>%
 #                     INTERANUAL
 #####################################################
 
-dadosRS_TAXA_INTERANUAL_RS <- table_PS_9_RS %>% 
+dadosRS_TAXA_INTERANUAL_RS <- table_PS_RS %>% 
   dplyr::arrange(atividade, "PERÍODO") %>%
   dplyr::group_by(atividade, "PERÍODO") %>%
   dplyr::mutate(
@@ -778,7 +778,7 @@ writexl::write_xlsx(sheets,
 #               Brasil
 #####################################################
 
-table_PS_9_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                             sheet = "Indicador ANO BR") %>% 
   dplyr::select(atividade, Ano, indicadorVA_N, indicadorVA_qtd_HHabituais, indicadorVA_qtd_HEfetivas) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -806,7 +806,7 @@ table_PS_9_BR <- read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 ###
 
-prod_n <- table_PS_9_BR %>% 
+prod_n <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_N) %>% 
@@ -820,7 +820,7 @@ prod_n <- table_PS_9_BR %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_hb <- table_PS_9_BR %>% 
+prod_hb <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HHabituais) %>% 
@@ -834,7 +834,7 @@ prod_hb <- table_PS_9_BR %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-prod_ef <- table_PS_9_BR %>% 
+prod_ef <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", indicadorVA_qtd_HEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = indicadorVA_qtd_HEfetivas) %>% 
@@ -853,7 +853,7 @@ prod_ef <- table_PS_9_BR %>%
 #                     INTERANUAL
 #####################################################
 
-dadosRS_TAXA_INTERANUAL_BR <- table_PS_9_BR %>% 
+dadosRS_TAXA_INTERANUAL_BR <- table_PS_BR %>% 
   dplyr::arrange(atividade, "PERÍODO") %>%
   dplyr::group_by(atividade, "PERÍODO") %>%
   dplyr::mutate(

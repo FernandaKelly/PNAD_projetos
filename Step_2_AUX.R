@@ -30,7 +30,7 @@ here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Gr
 ######################################################################
 #                         RIO GRANDE DO SUL
 ######################################################################
-table_PS_9_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                                     sheet = "Indicador ANO RS") %>% 
   dplyr::select(atividade:VA_RS_soma) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -59,7 +59,7 @@ table_PS_9_RS <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
                 qtd_horasEfetivas   = qtd_horasEfetivas*51.6)
 
 
-va <- table_PS_9_RS %>% 
+va <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", VA_RS_soma) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_RS_soma) %>% 
@@ -73,7 +73,7 @@ va <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-n <- table_PS_9_RS %>% 
+n <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", soma_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
@@ -87,7 +87,7 @@ n <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-hb <- table_PS_9_RS %>% 
+hb <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
@@ -101,7 +101,7 @@ hb <- table_PS_9_RS %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-ef <- table_PS_9_RS %>% 
+ef <- table_PS_RS %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
@@ -538,7 +538,7 @@ writexl::write_xlsx(sheets,
 ######################################################################
 #                         BRASIL
 ######################################################################
-table_PS_9_BR <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
+table_PS_BR <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx", 
                                     sheet = "Indicador ANO BR") %>% 
   dplyr::select(atividade:VA_BR_soma) %>% 
   dplyr::mutate(atividade = dplyr::case_when(atividade == "1"~ "Agropecuária",
@@ -567,7 +567,7 @@ table_PS_9_BR <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
                 qtd_horasEfetivas   = qtd_horasEfetivas*51.6)
 
 
-va <- table_PS_9_BR %>% 
+va <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", VA_BR_soma) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = VA_BR_soma) %>% 
@@ -581,7 +581,7 @@ va <- table_PS_9_BR %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-n <- table_PS_9_BR %>% 
+n <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", soma_N) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = soma_N) %>% 
@@ -595,7 +595,7 @@ n <- table_PS_9_BR %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-hb <- table_PS_9_BR %>% 
+hb <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasHabituais) %>% 
@@ -609,7 +609,7 @@ hb <- table_PS_9_BR %>%
                   "Adm., defesa, saúde e educação públicas e seguridade social",
                   "SERVIÇOS","TOTAL","SETOR MERCANTIL","SETOR MERCANTIL NÃO-AGRÍCOLA", "SETOR MERCANTIL NÃO-AGRÍCOLA-FINANCEIRO")
 
-ef <- table_PS_9_BR %>% 
+ef <- table_PS_BR %>% 
   dplyr::select(atividade, "PERÍODO", qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = atividade,
                      values_from = qtd_horasEfetivas) %>% 
@@ -627,7 +627,7 @@ ef <- table_PS_9_BR %>%
 # CV: PRINCIPAL
 ######################################################################
 
-tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "N PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, freq_cv) %>% 
@@ -650,7 +650,7 @@ tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(freq_cv = freq_cv*100)
 
 
-n_p_cv <- tabPSANOS_BR_5_n %>% 
+n_p_cv <- tabPSANOS_BR_n %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", freq_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = freq_cv) %>% 
@@ -660,7 +660,7 @@ n_p_cv <- tabPSANOS_BR_5_n %>%
 
 
 
-tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                  sheet = "HABITUAL PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Qtd_horasHabituais_cv) %>% 
@@ -683,7 +683,7 @@ tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(Qtd_horasHabituais_cv = Qtd_horasHabituais_cv*100)
 
 
-hb_p_cv <- tabPSANOS_BR_5_hb %>% 
+hb_p_cv <- tabPSANOS_BR_hb %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = Qtd_horasHabituais_cv) %>% 
@@ -691,7 +691,7 @@ hb_p_cv <- tabPSANOS_BR_5_hb %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
 
-tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                  sheet = "EFETIVA PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Qtd_horasEfetivas_cv) %>% 
@@ -714,7 +714,7 @@ tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(Qtd_horasEfetivas_cv = Qtd_horasEfetivas_cv*100)
 
 
-ef_p_cv <- tabPSANOS_BR_5_ef %>% 
+ef_p_cv <- tabPSANOS_BR_ef %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = Qtd_horasEfetivas_cv) %>% 
@@ -725,7 +725,7 @@ ef_p_cv <- tabPSANOS_BR_5_ef %>%
 # N: PRINCIPAL
 ######################################################################
 
-tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                sheet = "N PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, freq) %>% 
@@ -747,7 +747,7 @@ tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::select(cod_SCN_PR, "PERÍODO", freq) 
 
 
-n_p <- tabPSANOS_BR_5_n %>% 
+n_p <- tabPSANOS_BR_n %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", freq) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = freq) %>% 
@@ -757,7 +757,7 @@ n_p <- tabPSANOS_BR_5_n %>%
 
 
 
-tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "HABITUAL PRINCIPAL") %>%  
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Qtd_horasHabituais) %>% 
@@ -779,7 +779,7 @@ tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) 
 
 
-hb_p <- tabPSANOS_BR_5_hb %>% 
+hb_p <- tabPSANOS_BR_hb %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasHabituais) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = Qtd_horasHabituais) %>% 
@@ -787,7 +787,7 @@ hb_p <- tabPSANOS_BR_5_hb %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
 
-tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "EFETIVA PRINCIPAL") %>% 
   dplyr::filter(cod_SCN_PR != 0) %>% 
   dplyr::select(cod_SCN_PR, Ano, Qtd_horasEfetivas) %>% 
@@ -809,7 +809,7 @@ tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) 
 
 
-ef_p <- tabPSANOS_BR_5_ef %>% 
+ef_p <- tabPSANOS_BR_ef %>% 
   dplyr::select(cod_SCN_PR, "PERÍODO", Qtd_horasEfetivas) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_PR,
                      values_from = Qtd_horasEfetivas) %>% 
@@ -820,7 +820,7 @@ ef_p <- tabPSANOS_BR_5_ef %>%
 # CV: SECUNDARIO
 ######################################################################
 
-tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "N SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, freq_cv) %>% 
@@ -843,7 +843,7 @@ tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(freq_cv = freq_cv*100)
 
 
-n_s_cv <- tabPSANOS_BR_5_n %>% 
+n_s_cv <- tabPSANOS_BR_n %>% 
   dplyr::select(cod_SCN_SEC, "PERÍODO", freq_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_SEC,
                      values_from = freq_cv) %>% 
@@ -853,7 +853,7 @@ n_s_cv <- tabPSANOS_BR_5_n %>%
 
 
 
-tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                  sheet = "HABITUAL SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Qtd_horasHabituais_cv) %>% 
@@ -876,7 +876,7 @@ tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(Qtd_horasHabituais_cv = Qtd_horasHabituais_cv*100)
 
 
-hb_s_cv <- tabPSANOS_BR_5_hb %>% 
+hb_s_cv <- tabPSANOS_BR_hb %>% 
   dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasHabituais_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_SEC,
                      values_from = Qtd_horasHabituais_cv) %>% 
@@ -884,7 +884,7 @@ hb_s_cv <- tabPSANOS_BR_5_hb %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
 
-tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                  sheet = "EFETIVA SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Qtd_horasEfetivas_cv) %>% 
@@ -907,7 +907,7 @@ tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx",
   dplyr::mutate(Qtd_horasEfetivas_cv = Qtd_horasEfetivas_cv*100)
 
 
-ef_s_cv <- tabPSANOS_BR_5_ef %>% 
+ef_s_cv <- tabPSANOS_BR_ef %>% 
   dplyr::select(cod_SCN_SEC, "PERÍODO", Qtd_horasEfetivas_cv) %>% 
   tidyr::pivot_wider(names_from  = cod_SCN_SEC,
                      values_from = Qtd_horasEfetivas_cv) %>% 
@@ -918,7 +918,7 @@ ef_s_cv <- tabPSANOS_BR_5_ef %>%
 # N: SECUNDARIO
 ######################################################################
 
-tabPSANOS_BR_5_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_n <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                sheet = "N SECUNDÁRIO") %>%
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, freq) %>% 
@@ -950,7 +950,7 @@ n_s <- tabPSANOS_RS_10_n %>%
 
 
 
-tabPSANOS_BR_5_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
+tabPSANOS_BR_hb <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "HABITUAL SECUNDÁRIO") %>%
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Qtd_horasHabituais) %>% 
@@ -980,7 +980,7 @@ hb_s <- tabPSANOS_RS_10_hb %>%
                   "Eletricidade e gás, água, esgoto, atividades de gestão de resíduos e descontaminação", "Construção")
 
 
-tabPSANOS_BR_5_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR_5.xlsx", 
+tabPSANOS_BR_ef <- read_excel("Dados/PRODUTIVIDADE/tabPSANOS_BR.xlsx", 
                                 sheet = "EFETIVA SECUNDÁRIO") %>% 
   dplyr::filter(cod_SCN_SEC != 0) %>% 
   dplyr::select(cod_SCN_SEC, Ano, Qtd_horasEfetivas) %>% 

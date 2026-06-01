@@ -1,45 +1,13 @@
+######################################################################
+# REAJUSTE DOS INDICADORES
+######################################################################
+
 library(seasonal)
 library(zoo)
 library(tidyverse)
 library(lubridate)
 library(readxl)
 
-######################################################################
-# EXEMPLO IBGE
-######################################################################
-# pib<-readxl::read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_Sem_Ajuste.xlsx",
-#                         sheet =1)
-# 
-# pib<-stats::ts(pib[,-1],
-#                start = c(2012,1),
-#                freq = 4)
-# 
-# lista<-list()
-# 
-# for(i in 1:ncol(pib)){
-#   lista[[i]]<-pib[,i]
-# }
-# 
-# 
-# agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(pib),freq=4),
-#                                              transform.function = "auto",
-#                                              regression.aictest = c("td", "easter"),
-#                                              pickmdl.method="best",
-#                                              pickmdl.identify="all",
-#                                              outlier.types="all",
-#                                              x11="", 
-#                                              forecast.maxlead=6,
-#                                              forecast.maxback=0,
-#                                              estimate.maxiter = 30000)))
-# 
-# names(agreg_SA)<-colnames(pib)
-# pib_SA<-lapply(agreg_SA, final)
-# pib_SA<-do.call(cbind, pib_SA)
-
-#write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)
-######################################################################
-# REAJUSTE DOS INDICADORES
-######################################################################
 ######################################################################
 # RIO GRANDE DO SUL
 ######################################################################
@@ -527,3 +495,36 @@ writexl::write_xlsx(sheets,
 #   ) +
 #   
 #   theme_minimal()
+######################################################################
+# EXEMPLO IBGE
+######################################################################
+# pib<-readxl::read_excel("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/PIB/PIB_Sem_Ajuste.xlsx",
+#                         sheet =1)
+# 
+# pib<-stats::ts(pib[,-1],
+#                start = c(2012,1),
+#                freq = 4)
+# 
+# lista<-list()
+# 
+# for(i in 1:ncol(pib)){
+#   lista[[i]]<-pib[,i]
+# }
+# 
+# 
+# agreg_SA <- lapply(lista, function(x) try(seasonal::seas(ts(x,start=start(pib),freq=4),
+#                                              transform.function = "auto",
+#                                              regression.aictest = c("td", "easter"),
+#                                              pickmdl.method="best",
+#                                              pickmdl.identify="all",
+#                                              outlier.types="all",
+#                                              x11="", 
+#                                              forecast.maxlead=6,
+#                                              forecast.maxback=0,
+#                                              estimate.maxiter = 30000)))
+# 
+# names(agreg_SA)<-colnames(pib)
+# pib_SA<-lapply(agreg_SA, final)
+# pib_SA<-do.call(cbind, pib_SA)
+
+#write.table(pib_SA,"PIB_Com_Ajuste_Sazonal.csv",sep=";",dec=",",row.names=F)

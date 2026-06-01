@@ -1,7 +1,7 @@
 #####################################################
 # ENTREGA: INDICADOR DE PRODUTIVIDADE
 # AGRUPADO: --
-# ANOS: 2012 - 2024
+# ANOS: 2012 - 2025
 # PERÍODO: TRIMESTRAL
 #####################################################
 options(timeout = 600) 
@@ -23,43 +23,52 @@ library(readxl)
 #####################################################
 
 library(here)
+setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos")
 here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos")
 
 #####################################################
 #        DADOS: PRINCIPAL, SECUNDÁRIO
 #####################################################
 
+source("PNAD_projetos/Step_1_TRI_RS.R")
+source("PNAD_projetos/Step_2_TRI_BR.R")
+source("PNAD_projetos/Step_1_ANO_RS.R")
+source("PNAD_projetos/Step_2_ANO_BR.R")
 
 #####################################################
 #        DADOS: PRINCIPAL & SECUNDÁRIO (PS)
 #####################################################
 
+source("PNAD_projetos/Step_1_PS.R")
 
 #####################################################
 #        DADOS: SAZONALIDADE (SAZONAL)
 #####################################################
 
+source("PNAD_projetos/Step_1_SAZONAL.R")
 
 #####################################################
 #        DADOS: MÉDIA MÓVEL (MM)
 #####################################################
 
+source("PNAD_projetos/Step_1_MM.R")
 
 #####################################################
 #        DADOS: TAXA (TAXA)
 #####################################################
 
+source("PNAD_projetos/Step_1_TAXA.R")
 
 #####################################################
-#        DADOS: INDICADOR DE PRODUTIVIDADE
+#   DADOS: INDICADOR DE PRODUTIVIDADE TRIMESTRAL
 #####################################################
 
+source("PNAD_projetos/Step_1_PROD.R")
+source("PNAD_projetos/Step_1_AUX.R")
 
 #####################################################
-#        DADOS: AUXILIARES
+#   DADOS: INDICADOR DE PRODUTIVIDADE ANUAL
 #####################################################
 
-
-source("PNAD_projetos/Step_2_PS.R")
-source("scripts/limpeza.R")
-source("scripts/processamento.R")
+source("PNAD_projetos/Step_2_PROD.R")
+source("PNAD_projetos/Step_2_AUX.R")

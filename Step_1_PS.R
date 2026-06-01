@@ -172,6 +172,16 @@ PIB_BRVA_ANO <- PIB_BRVA %>%
   dplyr::select(-c(tri, VA_BR)) %>%
   dplyr::distinct()
 
+#####################################################
+#        CONFIGURANDO DIRETÓRIO DE DADOS
+#####################################################
+
+library(here)
+setwd("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos")
+here::set_here("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos")
+
+#####################################################
+
 ################################################
 #############    TRIMESTRAL   ##################
 ###         Rio Grande do Sul (RS)           ###

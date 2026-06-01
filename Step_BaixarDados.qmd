@@ -667,6 +667,19 @@ dadosPNADc1VISITA_2025 <- PNADcIBGE::get_pnadc(year = 2025,
 save(dadosPNADc1VISITA_2025, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2025.RData")
 ```
 
+<!-- ### 2026 -->
+
+<!-- ```{r} -->
+
+<!-- dadosPNADc1VISITA_2026 <- PNADcIBGE::get_pnadc(year = 2026, -->
+<!--                                                interview = 1, -->
+<!--                                                design = FALSE) -->
+
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- save(dadosPNADc1VISITA_2026, file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2026.RData") -->
+<!-- ``` -->
 
 <!-- # ```{r} -->
 <!-- # future::plan(multisession, workers = 7) -->

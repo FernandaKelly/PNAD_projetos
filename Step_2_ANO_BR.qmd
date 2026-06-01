@@ -4946,7 +4946,7 @@ load(file = "C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grand
 
 ```{r}
 dadosPNADc1VISITA_2025 <- dadosPNADc1VISITA_2025 %>% 
-  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3"))) %>%  
+  dplyr::mutate(Trimestre = base::factor(Trimestre, levels = c("1", "2", "3", "4"))) %>%  
   dplyr::mutate(cod_SCN_PR =  dplyr::case_when(V4013 %in% c("01101","01102","01103","01104","01105",
                                                             "01106","01107","01108","01109","01110",
                                                             "01111","01112","01113","01114","01115",
@@ -5542,7 +5542,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
                "EFETIVA SECUNDÁRIO"            = table_3S)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR_5.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSANOS_BR.xlsx"))
 ```
 
 

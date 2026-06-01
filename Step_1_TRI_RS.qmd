@@ -1,6 +1,6 @@
 ---
 title: "PNAD Contínua - TRIMESTRE" # Título do relatório
-subtitle: "**Dados: 2012 - 2024 (Rio Grande do Sul - Atualização)**"
+subtitle: "**Dados: 2012 - 2024 (Rio Grande do Sul)**"
 author: "Fernanda Kelly R. Silva | www.fernandakellyrs.com"
 lang: pt 
 date: "`r format(Sys.Date())`" 
@@ -6908,7 +6908,7 @@ sheets <- list("N TOTAL PRINCIPAL"             = table_1TP,
               "EFETIVA P&S"                    = table_3PS)
 
 writexl::write_xlsx(sheets, 
-           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSTRI_RS_4.xlsx"))
+           paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/tabPSTRI_RS.xlsx"))
 ```
 
 

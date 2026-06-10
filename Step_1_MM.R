@@ -33,8 +33,8 @@ table_PS_9 <- readxl::read_excel("Dados/PRODUTIVIDADE/table_PS.xlsx",
 
 dadosRS_MM <- table_PS_9 %>% 
   dplyr::group_by(atividade) %>% 
-   dplyr::mutate(#qtd_horasHabituais = qtd_horasHabituais*12.9,
-                 #qtd_horasEfetivas  = qtd_horasEfetivas*12.9,
+   dplyr::mutate(qtd_horasHabituais = qtd_horasHabituais*12.9,
+                 qtd_horasEfetivas  = qtd_horasEfetivas*12.9,
                  
                 soma_N_MM4 = slider::slide_mean(soma_N, before = 3, complete = TRUE),
                 qtd_horasHabituais_MM4 = slider::slide_sum(qtd_horasHabituais, before = 3, complete = TRUE),
@@ -42,8 +42,8 @@ dadosRS_MM <- table_PS_9 %>%
                 VA_RS_MM4 = slider::slide_sum(VA_RS, before = 3, complete = TRUE),
                 
                 indicadorVA_N_MM4 = VA_RS_MM4/soma_N_MM4,
-                indicadorVA_qtd_HHabituais_MM4 = VA_RS_MM4/(qtd_horasHabituais_MM4*12.9),
-                indicadorVA_qtd_HEfetivas_MM4 = VA_RS_MM4/(qtd_horasEfetivas_MM4*12.9)
+                indicadorVA_qtd_HHabituais_MM4 = VA_RS_MM4/(qtd_horasHabituais_MM4),
+                indicadorVA_qtd_HEfetivas_MM4 = VA_RS_MM4/(qtd_horasEfetivas_MM4)
                 
                )
 

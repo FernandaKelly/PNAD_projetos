@@ -5415,7 +5415,21 @@ table_1P <- dplyr::bind_rows(table_1P_2012,
                              table_1P_2023,
                              table_1P_2024,
                              table_1P_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_PR_nomeada = dplyr::case_when(cod_SCN_PR == 0 ~  "sem atividade",
+                                                      cod_SCN_PR == 1 ~  "Agropecuária",
+                                                      cod_SCN_PR == 2 ~  "Indústrias extrativas",
+                                                      cod_SCN_PR == 3 ~  "Indústrias de transformação",
+                                                      cod_SCN_PR == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                      cod_SCN_PR == 5 ~  "Construção",
+                                                      cod_SCN_PR == 6 ~  "Comércio",
+                                                      cod_SCN_PR == 7 ~  "Transporte, armazenagem e correio",
+                                                      cod_SCN_PR == 8 ~  "Informação e comunicação",
+                                                      cod_SCN_PR == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                      cod_SCN_PR == 10 ~ "Atividades Imobiliárias",
+                                                      cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                                      cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_PR, cod_SCN_PR_nomeada)
 
 table_2P <- dplyr::bind_rows( table_2P_2012,
                               table_2P_2013,
@@ -5431,7 +5445,21 @@ table_2P <- dplyr::bind_rows( table_2P_2012,
                               table_2P_2023,
                               table_2P_2024,
                               table_2P_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_PR_nomeada = dplyr::case_when(cod_SCN_PR == 0 ~  "sem atividade",
+                                                      cod_SCN_PR == 1 ~  "Agropecuária",
+                                                      cod_SCN_PR == 2 ~  "Indústrias extrativas",
+                                                      cod_SCN_PR == 3 ~  "Indústrias de transformação",
+                                                      cod_SCN_PR == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                      cod_SCN_PR == 5 ~  "Construção",
+                                                      cod_SCN_PR == 6 ~  "Comércio",
+                                                      cod_SCN_PR == 7 ~  "Transporte, armazenagem e correio",
+                                                      cod_SCN_PR == 8 ~  "Informação e comunicação",
+                                                      cod_SCN_PR == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                      cod_SCN_PR == 10 ~ "Atividades Imobiliárias",
+                                                      cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                                      cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_PR, cod_SCN_PR_nomeada)
 
 table_3P <- dplyr::bind_rows(table_3P_2012,
                              table_3P_2013,
@@ -5447,7 +5475,21 @@ table_3P <- dplyr::bind_rows(table_3P_2012,
                              table_3P_2023,
                              table_3P_2024,
                              table_3P_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_PR_nomeada = dplyr::case_when(cod_SCN_PR == 0 ~  "sem atividade",
+                                                      cod_SCN_PR == 1 ~  "Agropecuária",
+                                                      cod_SCN_PR == 2 ~  "Indústrias extrativas",
+                                                      cod_SCN_PR == 3 ~  "Indústrias de transformação",
+                                                      cod_SCN_PR == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                      cod_SCN_PR == 5 ~  "Construção",
+                                                      cod_SCN_PR == 6 ~  "Comércio",
+                                                      cod_SCN_PR == 7 ~  "Transporte, armazenagem e correio",
+                                                      cod_SCN_PR == 8 ~  "Informação e comunicação",
+                                                      cod_SCN_PR == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                      cod_SCN_PR == 10 ~ "Atividades Imobiliárias",
+                                                      cod_SCN_PR == 11 ~ "Outras atividades de serviços",
+                                                      cod_SCN_PR == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_PR, cod_SCN_PR_nomeada)
 
 
 table_1S <- dplyr::bind_rows(table_1S_2012,
@@ -5464,7 +5506,21 @@ table_1S <- dplyr::bind_rows(table_1S_2012,
                              table_1S_2023,
                              table_1S_2024,
                              table_1S_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_SEC_nomeada = dplyr::case_when(cod_SCN_SEC == 0 ~  "sem atividade",
+                                                       cod_SCN_SEC == 1 ~  "Agropecuária",
+                                                       cod_SCN_SEC == 2 ~  "Indústrias extrativas",
+                                                       cod_SCN_SEC == 3 ~  "Indústrias de transformação",
+                                                       cod_SCN_SEC == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                       cod_SCN_SEC == 5 ~  "Construção",
+                                                       cod_SCN_SEC == 6 ~  "Comércio",
+                                                       cod_SCN_SEC == 7 ~  "Transporte, armazenagem e correio",
+                                                       cod_SCN_SEC == 8 ~  "Informação e comunicação",
+                                                       cod_SCN_SEC == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                       cod_SCN_SEC == 10 ~ "Atividades Imobiliárias",
+                                                       cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                                       cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_SEC, cod_SCN_SEC_nomeada)
 
 table_2S <- dplyr::bind_rows(table_2S_2012,
                              table_2S_2013,
@@ -5480,7 +5536,21 @@ table_2S <- dplyr::bind_rows(table_2S_2012,
                              table_2S_2023,
                              table_2S_2024,
                              table_2S_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_SEC_nomeada = dplyr::case_when(cod_SCN_SEC == 0 ~  "sem atividade",
+                                                       cod_SCN_SEC == 1 ~  "Agropecuária",
+                                                       cod_SCN_SEC == 2 ~  "Indústrias extrativas",
+                                                       cod_SCN_SEC == 3 ~  "Indústrias de transformação",
+                                                       cod_SCN_SEC == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                       cod_SCN_SEC == 5 ~  "Construção",
+                                                       cod_SCN_SEC == 6 ~  "Comércio",
+                                                       cod_SCN_SEC == 7 ~  "Transporte, armazenagem e correio",
+                                                       cod_SCN_SEC == 8 ~  "Informação e comunicação",
+                                                       cod_SCN_SEC == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                       cod_SCN_SEC == 10 ~ "Atividades Imobiliárias",
+                                                       cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                                       cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_SEC, cod_SCN_SEC_nomeada)
 
 table_3S <- dplyr::bind_rows(table_3S_2012,
                              table_3S_2013,
@@ -5496,7 +5566,21 @@ table_3S <- dplyr::bind_rows(table_3S_2012,
                              table_3S_2023,
                              table_3S_2024,
                              table_3S_2025
-)
+) %>% 
+  dplyr::mutate(cod_SCN_SEC_nomeada = dplyr::case_when(cod_SCN_SEC == 0 ~  "sem atividade",
+                                                       cod_SCN_SEC == 1 ~  "Agropecuária",
+                                                       cod_SCN_SEC == 2 ~  "Indústrias extrativas",
+                                                       cod_SCN_SEC == 3 ~  "Indústrias de transformação",
+                                                       cod_SCN_SEC == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                       cod_SCN_SEC == 5 ~  "Construção",
+                                                       cod_SCN_SEC == 6 ~  "Comércio",
+                                                       cod_SCN_SEC == 7 ~  "Transporte, armazenagem e correio",
+                                                       cod_SCN_SEC == 8 ~  "Informação e comunicação",
+                                                       cod_SCN_SEC == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                       cod_SCN_SEC == 10 ~ "Atividades Imobiliárias",
+                                                       cod_SCN_SEC == 11 ~ "Outras atividades de serviços",
+                                                       cod_SCN_SEC == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(cod_SCN_SEC, cod_SCN_SEC_nomeada)
 
 
 

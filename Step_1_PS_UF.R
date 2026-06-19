@@ -119,6 +119,25 @@ table_ANOUF_PS <- dplyr::bind_rows(
       atividade  = as.character(atividade)
     ), table_grupos, table_grupos_Total)
 
+table_ANOUF_PS <- table_ANOUF_PS %>% 
+  dplyr::mutate(qtd_horasHabituais_anualizadas = (qtd_horasHabituais*4.3)*12,
+                qtd_horasEfetivas_anualizadas  = (qtd_horasEfetivas*4.3)*12,
+                atividade_nomeada = dplyr::case_when(atividade == 0 ~  "sem atividade",
+                                                     atividade == 1 ~  "Agropecuária",
+                                                     atividade == 2 ~  "Indústrias extrativas",
+                                                     atividade == 3 ~  "Indústrias de transformação",
+                                                     atividade == 4 ~  "Eletricidade e gás, água, esgoto, ativ. de gestão de resíduos",
+                                                     atividade == 5 ~  "Construção",
+                                                     atividade == 6 ~  "Comércio",
+                                                     atividade == 7 ~  "Transporte, armazenagem e correio",
+                                                     atividade == 8 ~  "Informação e comunicação",
+                                                     atividade == 9 ~  "Atividades financeiras, de seguros e serviços relacionados",
+                                                     atividade == 10 ~ "Atividades Imobiliárias",
+                                                     atividade == 11 ~ "Outras atividades de serviços",
+                                                     atividade == 12 ~ "Adm., defesa, saúde e educação públicas e seguridade social")) %>% 
+  dplyr::relocate(atividade, atividade_nomeada)
+
+
 
 ################################################
 # Excel

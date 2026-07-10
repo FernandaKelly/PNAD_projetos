@@ -262,7 +262,7 @@ table_1P <- table_1P_2019 %>%
 
 ```
 
-## Demanda: Principal, Secundário & Renda (2019-2024)
+## Demanda: Principal, Secundário & Renda (2019-2025)
 
 
 ```{r}
@@ -292,6 +292,7 @@ load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Su
 
 load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2024.RData")
 
+load("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/Dados_completos/Visitas/dadosPNADc1VISITA_2025.RData")
 ```
 
 
@@ -653,6 +654,32 @@ table_1RS_2024 <- dadosPNADc1VISITA_2024 %>%
                                                    na.rm = TRUE))
 ```
 
+```{r}
+dadosPNADc1VISITA_2025  <- PNADcIBGE::pnadc_design(dadosPNADc1VISITA_2025)
+dadosPNADc1VISITA_2025 <- srvyr::as_survey(dadosPNADc1VISITA_2025)
+
+dadosPNADc1VISITA_2025 <- dadosPNADc1VISITA_2025 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
+   dplyr:::filter(VD4017 > 0)
+
+table_1RP_2025 <- dadosPNADc1VISITA_2025 %>%  
+  dplyr::group_by(V4013, V4012, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(),
+                   Qtd_renda = srvyr::survey_total(VD4017,
+                                                   na.rm = TRUE))
+
+dadosPNADc1VISITA_2025 <- dadosPNADc1VISITA_2025 %>% 
+    dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
+   dplyr:::filter(V405112 > 0)
+
+table_1RS_2025 <- dadosPNADc1VISITA_2025 %>%  
+  dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
+  dplyr::group_by(V4044, V4043, Ano) %>% 
+  dplyr::summarise(freq = srvyr::survey_total(),
+                   Qtd_renda = srvyr::survey_total(Qtd_renda,
+                                                   na.rm = TRUE))
+```
+
 
 ```{r}
 
@@ -668,7 +695,8 @@ table_1RP <- table_1RP_2012 %>%
                    table_1RP_2021,
                    table_1RP_2022,
                    table_1RP_2023,
-                   table_1RP_2024) 
+                   table_1RP_2024,
+                   table_1RP_2025) 
 
 table_1RS <- table_1RS_2012 %>% 
   dplyr::bind_rows(table_1RS_2013,
@@ -682,7 +710,8 @@ table_1RS <- table_1RS_2012 %>%
                    table_1RS_2021,
                    table_1RS_2022,
                    table_1RS_2023,
-                   table_1RS_2024) %>% 
+                   table_1RS_2024,
+                   table_1RS_2025) %>% 
   dplyr::rename("V4013" = V4044,
                 "V4012" = V4043)
 

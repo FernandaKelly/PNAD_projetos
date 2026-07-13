@@ -61,7 +61,7 @@ dadosPNADc1VISITA_2012 <- srvyr::as_survey(dadosPNADc1VISITA_2012)
 
 dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2012 <- dadosPNADc1VISITA_2012 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -71,7 +71,7 @@ table_1RP_2012 <- dadosPNADc1VISITA_2012 %>%
 
 dadosPNADc1VISITA_2012 <- dadosPNADc1VISITA_2012 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2012 <- dadosPNADc1VISITA_2012 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -89,7 +89,7 @@ dadosPNADc1VISITA_2013 <- srvyr::as_survey(dadosPNADc1VISITA_2013)
 
 dadosPNADc1VISITA_2013 <- dadosPNADc1VISITA_2013 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2013 <- dadosPNADc1VISITA_2013 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -99,7 +99,7 @@ table_1RP_2013 <- dadosPNADc1VISITA_2013 %>%
 
 dadosPNADc1VISITA_2013 <- dadosPNADc1VISITA_2013 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2013 <- dadosPNADc1VISITA_2013 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -118,7 +118,7 @@ dadosPNADc1VISITA_2014 <- srvyr::as_survey(dadosPNADc1VISITA_2014)
 
 dadosPNADc1VISITA_2014 <- dadosPNADc1VISITA_2014 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2014 <- dadosPNADc1VISITA_2014 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -128,7 +128,7 @@ table_1RP_2014 <- dadosPNADc1VISITA_2014 %>%
 
 dadosPNADc1VISITA_2014 <- dadosPNADc1VISITA_2014 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2014 <- dadosPNADc1VISITA_2014 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -147,7 +147,7 @@ dadosPNADc1VISITA_2015 <- srvyr::as_survey(dadosPNADc1VISITA_2015)
 
 dadosPNADc1VISITA_2015 <- dadosPNADc1VISITA_2015 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2015 <- dadosPNADc1VISITA_2015 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -157,7 +157,7 @@ table_1RP_2015 <- dadosPNADc1VISITA_2015 %>%
 
 dadosPNADc1VISITA_2015 <- dadosPNADc1VISITA_2015 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2015 <- dadosPNADc1VISITA_2015 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -175,7 +175,7 @@ dadosPNADc1VISITA_2016 <- srvyr::as_survey(dadosPNADc1VISITA_2016)
 
 dadosPNADc1VISITA_2016 <- dadosPNADc1VISITA_2016 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2016 <- dadosPNADc1VISITA_2016 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -185,7 +185,7 @@ table_1RP_2016 <- dadosPNADc1VISITA_2016 %>%
 
 dadosPNADc1VISITA_2016 <- dadosPNADc1VISITA_2016 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2016 <- dadosPNADc1VISITA_2016 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -202,7 +202,7 @@ dadosPNADc1VISITA_2017 <- srvyr::as_survey(dadosPNADc1VISITA_2017)
 
 dadosPNADc1VISITA_2017 <- dadosPNADc1VISITA_2017 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2017 <- dadosPNADc1VISITA_2017 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -212,7 +212,7 @@ table_1RP_2017 <- dadosPNADc1VISITA_2017 %>%
 
 dadosPNADc1VISITA_2017 <- dadosPNADc1VISITA_2017 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2017 <- dadosPNADc1VISITA_2017 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -229,7 +229,7 @@ dadosPNADc1VISITA_2018 <- srvyr::as_survey(dadosPNADc1VISITA_2018)
 
 dadosPNADc1VISITA_2018 <- dadosPNADc1VISITA_2018 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2018 <- dadosPNADc1VISITA_2018 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -239,7 +239,7 @@ table_1RP_2018 <- dadosPNADc1VISITA_2018 %>%
 
 dadosPNADc1VISITA_2018 <- dadosPNADc1VISITA_2018 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2018 <- dadosPNADc1VISITA_2018 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -257,7 +257,7 @@ dadosPNADc1VISITA_2019 <- srvyr::as_survey(dadosPNADc1VISITA_2019)
 
 dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2019 <- dadosPNADc1VISITA_2019 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -267,7 +267,7 @@ table_1RP_2019 <- dadosPNADc1VISITA_2019 %>%
 
 dadosPNADc1VISITA_2019 <- dadosPNADc1VISITA_2019 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2019 <- dadosPNADc1VISITA_2019 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -285,7 +285,7 @@ dadosPNADc5VISITA_2020 <- srvyr::as_survey(dadosPNADc5VISITA_2020)
 
 dadosPNADc5VISITA_2020 <- dadosPNADc5VISITA_2020 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2020 <- dadosPNADc5VISITA_2020 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -295,7 +295,7 @@ table_1RP_2020 <- dadosPNADc5VISITA_2020 %>%
 
 dadosPNADc5VISITA_2020 <- dadosPNADc5VISITA_2020 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2020 <- dadosPNADc5VISITA_2020 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -311,7 +311,7 @@ dadosPNADc5VISITA_2021 <- srvyr::as_survey(dadosPNADc5VISITA_2021)
 
 dadosPNADc5VISITA_2021 <- dadosPNADc5VISITA_2021 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2021 <- dadosPNADc5VISITA_2021 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -321,7 +321,7 @@ table_1RP_2021 <- dadosPNADc5VISITA_2021 %>%
 
 dadosPNADc5VISITA_2021 <- dadosPNADc5VISITA_2021 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2021 <- dadosPNADc5VISITA_2021 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -339,7 +339,7 @@ dadosPNADc5VISITA_2022 <- srvyr::as_survey(dadosPNADc5VISITA_2022)
 
 dadosPNADc5VISITA_2022 <- dadosPNADc5VISITA_2022 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2022 <- dadosPNADc5VISITA_2022 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -349,7 +349,7 @@ table_1RP_2022 <- dadosPNADc5VISITA_2022 %>%
 
 dadosPNADc5VISITA_2022 <- dadosPNADc5VISITA_2022 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2022 <- dadosPNADc5VISITA_2022 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -365,7 +365,7 @@ dadosPNADc1VISITA_2023 <- srvyr::as_survey(dadosPNADc1VISITA_2023)
 
 dadosPNADc1VISITA_2023 <- dadosPNADc1VISITA_2023 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2023 <- dadosPNADc1VISITA_2023 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -375,7 +375,7 @@ table_1RP_2023 <- dadosPNADc1VISITA_2023 %>%
 
 dadosPNADc1VISITA_2023 <- dadosPNADc1VISITA_2023 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2023 <- dadosPNADc1VISITA_2023 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -392,7 +392,7 @@ dadosPNADc1VISITA_2024 <- srvyr::as_survey(dadosPNADc1VISITA_2024)
 
 dadosPNADc1VISITA_2024 <- dadosPNADc1VISITA_2024 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2024 <- dadosPNADc1VISITA_2024 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -402,7 +402,7 @@ table_1RP_2024 <- dadosPNADc1VISITA_2024 %>%
 
 dadosPNADc1VISITA_2024 <- dadosPNADc1VISITA_2024 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2024 <- dadosPNADc1VISITA_2024 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -418,7 +418,7 @@ dadosPNADc1VISITA_2025 <- srvyr::as_survey(dadosPNADc1VISITA_2025)
 
 dadosPNADc1VISITA_2025 <- dadosPNADc1VISITA_2025 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(VD4017 > 0)
+  dplyr:::filter(VD4017 >= 0)
 
 table_1RP_2025 <- dadosPNADc1VISITA_2025 %>%  
   dplyr::group_by(V4013, V4012, Ano) %>% 
@@ -428,7 +428,7 @@ table_1RP_2025 <- dadosPNADc1VISITA_2025 %>%
 
 dadosPNADc1VISITA_2025 <- dadosPNADc1VISITA_2025 %>% 
   dplyr::filter(UF == "Rio Grande do Sul" & VD4002 == "Pessoas ocupadas") %>% 
-  dplyr:::filter(V405112 > 0)
+  dplyr:::filter(V405112 >= 0)
 
 table_1RS_2025 <- dadosPNADc1VISITA_2025 %>%  
   dplyr::mutate(Qtd_renda = base::sum(VD4017, V405112, V405122, na.rm = TRUE)) %>% 
@@ -485,7 +485,7 @@ table_RENDA_PS <- table_1RP %>%
 
 
 writexl::write_xlsx(table_RENDA_PS, 
-                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_RendaM0_12_25_1.xlsx"))
+                    paste0("C:/Users/fernanda-romeiro/OneDrive - Governo do Estado do Rio Grande do Sul/Projetos/PNAD/PNAD_projetos/Dados/table_Renda_12_25_1.xlsx"))
 
 
 
